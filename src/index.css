@@ -1,3 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+.scrollable-div {
+   
+    overflow-y: scroll;
+    scrollbar-width: none; /* For Firefox */
+    -ms-overflow-style: none; /* For Internet Explorer and Microsoft Edge */
+  }
+  
+.scrollable-div::-webkit-scrollbar {
+    display: none; /* For Chrome, Safari, and Opera */
+  }

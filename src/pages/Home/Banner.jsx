@@ -6,7 +6,7 @@ import img2 from '../../assets/banner/banner2.jpg'
 
 const Banner = () => {
     return (
-        <div>lorem200
+        <div>
         <Swiper className="h-screen w-full">
         <SwiperSlide><img className='h-full object-cover w-full' src={img1} alt="" /></SwiperSlide>
         <SwiperSlide><img className='h-full object-cover w-full' src={img2} alt="" /></SwiperSlide>

@@ -1,52 +1,83 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import logo from '../../assets/logo/logo.png'
+import logo from '../../assets/logo/triptrekker-logo.png'
 import { CgMenuGridR, CgCloseR } from "react-icons/cg";
+import { useEffect } from 'react';
+
 
 
 const Header = () => {
+    const [navbarBg, setNavbarBg] = useState(false);
+    const [toggle,setToggle]=useState(true)
+    
+    const navItem= [
+        {name:"HOME", value: "/"},
+        {name:"ABOUT", value: "/about"},
+        {name:"DASHBOARD", value: "/dashboard"},
+        {name:"SIGN IN", value: "/signin"},
+        {name:"SIGN UP", value: "/signup"},
+    ]
+    
 
-    const [menu,setMenu]=useState(true);
-
-    const navItem= 
-    <>
-    <Link to='/'>HOME</Link>
-    <Link to='signin'>SIGN IN</Link>
-    <Link to='signup'>SIGN UP</Link>
-
-    </>
+    useEffect(() => {
+      const handleScroll = () => {
+        if (window.scrollY > 0) {
+          setNavbarBg(true);
+        } else {
+          setNavbarBg(false);
+        }
+      };
+  
+      window.addEventListener('scroll', handleScroll);
+  
+      return () => {
+        window.removeEventListener('scroll', handleScroll);
+      };
+    }, []);
+  
     return (
-        
-           
+       <>
+        <nav
+      className={` z-20 fixed w-full transition-colors duration-300 shadow-lg ${
+        navbarBg ? 'bg-white text-black' : 'bg-[#ffffff] bg-opacity-75'
+      }`}
+    >
+      <div className="container mx-auto px-4">
+        <div className="flex items-center justify-between py-2">
+          <img className='w-[200px]' src={logo} alt="" />
+          <div className="hidden md:block"><div className="flex space-x-4">
+            {
+                navItem.map((n,i)=><Link key={i} to={n.value }>{n.name}</Link>)
+            }
 
-            
-<div className='w-full fixed px-4 py-6 shadow-xl z-10 bg-white text-xl'>
-            
-
-            <div className="flex items-center justify-between">
-
-            <div className="md:hidden">
-            <div className={`shadow-xl absolute  w-full duration-1000 ease-in-out ${menu? '-top-[1000px] right-0': 'top-20 right-0'}`}>
-                <div className="flex flex-col bg-white z-20 p-8">
-                    { navItem}
-                </div>
-            </div>
-            </div>
-                <img className='w-[250px]' src={logo} alt="TripTrekker" />
-                <div className="hidden md:block"><div className="flex items-center gap-4 ">
-                    {navItem}
-                </div></div>
-                <button onClick={()=>setMenu(!menu)} className='text-[#96BC33] md:hidden'>
-                    {
-                        menu? <CgMenuGridR className="w-[30px] h-[30px]"/> : <CgCloseR className="w-[30px] h-[30px]"/> 
-                    }
-                </button>
-
-
-            </div>
-           
+          </div></div>
+          
+          <button className=' md:hidden' onClick={()=>setToggle(!toggle)}>
+            {
+              toggle?<CgMenuGridR className='w-[25px] h-[25px]'/> :<CgCloseR className='w-[25px] h-[25px]'/>
+            }
+          </button>
         </div>
-        
+      </div>
+      
+    </nav>
+
+    {/* Toggled menu  */}
+
+    <div className=" md:hidden">
+    <div className={`bg-white max-w-[200px] w-full  h-screen shadow-lg fixed  z-50  scrollable-div duration-500 ease-in-out ${toggle?'top-0 -left-[1000px]':'top-0 left-0'}`}>
+      <div className="flex flex-col">
+      {
+        navItem.map((n,i)=><Link className='border-b-[1px] p-3  ' key={i} to={n.value}>{n.name}</Link>)
+      }
+      </div>
+    </div>
+    </div>
+    
+   
+    
+    
+    </>
     );
 };
 
