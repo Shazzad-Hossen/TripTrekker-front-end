@@ -5,6 +5,9 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
+    fontFamily: {
+      'chakra': ['Chakra Petch', 'sans-serif'],
+    },
     extend: {},
   },
   plugins: [],

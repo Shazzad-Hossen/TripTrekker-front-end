@@ -39,7 +39,7 @@ const Header = () => {
        <>
         <nav
       className={` z-20 fixed w-full transition-colors duration-300 shadow-lg ${
-        navbarBg ? 'bg-white text-black' : 'bg-[#ffffff] bg-opacity-75'
+        navbarBg ? 'bg-white text-black' : 'bg-[#ffffff] text-white bg-opacity-10'
       }`}
     >
       <div className="container mx-auto px-4">
