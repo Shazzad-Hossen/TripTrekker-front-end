@@ -8,7 +8,11 @@ export default {
     fontFamily: {
       'chakra': ['Chakra Petch', 'sans-serif'],
     },
-    extend: {},
+    extend: {
+      backgroundImage: {
+        'signup': "url('./src/assets/bg/loginbg.jpg')",
+      }
+    },
   },
   plugins: [],
 }

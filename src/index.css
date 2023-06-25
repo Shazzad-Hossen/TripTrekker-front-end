@@ -12,3 +12,9 @@
 .scrollable-div::-webkit-scrollbar {
     display: none; /* For Chrome, Safari, and Opera */
   }
+
+  main {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 50px 20px;
+  }

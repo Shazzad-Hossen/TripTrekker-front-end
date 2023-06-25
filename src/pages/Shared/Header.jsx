@@ -47,7 +47,7 @@ const Header = () => {
           <img className='w-[200px]' src={logo} alt="" />
           <div className="hidden md:block"><div className="flex space-x-4">
             {
-                navItem.map((n,i)=><Link key={i} to={n.value }>{n.name}</Link>)
+                navItem.map((n,i)=><Link className='drop-shadow-lg' key={i} to={n.value }>{n.name}</Link>)
             }
 
           </div></div>
