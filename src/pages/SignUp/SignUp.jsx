@@ -1,24 +1,107 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import google from "../../assets/icon/google.png";
-import bg from '../../assets/bg/loginbg.jpg'
+import { createUser, googleSignin } from "../../firebase.config";
+import { publicPost } from "../../utilities/apiCaller";
+import { toast } from 'react-toastify';
+import { useDispatch } from "react-redux";
+import { userSignin } from "../../services/userSlice";
+
 
 const SignUp = () => {
   const [pass, setPass] = useState(true);
   const [confPass, setConfPass] = useState(true);
+  const [err,setErr]=useState(null);
+  const navigate= useNavigate();
+  const dispatch=useDispatch();
 
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm();
 
   const onSubmit = (data) => {
-    console.log(data);
+    setErr(null);
+    if(data.password!==data.confPassword){
+      setErr('Confirm password does not matched');
+    }
+    else {
+      createUser(data.email,data.password)
+      .then(res=>
+        {
+
+         
+          const userData={
+            "name": data.name,
+            "email": data.email,
+            "role": "user",
+            "photo": "https://cdn.landesa.org/wp-content/uploads/default-user-image.png",
+            "phone": data.phone,
+            "address": data.address
+
+          }
+         
+         publicPost('/user',userData)
+         .then(res=>{
+          if(res.acknowledged===true){
+            console.log(res);
+            toast.success("Sign Up Successfull");
+            dispatch(userSignin(res.user));
+            navigate('/');
+
+          }
+          else{
+            toast.error("Something wents wrong");
+          }
+        });
+
+         
+        })
+      .catch(err=>toast.error(((err.message).slice(22,-2)).replace(/-/g, ' ').replace(/\b\w/g, function(match) {
+        return match.toUpperCase();
+      })))
+
+
+    }
   };
+  const googleHandler=()=>{
+    googleSignin()
+    .then(res=>{
+      const userData={
+        "name": res.user.displayName,
+        "email": res.user.email,
+        "role": "user",
+        "photo": res.user.photoURL,
+        "phone": "",
+        "address": "",
+
+      }
+
+      publicPost('/user',userData)
+         .then(res=>{
+         
+          if(res.acknowledged===true){
+            console.log(res);
+            dispatch(userSignin(res.user));
+            navigate('/');
+           
+          }
+          else {
+            toast.success("Something wents wrong");
+           
+
+
+          }
+        });
+      
+    })
+    .catch(err=>{
+
+    })
+  }
 
   return (
     
@@ -180,9 +263,10 @@ const SignUp = () => {
                 <p>{errors.password.message}</p>
               ) : errors.confPassword ? (
                 <p>{errors.confPassword.message}</p>
-              ) : (
-                <></>
-              )}
+              ) : err? (
+                <p>{err}</p>
+              )
+            : <></>}
 
               <input
                 type="submit"
@@ -198,7 +282,7 @@ const SignUp = () => {
             </form>
             <p className="text-white text-center py-2">Or sign in with</p>
             <div className="mb-10 flex justify-center items-center">
-              <button className="bg-white py-2 px-4  flex items-center gap-2 text-md font-semibold rounded-md">
+              <button onClick={googleHandler} className="bg-white py-2 px-4  flex items-center gap-2 text-md font-semibold rounded-md">
                 <img src={google} className="w-[30px]" alt="" /> Sign In with
                 google
               </button>

@@ -3,10 +3,15 @@ import { useForm } from "react-hook-form";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import google from "../../assets/icon/google.png";
-import bg from '../../assets/bg/loginbg.jpg'
+import { googleSignin, signinUser } from "../../firebase.config";
+import { publicGet, publicPost } from "../../utilities/apiCaller";
+import { useDispatch } from "react-redux";
+import { userSignin } from "../../services/userSlice";
+
 
 const SignIn = () => {
   const [pass, setPass] = useState(true);
+  const dispatch=useDispatch();
  
 
   const {
@@ -17,8 +22,54 @@ const SignIn = () => {
   } = useForm();
 
   const onSubmit = (data) => {
-    console.log(data);
+   
+    signinUser(data.email,data.password)
+    .then(res=>{
+      publicGet(`/user/${data.email}`)
+      .then(res=>{
+        dispatch(userSignin(res));
+      })
+    })
+    .catch(err=>{
+      console.log(err)
+    })
   };
+
+  const googleHandler=()=>{
+    googleSignin()
+    .then(res=>{
+      const userData={
+        "name": res.user.displayName,
+        "email": res.user.email,
+        "role": "user",
+        "photo": res.user.photoURL,
+        "phone": "",
+        "address": "",
+
+      }
+
+      publicPost('/user',userData)
+         .then(res=>{
+         
+          if(res.acknowledged===true){
+            
+            dispatch(userSignin(res.user));
+            navigate('/');
+           
+          }
+          else {
+            toast.success("Something wents wrong");
+           
+
+
+          }
+        });
+      
+    })
+    .catch(err=>{
+
+    })
+  }
 
   return (
     
@@ -111,7 +162,7 @@ const SignIn = () => {
             </form>
             <p className="text-white text-center py-2">Or sign in with</p>
             <div className="mb-10 flex justify-center items-center">
-              <button className="bg-white py-2 px-4  flex items-center gap-2 text-md font-semibold rounded-md">
+              <button onClick={googleHandler} className="bg-white py-2 px-4  flex items-center gap-2 text-md font-semibold rounded-md">
                 <img src={google} className="w-[30px]" alt="" /> Sign In with
                 google
               </button>
