@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import logo from '../../assets/logo/triptrekker-logo.png'
 import { CgMenuGridR, CgCloseR } from "react-icons/cg";
 import { useEffect } from 'react';
@@ -15,9 +15,16 @@ const Header = () => {
     const [toggle,setToggle]=useState(true);
     const {user}= useSelector((state)=>state.userInfo);
     const dispatch= useDispatch();
+    const {pathname:location}=useLocation();
+
+    
+
+
+
     const navItem= <>
     <Link className='md:drop-shadow-lg border-b-[1px] p-3 md:border-0 md:p-0 ' to='/'>HOME</Link>
     <Link className='md:drop-shadow-lg border-b-[1px] p-3 md:border-0 md:p-0 ' to='/about'>ABOUT</Link>
+    <Link className='md:drop-shadow-lg border-b-[1px] p-3 md:border-0 md:p-0 ' to='/plantour'>PLAN TOUR</Link>
     <Link className='md:drop-shadow-lg border-b-[1px] p-3 md:border-0 md:p-0 ' to='/dashboard'>DASHBOARD</Link>
     
     {user? <button className='md:drop-shadow-lg border-b-[1px] p-3 md:border-0 md:p-0 text-start' onClick={()=>dispatch(userSignout())}>SIGN OUT</button>:<><Link className='md:drop-shadow-lg border-b-[1px] p-3 md:border-0 md:p-0 ' to='/signin'>SIGN IN</Link>
@@ -30,11 +37,13 @@ const Header = () => {
 
     useEffect(() => {
       const handleScroll = () => {
+        if(location!=='/') setNavbarBg(false)
         if (window.scrollY > 0) {
           setNavbarBg(true);
         } else {
           setNavbarBg(false);
         }
+       
       };
   
       window.addEventListener('scroll', handleScroll);

@@ -5,7 +5,7 @@ const Banner = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const slides = [
     {
-      image: 'https://wallpapercrafter.com/desktop/38782-Corona-Del-Mar-4k-4K-wallpaper-4K-California-USA-Best-Beaches-in-the-World-travel-tourism-sunset-sunrise-sea.jpg'
+      image: 'https://wallpapers.com/images/hd/aesthetic-nature-dxhvdcplq0s02jat.jpg'
     },
     {
       image: 'https://wallpapercave.com/wp/wp3103595.jpg'
