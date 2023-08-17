@@ -13,6 +13,7 @@ import PlanTour from "../pages/PlanTour/PlanTour";
         {path: '/signin', element: <SignIn/> },
         {path: '/signup', element: <SignUp/> },
         {path: '/plantour', element: <PlanTour/> },
+        {path: '/plantour/:id', element: <PlanTour/> },
       ]
     },
   ]);

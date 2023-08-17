@@ -15,7 +15,7 @@ const Header = () => {
     const [toggle,setToggle]=useState(true);
     const {user}= useSelector((state)=>state.userInfo);
     const dispatch= useDispatch();
-    const {pathname:location}=useLocation();
+    const location=useLocation();
 
     
 
@@ -32,12 +32,17 @@ const Header = () => {
     
     </>
     
-   
+    useEffect(()=>{
+      if(location.pathname!=='/') {
+       setNavbarBg(true)
+      }
+
+    },[location.pathname])
     
 
     useEffect(() => {
       const handleScroll = () => {
-        if(location!=='/') setNavbarBg(false)
+        
         if (window.scrollY > 0) {
           setNavbarBg(true);
         } else {
@@ -56,8 +61,8 @@ const Header = () => {
     return (
        <>
         <nav
-      className={` z-20 fixed w-full transition-colors duration-300 shadow-lg ${
-        navbarBg ? 'bg-white text-black' : 'bg-[#ffffff] text-white bg-opacity-10'
+      className={` z-20 fixed w-full transition-colors duration-300  top-0 ${
+        navbarBg ? 'bg-[#ffffff] text-black backdrop-blur-xl bg-white/30' : ' bg-transparent text-black'
       }`}
     >
       <div className="container mx-auto px-4">

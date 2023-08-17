@@ -1,50 +1,33 @@
-import React, { useState, useEffect } from 'react';
-import { Typewriter } from 'react-simple-typewriter'
+import React from 'react';
+import ReactDOM from 'react-dom';
+import Coverflow from 'react-coverflow';
 
 const Banner = () => {
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const slides = [
-    {
-      image: 'https://wallpapers.com/images/hd/aesthetic-nature-dxhvdcplq0s02jat.jpg'
-    },
-    {
-      image: 'https://wallpapercave.com/wp/wp3103595.jpg'
-     
-    },
-    
-    {
-      image: 'https://wallpapercave.com/wp/wp7721695.jpg'
-    },
-  ];
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentSlide((prevSlide) => (prevSlide + 1) % slides.length);
-    }, 10000);
-
-    return () => clearInterval(interval);
-  }, []);
-
   return (
-    <div className="relative h-screen ">
+    <div>
+      <div className="max-w-[800px] px-5 mx-auto ">
+    <input className='relative top-[200px] border-[1px] border-[#e2e2e2] p-4 rounded-full w-full bg-white bg-opacity-50 z-10 focus:outline-[#e2e2e2]' type="text" />
+   </div>
+      <Coverflow width="960" height="500"
+    displayQuantityOfSide={2}
+    navigation={false}
+    enableScroll={true}
+    clickable={true}
+    active={0}
+    media= {{background: 'transparent ', height: '100vh'}}
+  >
+    
+    <img src='https://i.ibb.co/GtKrv6p/Best-Tourist-Places-to-Visit-in-Bangladesh-1.jpg' />
+
+    <img src='https://i.ibb.co/55Pw5yB/shutterstock-1134436058.jpg'/>
+    <img src='https://i.ibb.co/PhfpvfX/50104a5ba9bea452159dc69c656a64cf.jpg'/>
+    <img src='https://i.ibb.co/rvsvzK0/Sajek-Valley.webp'/>
+    <img src='https://i.ibb.co/K5LGnHV/avenue-815297-640.jpg'/>
+    <img src='https://i.ibb.co/rH5Hp8f/nature-3125912-1280.jpg'/>
+  </Coverflow>
+
+   
       
-      {slides.map((slide, index) => (
-        <div
-          key={index}
-          className={` h-screen absolute inset-0 ${
-            index === currentSlide ? 'z-10 opacity-100' : 'z-0 opacity-0'
-          } transition-opacity duration-500`}
-        >
-          <img src={slide.image} alt="Banner" className="h-full w-full object-cover contrast-50" />
-          <div className="absolute inset-0 "></div>
-          <div className=" flex flex-col justify-center h-full absolute top-0 items-center w-full   z-10 ">
-          <div className="flex flex-col items-center">
-          <div className="flex drop-shadow-md    text-center text-[#5ce6ff] text-7xl font-chakra"><Typewriter  words={['Welcome To TripTrekker']}  cursor   /></div>
-          <button className='border-[#9dfade] border-2 text-white bg-[#000000] bg-opacity-5 hover:bg-white hover:text-black p-4 rounded-md mt-10 font-chakra text-lg'>Discover Now</button>
-          </div>
-          </div>
-        </div>
-      ))}
     </div>
   );
 };
