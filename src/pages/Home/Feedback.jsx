@@ -5,7 +5,7 @@ import ReviewCard from './ReviewCard';
 
 const Feedback = () => {
     return (
-        <main>
+        <main className='mb-[50px]'>
             <SectionTitle title="Reviews"/>
             <ReviewCard/>
         </main>

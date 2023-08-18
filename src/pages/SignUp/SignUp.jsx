@@ -106,21 +106,20 @@ const SignUp = () => {
   return (
     
 
-      <div className="bg-signup bg-no-repeat bg-cover   py-40 px-5">
-        <div className="flex justify-center items-center w-full h-full">
-          <div
-            className="border-2 rounded-md w-full max-w-[500px] p-10 shadow-lg bg-black border-black border-opacity-10 bg-opacity-10
-                    "
-          >
-            <h1 className="font-chakra text-white text-3xl text-center">
+    <div className=" bg-no-repeat bg-cover py-40 px-5">
+    <div className="flex justify-center items-center w-full h-full">
+      <div
+        className="border-2 rounded-md w-full max-w-[500px] p-10 shadow-lg bg-white border-white border-opacity-10 bg-opacity-10"
+      >
+            <h1 className="font-chakra text-[#333333] text-3xl text-center">
               Sign Up
             </h1>
 
             <form className="pt-10" onSubmit={handleSubmit(onSubmit)}>
               <div className="flex flex-col gap-1 mb-4">
-                <legend className=" text-white text-lg">Name</legend>
+                <legend className=" text-[#333333] text-lg">Name</legend>
                 <input
-                  className="bg-white bg-opacity-40 text-white border-[1px] border-opacity-40 border-white p-1 rounded-md w-full"
+                  className="  text-[#333333] border-[1px]  bg-[#fff9f94f] p-1 rounded-md w-full"
                   {...register("name", {
                     required: "Name is required",
                     minLength: {
@@ -133,9 +132,9 @@ const SignUp = () => {
               </div>
 
               <div className="flex flex-col gap-1 mb-4">
-                <legend className=" text-white text-lg">Email</legend>
+                <legend className=" text-[#333333] text-lg">Email</legend>
                 <input
-                  className="bg-white bg-opacity-40 text-white border-[1px] border-opacity-40 border-white p-1 rounded-md w-full"
+                  className="  text-[#333333] border-[1px]  bg-[#fff9f94f] p-1 rounded-md w-full"
                   {...register("email", {
                     required: "Email is required",
                     pattern: {
@@ -148,9 +147,9 @@ const SignUp = () => {
               </div>
 
               <div className="flex flex-col gap-1 mb-4">
-                <legend className=" text-white text-lg">Phone</legend>
+                <legend className=" text-[#333333] text-lg">Phone</legend>
                 <input
-                  className="bg-white bg-opacity-40 text-white border-[1px] border-opacity-40 border-white p-1 rounded-md w-full"
+                  className="  text-[#333333] border-[1px]  bg-[#fff9f94f] p-1 rounded-md w-full"
                   {...register("phone", {
                     required: "Phone is required",
                     pattern: {
@@ -163,9 +162,9 @@ const SignUp = () => {
               </div>
 
               <div className="flex flex-col gap-1 mb-4">
-                <legend className=" text-white text-lg">Address</legend>
+                <legend classclassName=" text-[#333333] text-lg">Address</legend>
                 <input
-                  className="bg-white bg-opacity-40 text-white border-[1px] border-opacity-40 border-white p-1 rounded-md w-full"
+                  className="  text-[#333333] border-[1px]  bg-[#fff9f94f] p-1 rounded-md w-full"
                   {...register("address", {
                     required: "Address is required",
                     minLength: {
@@ -184,7 +183,7 @@ const SignUp = () => {
               <div className="flex flex-col sm:flex-row items-center justify-between ">
                 <div className="flex flex-col gap-1 mb-4 w-full sm:w-auto">
                   <span className="flex items-center justify-between">
-                    <legend className=" text-white text-lg">Password</legend>
+                    <legend className=" text-[#333333] text-lg">Password</legend>
                     <span
                       onClick={() => setPass(!pass)}
                       className="text-white pr-2"
@@ -198,7 +197,7 @@ const SignUp = () => {
                   </span>
                   <input
                     type={`${pass ? "password" : "text"}`}
-                    className="bg-white  bg-opacity-40 text-white border-[1px] border-opacity-40 border-white p-1 rounded-md w-full"
+                    className="  text-[#333333] border-[1px]  bg-[#fff9f94f] p-1 rounded-md w-full"
                     {...register("password", {
                       required: "Password is required",
                       minLength: {
@@ -220,7 +219,7 @@ const SignUp = () => {
                 </div>
                 <div className="flex flex-col gap-1 mb-4 w-full sm:w-auto">
                   <span className="flex items-center justify-between ">
-                    <legend className=" text-white text-lg">
+                    <legend className=" text-[#333333] text-lg">
                       Confirm Password
                     </legend>
                     <span
@@ -236,7 +235,7 @@ const SignUp = () => {
                   </span>
                   <input
                     type={`${confPass ? "password" : "text"}`}
-                    className="bg-white bg-opacity-40 text-white border-[1px] border-opacity-40 border-white p-1 rounded-md w-full"
+                    className="  text-[#333333] border-[1px]  bg-[#fff9f94f] p-1 rounded-md w-full"
                     {...register("confPassword", {
                       required: "Confirm Password is required",
                       minLength: {
@@ -273,16 +272,16 @@ const SignUp = () => {
                 value="Sign Up"
                 className="bg-gradient-to-r from-cyan-500 to-blue-500  w-full p-2 rounded-md shadow-md text-white "
               />
-              <p className="text-white text-lg py-3">
+             <p className="text-[#333333] text-lg py-3">
                 Already have an account?{" "}
-                <Link className="text-[#b3fcff]" to="/signin">
+                <Link className="text-[#1976c2]" to="/signin">
                   Sign in here
                 </Link>
               </p>
             </form>
-            <p className="text-white text-center py-2">Or sign in with</p>
+            <p className="text-black text-center py-2">Or sign in with</p>
             <div className="mb-10 flex justify-center items-center">
-              <button onClick={googleHandler} className="bg-white py-2 px-4  flex items-center gap-2 text-md font-semibold rounded-md">
+              <button onClick={googleHandler} className="bg-white border-2 py-2 px-4  flex items-center gap-2 text-md font-semibold rounded-md">
                 <img src={google} className="w-[30px]" alt="" /> Sign In with
                 google
               </button>

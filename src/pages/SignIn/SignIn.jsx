@@ -76,8 +76,7 @@ const SignIn = () => {
       <div className=" bg-no-repeat bg-cover py-40 px-5">
         <div className="flex justify-center items-center w-full h-full">
           <div
-            className="border-2 rounded-md w-full max-w-[500px] p-10 shadow-lg bg-white border-white border-opacity-10 bg-opacity-10
-                    "
+            className="border-2 rounded-md w-full max-w-[500px] p-10 shadow-lg bg-white border-white border-opacity-10 bg-opacity-10"
           >
             <h1 className="font-chakra text-[#333333] text-3xl text-center">
               Sign In
@@ -160,7 +159,7 @@ const SignIn = () => {
                 </Link>
               </p>
             </form>
-            <p className="text-white text-center py-2">Or sign in with</p>
+            <p className="text-black text-center py-2">Or sign in with</p>
             <div className="mb-10 flex justify-center items-center">
               <button onClick={googleHandler} className="bg-white border-2 py-2 px-4  flex items-center gap-2 text-md font-semibold rounded-md">
                 <img src={google} className="w-[30px]" alt="" /> Sign In with
