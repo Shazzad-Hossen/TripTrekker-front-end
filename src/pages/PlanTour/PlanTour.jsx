@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import SectionTitle from '../Shared/SectionTitle';
 import Card from '../Home/Card';
 import { publicGet } from '../../utilities/apiCaller';
+import axios from 'axios';
 
 const places = [
   {
@@ -33,6 +34,7 @@ const places = [
     thumbnail: "https://a.cdn-hotels.com/gdcs/production129/d1735/5f9ad8cb-e195-49ef-8206-f95dba366ffd.jpg"
   },
 ]
+
 
 const PlanTour = () => {
   const [division, setDivisions] =  useState([]);

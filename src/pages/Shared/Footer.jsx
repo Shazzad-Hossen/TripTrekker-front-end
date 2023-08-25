@@ -59,9 +59,9 @@ const Footer = () => {
         </div>
         
      
-      <div className="bg-[#41404069] py-5 text-white ">
+      <div className="bg-[#6b6b6b1a] py-5 text-white ">
           <div className="max-w-[1280px] mx-auto text-center ">
-            <p>TripTrakker © 2023 All Right Reserved</p>
+            <p className="drop-shadow-lg">TripTrakker © 2023 All Right Reserved</p>
           </div>
         </div>
     </div>

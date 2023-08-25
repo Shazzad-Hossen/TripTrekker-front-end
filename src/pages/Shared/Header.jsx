@@ -17,7 +17,7 @@ const Header = () => {
     const dispatch= useDispatch();
     const location=useLocation();
 
-    console.log(user)
+
 
 
 
