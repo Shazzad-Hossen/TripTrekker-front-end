@@ -12,9 +12,9 @@ import paypal from '../../assets/payment/paypal.png'
 
 const Footer = () => {
   return (
-    <div className="footer border-t-[1px]">
+    <div className="footer border-t-[1px] ">
   
-        <div className="max-w-[1280px] mx-auto grid grid-cols-1   lg:grid-cols-4 gap-10 py-8 pl-10">
+        <div className="max-w-[1280px] mx-auto flex flex-col   md:flex-row justify-between py-8 px-10 ">
           <div className="max-w-[250px]">
             <img src={logo} className="w-[200px] mb-5" alt="" />
             <p>
@@ -41,16 +41,16 @@ const Footer = () => {
           </div>
           <div className="">
             <h1 className="text-lg font-semibold mb-5">Payment Methods</h1>
-            <div className="flex justify-center">
+            <div className="flex justify-start">
             <div className="grid grid-cols-4  gap-2">
-              <img className="w-full" src={visa} alt="" />
-              <img className="w-full" src={masterCard} alt="" />
-              <img className="w-full" src={aExpress} alt="" />
-              <img className="w-full" src={bkash} alt="" />
-              <img className="w-full" src={rocket} alt="" />
-              <img className="w-full" src={nagad} alt="" />
-              <img className="w-full" src={dbbl} alt="" />
-              <img className="w-full" src={paypal} alt="" />
+              <img className="w-[40px]" src={visa} alt="" />
+              <img className="w-[40px]" src={masterCard} alt="" />
+              <img className="w-[40px]" src={aExpress} alt="" />
+              <img className="w-[40px]" src={bkash} alt="" />
+              <img className="w-[40px]" src={rocket} alt="" />
+              <img className="w-[40px]" src={nagad} alt="" />
+              <img className="w-[40px]" src={dbbl} alt="" />
+              <img className="w-[40px]" src={paypal} alt="" />
               
             </div>
               
@@ -59,7 +59,7 @@ const Footer = () => {
         </div>
         
      
-      <div className="bg-[#6b6b6b1a] py-5 text-white ">
+      <div className="bg-[#6b6b6b1a] py-5 text-[#333333] ">
           <div className="max-w-[1280px] mx-auto text-center ">
             <p className="drop-shadow-lg">TripTrakker © 2023 All Right Reserved</p>
           </div>

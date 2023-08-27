@@ -6,6 +6,7 @@ import CoverFlow from 'coverflow-react';
 const Banner = () => {
   const [typeWriter,setTypeWriter]= useState(true);
   const [searchVal, setSearchVal] =  useState('');
+ 
 
 const handleTypewriter= () =>{
   if(searchVal!=='') setTypeWriter(false);
@@ -24,7 +25,7 @@ const handleTypewriter= () =>{
    
 ];
   return (
-    <div className="h-screen  flex flex-col justify-between">
+    <div className="h-screen  flex flex-col justify-center gap-10">
    
       <div className="relative max-w-[700px] w-full mx-auto mt-36 px-5">
       { typeWriter && <div className="absolute top-4  left-1/2 transform -translate-x-1/2 md:text-2xl "><Typewriter 
@@ -48,7 +49,7 @@ const handleTypewriter= () =>{
         />
       </div>
       <div className='flex justify-center overflow-x-hidden '>
-      <div className="hidden sm:block "> <CoverFlow background="transparent"  imagesArr={imagesArr} /> </div>
+      <div className="hidden sm:block "> <CoverFlow background="transparent"    imagesArr={imagesArr} /> </div>
       <div className="sm:hidden "><CoverFlow  background="transparent" imagesArr={imagesArr} /></div>
     </div>
     </div>

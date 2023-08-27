@@ -8,7 +8,7 @@ const Main = () => {
         <div>
             <Header/>
            
-            <Outlet/>
+           <div className="mx-8"> <Outlet/></div>
             
             <Footer/>
             

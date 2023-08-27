@@ -14,7 +14,7 @@ const [hover, setHover] = useState(true)
       setIsPlaying(!isPlaying);
     };
   return (
-    <div onMouseOver={()=> setHover(true)} onMouseLeave={()=> setHover(false)} className="relative">
+    <div onMouseOver={()=> setHover(true)} onMouseLeave={()=> setHover(false)} className="relative w-full">
       <video ref={videoRef} width="100%" height="100%">
         <source src={url} type="video/mp4" />
       </video>
