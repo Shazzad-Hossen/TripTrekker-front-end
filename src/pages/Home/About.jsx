@@ -6,8 +6,8 @@ import video from "../../assets/videos/about_video.mp4";
 const About = () => {
     return (
         <div className="">
-        <div className=" flex justify-evenly  flex-col md:flex-row gap-8 ">
-          <div className="mb-8">
+        <div className=" flex justify-evenly items-center  flex-col md:flex-row gap-8 ">
+          <div className="mb-8 ">
             <p className="text-secondary text-[28px] sm:text-[32px] font-semibold font-sans m-0 ">
               How Trip Trekker works
             </p>

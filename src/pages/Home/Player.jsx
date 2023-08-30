@@ -15,7 +15,7 @@ const [hover, setHover] = useState(true)
     };
   return (
     <div onMouseOver={()=> setHover(true)} onMouseLeave={()=> setHover(false)} className="relative w-full">
-      <video ref={videoRef} width="100%" height="100%">
+      <video ref={videoRef} width="100%" height="100%" className="w-full">
         <source src={url} type="video/mp4" />
       </video>
       <span className="absolute top-0 left-0 right-0 bottom-0 flex justify-center items-center">
