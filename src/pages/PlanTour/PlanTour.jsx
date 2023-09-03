@@ -2,14 +2,18 @@ import React, { useEffect, useState } from "react";
 import PlaceCard from "../Shared/PlaceCard";
 import SectionTitle from "../Shared/SectionTitle";
 import { divisions, places } from "../../dummyData/dummyData";
+import { useNavigate } from "react-router-dom";
 
 
 
 const PlanTour = () => {
   const [component, setComponent] = useState(true);
+  const navigate = useNavigate();
   const divisionHandler =(id)=>{
     setComponent(false);
   }
+
+  const placeHandler = (id)=> navigate(`/plantour/${id}`);
 
   return (
     <main className="pt-36">
@@ -25,7 +29,7 @@ const PlanTour = () => {
       {
         !component && <div className="pt-28 grid grid-cols-1 md:grid-cols-4 gap-5">
         {places.map((place, index) => (
-          <PlaceCard data={place} key={index} />
+          <PlaceCard data={place} key={index} onClick={placeHandler} />
         ))}
       </div>
       }

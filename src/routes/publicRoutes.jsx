@@ -4,6 +4,7 @@ import Main from "../Layout/Main";
 import SignIn from "../pages/SignIn/SignIn";
 import SignUp from "../pages/SignUp/SignUp";
 import PlanTour from "../pages/PlanTour/PlanTour";
+import PlaceDetails from "../pages/PlaceDetails/PlaceDetails";
   export const router = createBrowserRouter([
     {
       path: "/",
@@ -13,7 +14,7 @@ import PlanTour from "../pages/PlanTour/PlanTour";
         {path: '/signin', element: <SignIn/> },
         {path: '/signup', element: <SignUp/> },
         {path: '/plantour', element: <PlanTour/> },
-        {path: '/plantour/:id', element: <PlanTour/> },
+        {path: '/plantour/:id', element: <PlaceDetails/> },
       ]
     },
   ]);
