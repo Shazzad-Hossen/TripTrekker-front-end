@@ -6,6 +6,7 @@ import SignUp from "../pages/SignUp/SignUp";
 import PlanTour from "../pages/PlanTour/PlanTour";
 import PlaceDetails from "../pages/PlaceDetails/PlaceDetails";
 import Experience from "../pages/Experience/Experience";
+import PackageDetails from "../pages/Packages/PackageDetails";
   export const router = createBrowserRouter([
     {
       path: "/",
@@ -17,6 +18,7 @@ import Experience from "../pages/Experience/Experience";
         {path: '/plantour', element: <PlanTour/> },
         {path: '/plantour/:id', element: <PlaceDetails/> },
         {path: '/experience', element: <Experience/> },
+        {path: '/package/:id', element: <PackageDetails/> },
       ]
     },
   ]);

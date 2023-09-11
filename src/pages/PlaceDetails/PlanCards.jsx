@@ -1,9 +1,11 @@
 import React from 'react';
 import Ratings from '../Shared/Ratings';
+import { useNavigate } from 'react-router-dom';
 
 const PlanCards = () => {
+    const navigate = useNavigate();
     return (
-        <div className='select-none border rounded p-2 min-w-[250px] w-full drop-shadow-lg active:scale-95 transform duration-300 hover:-translate-y-1 '>
+        <div onClick={()=>navigate('/package/1234')} className='select-none border rounded p-2 min-w-[250px] w-full drop-shadow-lg active:scale-95 transform duration-300 hover:-translate-y-1 '>
             <div className="rounded">
                 <img className='rounded' src="https://media.istockphoto.com/id/637491930/photo/marigot-saint-martin-skyline.webp?b=1&s=170667a&w=0&k=20&c=OTUW44j5COvbPTa17RpeD6EoLhCZX2SGmoYM8WIQ5Vc=" alt="" />
             </div>
