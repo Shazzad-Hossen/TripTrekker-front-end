@@ -7,6 +7,8 @@ import PlanTour from "../pages/PlanTour/PlanTour";
 import PlaceDetails from "../pages/PlaceDetails/PlaceDetails";
 import Experience from "../pages/Experience/Experience";
 import PackageDetails from "../pages/Packages/PackageDetails";
+import Packages from "../pages/Packages/Packages";
+import Hotels from "../pages/Hotels/Hotels";
   export const router = createBrowserRouter([
     {
       path: "/",
@@ -18,7 +20,9 @@ import PackageDetails from "../pages/Packages/PackageDetails";
         {path: '/plantour', element: <PlanTour/> },
         {path: '/plantour/:id', element: <PlaceDetails/> },
         {path: '/experience', element: <Experience/> },
+        {path: '/packages', element: <Packages/> },
         {path: '/package/:id', element: <PackageDetails/> },
+        {path: '/hotels', element: <Hotels/> },
       ]
     },
   ]);

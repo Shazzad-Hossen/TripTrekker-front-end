@@ -7,6 +7,7 @@ export default {
   theme: {
     fontFamily: {
       'chakra': ['Chakra Petch', 'sans-serif'],
+      'ptSans': ['PT Sans Narrow', 'sans-serif'],
     },
     extend: {
       backgroundImage: {

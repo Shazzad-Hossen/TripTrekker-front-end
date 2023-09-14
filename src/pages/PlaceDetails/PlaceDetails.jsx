@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import PlanCards from "./PlanCards";
-import { useRef } from "react";
+import Scrollable from "../Shared/Scrollable";
 
 const thumbnails = [
   "https://i.ibb.co/b1vzmVr/thumb1.jpg",
@@ -10,27 +10,6 @@ const thumbnails = [
 
 const PlaceDetails = () => {
   const [bannerImg, setBannerimg] = useState(thumbnails[0]);
-  const scrollableDivRef = useRef(null);
-  const [isDragging, setIsDragging] = useState(false);
-  const [startX, setStartX] = useState(0);
-  const [scrollLeft, setScrollLeft] = useState(0);
-
-  const handleMouseDown = (e) => {
-    setIsDragging(true);
-    setStartX(e.pageX - scrollableDivRef.current.offsetLeft);
-    setScrollLeft(scrollableDivRef.current.scrollLeft);
-  };
-
-  const handleMouseUp = () => {
-    setIsDragging(false);
-  };
-
-  const handleMouseMove = (e) => {
-    if (!isDragging) return;
-    const x = e.pageX - scrollableDivRef.current.offsetLeft;
-    const walk = (x - startX) * 1; // Adjust the sensitivity of scrolling
-    scrollableDivRef.current.scrollLeft = scrollLeft - walk;
-  };
 
   return (
     <div className="container pt-20  px-3 ">
@@ -98,21 +77,13 @@ const PlaceDetails = () => {
         </p>
       </div>
       <div className="mb-5 border rounded-md p-5">
-        <h1 className="font-chakra text-xl font-bold text-[#333333] mb-5">
+      <h1 className="font-chakra text-xl font-bold text-[#333333] mb-5">
           Popular Packages
         </h1>
-        <div
-          className=" mb-2 flex  items-center gap-4 overflow-x-scroll  scrollable-div"
-          ref={scrollableDivRef}
-          onMouseDown={handleMouseDown}
-          onMouseUp={handleMouseUp}
-          onMouseLeave={handleMouseUp}
-          onMouseMove={handleMouseMove}
-        >
-          {[1, 2, 3, 4, 5, 6, 7].map((item, i) => (
+         
+        <Scrollable> {[1, 2, 3, 4, 5, 6, 7].map((item, i) => (
             <PlanCards key={i} data={item} />
-          ))}
-        </div>
+          ))}</Scrollable>
       </div>
     </div>
   );
