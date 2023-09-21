@@ -3,16 +3,16 @@
  * Input Field Component.
  *
  * @component
- * @param {boolean} labelColor - It will set the label color as blue.  if we use If we dont use it , color will be default. value can be true or false.
- * @param {boolean} blue - It will set the border color as blue.  value can be true or false.
- * @param {string} className - It is used to add custom tailwind classes.
- * @param {string} label - The label text for the input.
- * @param {string} name - The name attribute for the input.
+ * @param {boolean} arg.labelColor - It will set the label color as blue.  if we use If we dont use it , color will be default. value can be true or false.
+ * @param {boolean}  arg.blue - It will set the border color as blue.  value can be true or false.
+ * @param {string}  arg.className - It is used to add custom tailwind classes.
+ * @param {string}  arg.label - The label text for the input.
+ * @param {string}  arg.name - The name attribute for the input.
  * @param {string} value - The current value of the input.
- * @param {function} onChange - A callback function to handle input value changes.
- * @param {function} setValue - A callback function to set value in hookform.
- * @param {string} placeholder - The placeholder text for the input.
- * @param {string} errors - An error message to display if there's an input validation error.
+ * @param {function}  arg.onChange - A callback function to handle input value changes.
+ * @param {function}  arg.setValue - A callback function to set value in hookform.
+ * @param {string}  arg.placeholder - The placeholder text for the input.
+ * @param {string}  arg.errors - An error message to display if there's an input validation error.
  *
  * @returns {JSX.Element} The rendered Input field.
  * I.E: <DateRangePicker setValue={setValue}  name='range' errors={errors['range']} placeholder='Select Date Range' onChange={(val)=>console.log('range:',val)} />

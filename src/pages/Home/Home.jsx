@@ -1,17 +1,19 @@
 import React from 'react';
 import Banner from './Banner';
 import AmazingPlaces from './AmazingPlaces';
-import Feedback from './Feedback';
 import About from './About';
+import Testimonial from './Testimonials';
+import Overview from './Overview';
 
 
 const Home = () => {
     return (
         <div  className=''>
            <Banner/> 
-           <AmazingPlaces/>
+           <Overview/>
            <About/>
-           <Feedback/>
+       
+          <Testimonial/>
            
            
            
