@@ -61,9 +61,10 @@ const Header = () => {
   
     return (
        <>
+       <div className="h-20"></div>
         <nav
       className={` z-20 fixed w-full transition-colors duration-300  top-0 ${
-        navbarBg ? 'bg-[#ffffff] text-black backdrop-blur-xl bg-white/30' : ' bg-transparent text-black'
+        navbarBg ? ' text-white backdrop-blur-xl bg-blue-100/80 ' : ' bg-blue-100 text-white'
       }`}
     >
       <div className="container mx-auto px-4">

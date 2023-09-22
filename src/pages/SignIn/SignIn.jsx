@@ -73,7 +73,7 @@ const SignIn = () => {
 
   return (
     
-      <div className=" bg-no-repeat bg-cover py-40 px-5">
+      <div className=" bg-no-repeat bg-cover py-40 px-5 border-red-400">
         <div className="flex justify-center items-center w-full h-full">
           <div
             className="border-2 rounded-md w-full max-w-[500px] p-10 shadow-lg bg-white border-white border-opacity-10 bg-opacity-10"

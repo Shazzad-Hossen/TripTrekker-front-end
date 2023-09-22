@@ -25,11 +25,6 @@ html {
     padding: 50px 20px;
   }
 
-  body {
-    background-image: url('./assets/bg/three.avif');
-    background-repeat: no-repeat;
-    background-size: cover;
-  }
 
   .footer {
     background-image: url('./assets/bg/two.avif');

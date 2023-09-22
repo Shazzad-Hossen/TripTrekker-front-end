@@ -12,7 +12,7 @@ import paypal from '../../assets/payment/paypal.png'
 
 const Footer = () => {
   return (
-    <div className="footer border-t-[1px] ">
+    <div className="bg-blue-100 border-t-[1px] text-white ">
   
         <div className="max-w-[1280px] mx-auto flex flex-col   md:flex-row justify-between py-8 px-10 ">
           <div className="max-w-[250px]">
@@ -24,7 +24,7 @@ const Footer = () => {
           </div>
           <div className="">
             <h1 className="text-lg font-semibold mb-5">Contact</h1>
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-2 font-[300]">
               <p>House No: 1042, <br />Velanagar, Narsingdi</p>
               <p>+8801600000000</p>
               <p>shahrin15-3335@diu.edu.bd</p>
@@ -59,7 +59,7 @@ const Footer = () => {
         </div>
         
      
-      <div className="bg-[#6b6b6b1a] py-5 text-[#333333] ">
+      <div className="bg-[#0d233b] py-5 text-white border-t border-[#1d367a] ">
           <div className="max-w-[1280px] mx-auto text-center ">
             <p className="drop-shadow-lg">TripTrakker © 2023 All Right Reserved</p>
           </div>
