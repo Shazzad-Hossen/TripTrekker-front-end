@@ -1,4 +1,4 @@
-import { createBrowserRouter } from "react-router-dom";
+import { Navigate, createBrowserRouter } from "react-router-dom";
 import Home from "../pages/Home/Home";
 import Main from "../Layout/Main";
 import SignIn from "../pages/SignIn/SignIn";
@@ -9,6 +9,9 @@ import Experience from "../pages/Experience/Experience";
 import PackageDetails from "../pages/Packages/PackageDetails";
 import Packages from "../pages/Packages/Packages";
 import Hotels from "../pages/Hotels/Hotels";
+import Dashboard from "../pages/Dashboard/Dashboard";
+import DashboardLayout from "../Layout/DashboardLayout";
+import Account from "../pages/Dashboard/Account/Account";
   export const router = createBrowserRouter([
     {
       path: "/",
@@ -25,4 +28,22 @@ import Hotels from "../pages/Hotels/Hotels";
         {path: '/hotels', element: <Hotels/> },
       ]
     },
+    {
+      path: '/dashboard',
+      element: <DashboardLayout/>,
+      children: [
+        {
+          path: '',
+          element: <Navigate to='/dashboard/home'/>
+        },
+        {
+          path: 'home',
+          element: <Dashboard/>
+        },
+        {
+          path: 'account',
+          element: <Account/>
+        },
+      ]
+    }
   ]);

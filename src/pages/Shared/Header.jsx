@@ -1,12 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { CgCloseR, CgMenuGridR } from "react-icons/cg";
+import { useDispatch, useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
-import logo from '../../assets/logo/triptrekker-logo.png'
-import { CgMenuGridR, CgCloseR } from "react-icons/cg";
-import { useEffect } from 'react';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useDispatch, useSelector } from 'react-redux';
-import { userSignout } from '../../services/userSlice';
+import logo from '../../assets/logo/triptrekker-logo.png';
+import { removeUser } from '../../services/userSlice';
 
 
 
@@ -28,7 +27,7 @@ const Header = () => {
     <Link className='md:drop-shadow-lg border-b-[1px] p-3 md:border-0 md:p-0 ' to='/packages'>PACKAGES</Link>
     <Link className='md:drop-shadow-lg border-b-[1px] p-3 md:border-0 md:p-0 ' to='/hotels'>HOTELS</Link>
     
-    {user? <button className='md:drop-shadow-lg border-b-[1px] p-3 md:border-0 md:p-0 text-start' onClick={()=>dispatch(userSignout())}>SIGN OUT</button>:<><Link className='md:drop-shadow-lg border-b-[1px] p-3 md:border-0 md:p-0 ' to='/signin'>SIGN IN</Link>
+    {user? <button className='md:drop-shadow-lg border-b-[1px] p-3 md:border-0 md:p-0 text-start' onClick={()=>dispatch(removeUser())}>SIGN OUT</button>:<><Link className='md:drop-shadow-lg border-b-[1px] p-3 md:border-0 md:p-0 ' to='/signin'>SIGN IN</Link>
     <Link className='md:drop-shadow-lg border-b-[1px] p-3 md:border-0 md:p-0 ' to='/signup'>SIGN UP</Link></>}
     
     </>
@@ -73,9 +72,11 @@ const Header = () => {
           <div className="hidden md:block"><div className="flex space-x-3  md:text-md ">
             {navItem}
             
+         {user && <Link to='/dashboard/home'>
           {
-            user && <img className='h-[25px] w-[25px] rounded-full' src={user?.photo}/>
+            user?.avatar!==''? <img className='h-[25px] w-[25px] rounded-full' src={user?.avatar}/>: <div className='h-[25px] w-[25px] rounded-full bg-white text-blue-100 flex justify-center items-center font-[600]' >{user.fullName[0]}</div>
           }
+          </Link>}
             
           </div></div>
           <button className=' md:hidden flex items-center gap-2' onClick={()=>setToggle(!toggle)}>

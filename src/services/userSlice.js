@@ -10,17 +10,17 @@ export const userSlice = createSlice({
   initialState,
   reducers: {
     
-    userSignin: (state, action) => {
+    setUser: (state, action) => {
       state.user= action.payload;
      
     },
-    userSignout: (state) => {
+    removeUser: (state) => {
         state.user= null;
     },
   },
 })
 
 // Action creators are generated for each case reducer function
-export const { userSignin, userSignout} = userSlice.actions
+export const { setUser, removeUser} = userSlice.actions
 
 export default userSlice.reducer
