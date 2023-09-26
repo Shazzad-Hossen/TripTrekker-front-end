@@ -3,10 +3,11 @@ import Input from "../Shared/Input";
 import { useForm } from "react-hook-form";
 import Button from "../Shared/Button";
 import PasswordInput from "../Shared/PasswordInput";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import { BsGithub } from "react-icons/bs";
 import { publicPost } from "../../utilities/apiCaller";
+import Swal from "sweetalert2";
 
 const SignUp = () => {
   const {
@@ -17,14 +18,37 @@ const SignUp = () => {
     formState: { errors },
   } = useForm();
   const [checked, setChecked] = useState(false);
+  const navigate = useNavigate();
 
   const onSubmit = (data) => {
+    delete data.accept;
     if(data.password!==data.confirmPassword){
       setError('confirmPassword', {message: 'Confirm password does not matched'})
     }
     else {
       delete data.confirmPassword;
-      publicPost('/api/user',data).then(res=>console.log(res))
+      publicPost('/api/user',data).then(res=>{
+        if(res.status===201){
+          Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Successfull',
+            showConfirmButton: false,
+            timer: 1500
+          });
+          navigate('/signin')
+
+        }
+        else {
+          Swal.fire({
+            position: 'center',
+            icon: 'error',
+            title: res?.data || 'Something wents wrong',
+            showConfirmButton: false,
+            timer: 1500
+          })
+        }
+      })
     }
   }
 

@@ -12,6 +12,7 @@ import Hotels from "../pages/Hotels/Hotels";
 import Dashboard from "../pages/Dashboard/Dashboard";
 import DashboardLayout from "../Layout/DashboardLayout";
 import Account from "../pages/Dashboard/Account/Account";
+import Divisions from "../pages/Dashboard/Division/Divisions";
   export const router = createBrowserRouter([
     {
       path: "/",
@@ -43,6 +44,10 @@ import Account from "../pages/Dashboard/Account/Account";
         {
           path: 'account',
           element: <Account/>
+        },
+        {
+          path: 'divisions',
+          element: <Divisions/>
         },
       ]
     }

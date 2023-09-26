@@ -11,7 +11,7 @@ const DashboardLayout = () => {
            <div className="flex h-[calc(100vh-72.203px)]">
             <Sidebar/>
           <div className="p-5 w-full h-full">
-          <div className="border h-full p-2 shadow-md rounded overflow-y-auto no-scrollbar"><Outlet/></div>
+          <div className="border h-full py-2 shadow-md rounded overflow-y-auto no-scrollbar"><Outlet/></div>
           </div>
            </div>
             <Footer/>
