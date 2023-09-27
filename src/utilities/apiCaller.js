@@ -40,3 +40,16 @@ export const privatePatch = async (endPoint, data) => {
     
   }
 };
+
+export const publicDelete = async (endPoint) => {
+  try {
+    const res = await axios.delete(`${baseUrl + endPoint}`);
+  return res;
+    
+  } catch (error) {
+    console.log(error);
+    return error.response;
+    
+  }
+};
+

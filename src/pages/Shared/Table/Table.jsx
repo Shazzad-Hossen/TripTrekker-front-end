@@ -8,23 +8,23 @@ const TABLE_HEAD = {
   division: ["SL.", "Name", "Slug",'Action'],
 };
 
-const Table = ({ type = "", data = {} }) => {
-    console.log(data);
+const Table = ({ type = "", data = {}, deleteHandler= ()=>{} }) => {
+
   const renderDivisionRows = () => {
     return (<tbody>
         {
-            data?.docs?.map((item, index)=><tr className=" border-b border-gray-300 group hover:bg-blue-400/10" >
-            <td key={index} className="py-2 px-4 font-[600] w-[80px]+ ">
+            data?.docs?.map((item, index)=><tr key={index} className=" border-b border-gray-300 group hover:bg-blue-400/10" >
+            <td  className="py-2 px-4 font-[600] w-[80px]+ ">
               {index+1}
             </td>
-            <td key={index} className="py-2 px-4">
+            <td  className="py-2 px-4">
               {item?.name}
             </td>
-            <td key={index} className="py-2 px-4">
+            <td  className="py-2 px-4">
               {item?.slug}
             </td>
-            <td key={index} className="py-2 px-4 w-[100px]">
-              <div className="flex items-center gap-3"><FiEdit2 className="group-hover:text-red-400"/> <BsTrash className="group-hover:text-red-400"/></div>
+            <td  className="py-2 px-4 w-[100px]">
+              <div className="flex items-center gap-3"><FiEdit2 className="group-hover:text-red-400"/> <BsTrash className="group-hover:text-red-400" onClick={()=>deleteHandler(item?.id)}/></div>
             </td>
             </tr>)
         }
