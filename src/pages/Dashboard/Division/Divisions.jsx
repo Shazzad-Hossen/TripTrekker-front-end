@@ -81,9 +81,8 @@ const Divisions = () => {
         Swal.fire({
             title: 'Are you sure to delete this division?',
             showDenyButton: true,
-            showCancelButton: true,
             confirmButtonText: 'Yes',
-            denyButtonText: `Don't `,
+            denyButtonText: `No `,
           }).then((result) => {
             /* Read more about isConfirmed, isDenied below */
             if (result.isConfirmed) {

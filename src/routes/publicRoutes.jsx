@@ -13,6 +13,7 @@ import Dashboard from "../pages/Dashboard/Dashboard";
 import DashboardLayout from "../Layout/DashboardLayout";
 import Account from "../pages/Dashboard/Account/Account";
 import Divisions from "../pages/Dashboard/Division/Divisions";
+import EditDivision from "../pages/Dashboard/Division/EditDivision";
   export const router = createBrowserRouter([
     {
       path: "/",
@@ -48,6 +49,10 @@ import Divisions from "../pages/Dashboard/Division/Divisions";
         {
           path: 'divisions',
           element: <Divisions/>
+        },
+        {
+          path: 'divisions/:id',
+          element: <EditDivision/>
         },
       ]
     }

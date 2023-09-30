@@ -1,6 +1,7 @@
 import React from "react";
 import { FiEdit2,  } from "react-icons/fi";
 import { BsTrash } from "react-icons/bs";
+import { Link } from "react-router-dom";
 
 
 
@@ -24,7 +25,7 @@ const Table = ({ type = "", data = {}, deleteHandler= ()=>{} }) => {
               {item?.slug}
             </td>
             <td  className="py-2 px-4 w-[100px]">
-              <div className="flex items-center gap-3"><FiEdit2 className="group-hover:text-red-400"/> <BsTrash className="group-hover:text-red-400" onClick={()=>deleteHandler(item?.id)}/></div>
+              <div className="flex items-center gap-3"><Link to={`${item?.id}`}><FiEdit2 className="group-hover:text-red-400"/></Link> <BsTrash className="group-hover:text-red-400" onClick={()=>deleteHandler(item?.id)}/></div>
             </td>
             </tr>)
         }
