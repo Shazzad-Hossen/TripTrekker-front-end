@@ -8,6 +8,7 @@ export default {
     fontFamily: {
       'chakra': ['Chakra Petch', 'sans-serif'],
       'ptSans': ['PT Sans Narrow', 'sans-serif'],
+      'roboto': [ 'Roboto', 'sans-serif']
     },
     extend: {
       backgroundImage: {

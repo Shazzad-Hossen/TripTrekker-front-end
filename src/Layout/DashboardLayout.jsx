@@ -10,11 +10,13 @@ const DashboardLayout = () => {
             <Nav/>
            <div className="flex h-[calc(100vh-72.203px)]">
             <Sidebar/>
-          <div className="p-5 w-full h-full">
-          <div className="border h-full py-2 shadow-md rounded overflow-y-auto no-scrollbar"><Outlet/></div>
-          </div>
+        
+
+        <div className="h-[calc(100vh-80px)] w-full overflow-y-scroll p-5 ">  <div className=" w-full  py-2 border  shadow-md rounded min-h-[calc(100vh-120px)]  "><Outlet/></div></div>
+       
+        
            </div>
-            <Footer/>
+           
             
         </div>
     );

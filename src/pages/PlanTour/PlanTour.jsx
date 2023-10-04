@@ -1,38 +1,37 @@
 import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { publicGet } from "../../utilities/apiCaller";
 import PlaceCard from "../Shared/PlaceCard";
-import SectionTitle from "../Shared/SectionTitle";
-import { divisions, places } from "../../dummyData/dummyData";
-import { useNavigate } from "react-router-dom";
-
-
 
 const PlanTour = () => {
-  const [component, setComponent] = useState(true);
   const navigate = useNavigate();
-  const divisionHandler =(id)=>{
-    setComponent(false);
-  }
+  const [division, setDivision] = useState({});
 
-  const placeHandler = (id)=> navigate(`/plantour/${id}`);
+  useEffect(() => {
+    publicGet("/api/division").then((res) =>
+      res.status === 200 ? setDivision(res?.data) : ""
+    );
+  }, []);
+
+  const placeHandler = (id) => navigate(`/plantour/${id}`);
 
   return (
-    <main className="pt-36">
-      <SectionTitle title={"Plan a tour"} />
+    <main className="pt-10">
+      <h1 className="font-roboto font-[500] text-blue-100 text-[1.5rem]">
+        Select Division
+      </h1>
+      <h2 className="pb-10">Select places where you want to visit</h2>
 
-      {
-        component && <div className="pt-28 grid grid-cols-1 md:grid-cols-4 gap-5">
-        {divisions.map((division, index) => (
-          <PlaceCard data={division} key={index} onClick={divisionHandler} />
-        ))}
-      </div>
-      }
-      {
-        !component && <div className="pt-28 grid grid-cols-1 md:grid-cols-4 gap-5">
-        {places.map((place, index) => (
-          <PlaceCard data={place} key={index} onClick={placeHandler} />
-        ))}
-      </div>
-      }
+      
+        <div className="flex justify-center">
+        <div className="grid grid-cols-1 sm:grid-cols-2  md:grid-cols-3  lg:grid-cols-4 gap-5">
+          {division?.docs?.map((division, index) =><Link key={index} to={`${division?.id}`}> <PlaceCard
+              data={division}
+            /></Link>)}
+        </div>
+        </div>
+      
+     
     </main>
   );
 };

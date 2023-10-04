@@ -15,6 +15,7 @@ import Account from "../pages/Dashboard/Account/Account";
 import Divisions from "../pages/Dashboard/Division/Divisions";
 import EditDivision from "../pages/Dashboard/Division/EditDivision";
 import Places from "../pages/Dashboard/Places/Places";
+import DivisionsPage from "../pages/PlanTour/DivisionsPage";
   export const router = createBrowserRouter([
     {
       path: "/",
@@ -24,7 +25,8 @@ import Places from "../pages/Dashboard/Places/Places";
         {path: '/signin', element: <SignIn/> },
         {path: '/signup', element: <SignUp/> },
         {path: '/plantour', element: <PlanTour/> },
-        {path: '/plantour/:id', element: <PlaceDetails/> },
+        {path: '/plantour/:id', element: <DivisionsPage/> },
+        {path: '/places/:id', element: <PlaceDetails/> },
         {path: '/experience', element: <Experience/> },
         {path: '/packages', element: <Packages/> },
         {path: '/package/:id', element: <PackageDetails/> },

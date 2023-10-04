@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import PlanCards from "./PlanCards";
 import Scrollable from "../Shared/Scrollable";
+import { useParams } from "react-router-dom";
+import { useEffect } from "react";
+import { publicGet } from "../../utilities/apiCaller";
+import locationIco from '../../assets/icon/location.png';
 
 const thumbnails = [
   "https://i.ibb.co/b1vzmVr/thumb1.jpg",
@@ -9,7 +13,27 @@ const thumbnails = [
 ];
 
 const PlaceDetails = () => {
-  const [bannerImg, setBannerimg] = useState(thumbnails[0]);
+  const [place,setPlace] = useState();
+  const [bannerImg, setBannerimg] = useState('');
+
+  const {id} = useParams();
+   useEffect(()=>{
+
+    publicGet(`/api/place/${id}`).then(res=>{
+      console.log(res);
+    if(res.status===200){ 
+      setPlace(res.data);
+      setBannerimg(res?.data?.thumbnails[0])
+    }
+    else {
+      console.log(res.data);
+    }
+      
+    })
+
+    
+   },[]);
+  
 
   return (
     <div className="container pt-20  px-3 ">
@@ -23,58 +47,32 @@ const PlaceDetails = () => {
         </div>
         <div className="  grid grid-cols-3 md:flex md:flex-col gap-3 h-full">
           <img
-            onClick={() => setBannerimg(thumbnails[0])}
+            onClick={() => setBannerimg(place?.thumbnails[0])}
             className="w-full h-full rounded-lg border-[1px]  shadow-lg md:max-h-[200px] md:max-w-[350px] transform active:scale-95 hover:contrast-50 duration-300 "
-            src={thumbnails[0]}
+            src={place?.thumbnails[0]}
             alt=""
           />
           <img
-            onClick={() => setBannerimg(thumbnails[1])}
+            onClick={() => setBannerimg(place?.thumbnails[1])}
             className="w-full h-full rounded-lg border-[1px]  shadow-lg md:max-h-[200px] md:max-w-[350px] transform active:scale-95 hover:contrast-50 duration-300 "
-            src={thumbnails[1]}
+            src={place?.thumbnails[1]}
             alt=""
           />
           <img
-            onClick={() => setBannerimg(thumbnails[2])}
+            onClick={() => setBannerimg(place?.thumbnails[2])}
             className="w-full h-full rounded-lg border-[1px]  shadow-lg md:max-h-[200px] md:max-w-[350px] transform active:scale-95 hover:contrast-50 duration-300 "
-            src={thumbnails[2]}
+            src={place?.thumbnails[2]}
             alt=""
           />
         </div>
       </div>
       {/* Details section */}
-      <div className=" pt-4  rounded-lg p-5 my-4 shadow-lg text-[#333333] ">
-        <h1 className="text-3xl font-semibold font-chakra">
-          Saint Martin Island
+      <div className=" pt-4  rounded-lg p-5 my-4  text-[#333333] border ">
+        <h1 className="text-3xl font-[500] font-roboto text-blue-100">
+          {place?.name}
         </h1>
-        <h2 className="text-xl font-semibold ">Division: Division Name</h2>
-        <h2 className="text-lg font-medium pb-5">District: District Name</h2>
-        <p>
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Perferendis,
-          blanditiis eos distinctio odit dolorem repudiandae provident
-          accusamus? Debitis minus illo perspiciatis eos delectus ab possimus
-          harum alias quisquam veritatis! Quia labore quisquam, incidunt commodi
-          sunt velit odio exercitationem perspiciatis, officiis modi voluptate
-          veniam alias beatae necessitatibus voluptatibus neque repellendus
-          dolore est nihil facilis nam illo. Esse dicta voluptas mollitia natus
-          nisi ea possimus voluptatem quasi, veniam illum. Quidem, voluptate
-          architecto consectetur reprehenderit debitis nulla velit tenetur,
-          excepturi, perferendis minima tempore voluptates. Libero vero
-          temporibus deserunt. Quidem, quam maiores corporis laudantium suscipit
-          distinctio animi quae quasi, ea beatae perspiciatis recusandae
-          doloremque neque quaerat odio. Fuga corporis consectetur similique
-          dignissimos ex ab omnis ducimus debitis nemo amet modi inventore quia
-          incidunt maiores architecto unde, velit totam sint voluptates
-          exercitationem ipsa. Explicabo hic possimus voluptatem deleniti
-          eveniet est, cupiditate facere aut a, iste sint aperiam quis obcaecati
-          natus voluptas commodi adipisci repellat accusantium mollitia eum
-          exercitationem. Natus fugit culpa, praesentium sunt similique
-          molestiae doloremque cumque consequuntur ad ratione nemo, quas magnam!
-          Optio suscipit unde cum blanditiis dignissimos. In facilis praesentium
-          hic natus maiores ad aliquam iste eum atque, animi accusantium. Quo
-          neque, blanditiis, pariatur sit facilis placeat suscipit beatae autem
-          ratione ipsam aut!
-        </p>
+        <h2 className="text-lg  mb-5 flex items-center font-roboto "><img src={locationIco} alt="" className="w-[22px]" /> Division Name</h2>
+        <div className="px-10 py-16 min-h-[200px] text-justify" dangerouslySetInnerHTML={{ __html: place?.description }} />
       </div>
       <div className="mb-5 border rounded-md p-5">
       <h1 className="font-chakra text-xl font-bold text-[#333333] mb-5">
