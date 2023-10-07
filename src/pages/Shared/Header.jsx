@@ -15,6 +15,7 @@ const Header = () => {
     const {user}= useSelector((state)=>state.userInfo);
     const dispatch= useDispatch();
     const location=useLocation();
+    console.log(user);
 
 
 

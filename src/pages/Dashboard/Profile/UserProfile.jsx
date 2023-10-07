@@ -15,7 +15,7 @@ import { useNavigate } from "react-router-dom";
 import { IoIosArrowBack } from "react-icons/io";
 
 
-const Account = () => {
+const UserProfile = () => {
   const {
     register,
     handleSubmit,
@@ -116,7 +116,7 @@ const Account = () => {
 
   return (
    <div className="">
-    <div className="border-b text-xl font-[600] uppercase px-2 pb-3 flex items-center"> <button className="border px-2  py-2 mr-5 rounded" onClick={()=>navigate(-1)}><IoIosArrowBack/></button> Account</div>
+    <div className="border-b text-xl font-[600] uppercase px-2 pb-3 flex items-center"> <button className="border px-2  py-2 mr-5 rounded" onClick={()=>navigate(-1)}><IoIosArrowBack/></button> Profile</div>
      <div className="pl-20 pr-5 py-10">
       <div className="flex gap-10">
         <h1 className="text-blue-100 font-[600]">Photo : </h1>
@@ -349,4 +349,4 @@ const Account = () => {
   );
 };
 
-export default Account;
+export default UserProfile;

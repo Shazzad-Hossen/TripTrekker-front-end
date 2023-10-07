@@ -1,144 +1,47 @@
-import React, { useState } from "react";
-import Input from "../Shared/Input";
-import { useForm } from "react-hook-form";
-import Button from "../Shared/Button";
-import PasswordInput from "../Shared/PasswordInput";
-import { Link, useNavigate } from "react-router-dom";
-import { FcGoogle } from "react-icons/fc";
-import { BsGithub } from "react-icons/bs";
-import { publicPost } from "../../utilities/apiCaller";
-import Swal from "sweetalert2";
+import userIco from '../../assets/icon/user.png';
+import travelIco from '../../assets/icon/travel-agent.png';
+import HotelIco from '../../assets/icon/hotel.png';
+import { useState } from 'react';
+import SignUpForm from './SignUpForm';
 
 const SignUp = () => {
-  const {
-    register,
-    handleSubmit,
-    setError,
-    clearErrors,
-    formState: { errors },
-  } = useForm();
-  const [checked, setChecked] = useState(false);
-  const navigate = useNavigate();
+    const [role, setRole] = useState('');
+    return (
+        <div className="w-full">
 
-  const onSubmit = (data) => {
-    delete data.accept;
-    if(data.password!==data.confirmPassword){
-      setError('confirmPassword', {message: 'Confirm password does not matched'})
-    }
-    else {
-      delete data.confirmPassword;
-      publicPost('/api/user',data).then(res=>{
-        if(res.status===201){
-          Swal.fire({
-            position: 'center',
-            icon: 'success',
-            title: 'Successfull',
-            showConfirmButton: false,
-            timer: 1500
-          });
-          navigate('/signin')
+            {
+                role !== '' ? <SignUpForm role={role} /> :
+                    <div className=" px-5">
+                        <div className='my-10 max-w-[800px] w-full mx-auto border rounded shadow-md px-10 pt-12 pb-20 '>
+                            <h1 className="text-blue-100 text-2xl text-center py-8 font-[600]">Join TripTrekker as</h1>
 
-        }
-        else {
-          Swal.fire({
-            position: 'center',
-            icon: 'error',
-            title: res?.data || 'Something wents wrong',
-            showConfirmButton: false,
-            timer: 1500
-          })
-        }
-      })
-    }
-  }
 
-  return (
-    <div className="mx-5">
-      <div className="border-2 max-w-[600px] mx-auto rounded-lg  my-24 py-10 shadow-md min-h-[650px] px-16">
-        <h1 className="font-chakra text-2xl font-[600] text-center pb-5 text-blue-100">
-          Sign Up
-        </h1>
+                            <div className="flex w-full   justify-center items-center gap-2 select-none">
 
-        <form className="flex flex-col gap-2" onSubmit={handleSubmit(onSubmit)}>
-          <Input
-            label="Full Name"
-            register={() =>
-              register("fullName", { required: "Name is required", minLength: {
-                value: 5,
-                message: 'Name must be at least 5 charecters'
-              } })
+                                <div className=" border shadow-sm p-5 flex justify-center items-center max-w-[150px] w-full flex-col cursor-pointer active:scale-95" onClick={() => setRole('user')}>
+                                    <img className='w-[40px] h-[40px]' src={userIco} alt="" />
+                                    <h1 className='pt-5 text-center font-[600] text-blue-200 drop-shadow'>General <br />User</h1>
+                                </div>
+
+                                <div className=" border shadow-sm p-5 flex justify-center items-center max-w-[150px] w-full flex-col cursor-pointer active:scale-95" onClick={() => setRole('agency')}>
+                                    <img className='w-[40px] h-[40px]' src={travelIco} alt="" />
+                                    <h1 className='pt-5 text-center font-[600] text-blue-200 drop-shadow'>Travel <br />Agency</h1>
+                                </div>
+
+                                <div className=" border shadow-sm p-5 flex justify-center items-center max-w-[150px] w-full flex-col cursor-pointer active:scale-95" onClick={() => setRole('hotel')}>
+                                    <img className='w-[40px] h-[40px]' src={HotelIco} alt="" />
+                                    <h1 className='pt-5 text-center font-[600] text-blue-200 drop-shadow'>Hotel <br />Owner</h1>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
             }
-            errors={errors["fullName"]}
-          />
-          <Input
-            label="Email"
-            type="email"
-            register={() => register("email", {
-              required: 'Email is required',
-              pattern: {
-                value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                message: 'Invalid email address',
-              },
-            })}
-            errors={errors['email']}
-          />
-          <div className="flex sm:items-start gap-2 justify-between w-full flex-col sm:flex-row">
-            <PasswordInput
-              label="Password"
-              className="w-full"
-              register={() => register("password", {
-                required: 'Password is required',
-                pattern: {
-                  value: /^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^A-Za-z0-9]).{8,16}$/,
-                  message: 'Password must meet the criteria',
-                },
-              })}
-              errors={errors['password']}
-            />
-            <PasswordInput
-              label="Confirm Password"
-              className="w-full"
-              register={() => register("confirmPassword",{
-                required: 'Password is required',
-                pattern: {
-                  value: /^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^A-Za-z0-9]).{8,16}$/,
-                  message: 'Password must meet the criteria',
-                },
-              })}
-              errors={errors['confirmPassword']}
-            />
-          </div>
-          <div className="flex  items-center gap-4">
-            <input
-              type="checkbox"
-              onClick={(e) => setChecked(e.target.checked)}
-              {...register("accept")}
-            />
-            <p className="font-[400] text-sm text-blue-200">
-              Accept terms and{" "}
-              <Link to="#" className="text-blue-100 font-[600]">
-                conditions
-              </Link>
-            </p>
-          </div>
-          <Button disabled={!checked} type="submit" className="btn-primary" onClick={()=>clearErrors()}>
-            Sign Up
-          </Button>
-        </form>
-        <div className="text-center py-5 text-blue-200"> Or Sign In with</div>
 
-        <div className="w-full flex flex-col gap-5">
-          <Button className="w-full btn-secondary" StartIcon={FcGoogle}>
-            Sign in with Google
-          </Button>
-          <Button className="w-full btn-secondary" StartIcon={BsGithub}>
-            Sign in with GitHub
-          </Button>
+
         </div>
-        
-      </div>
-    </div>
-  );
+    );
 };
 
 export default SignUp;

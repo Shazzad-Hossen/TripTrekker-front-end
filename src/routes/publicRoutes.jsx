@@ -1,23 +1,25 @@
 import { Navigate, createBrowserRouter } from "react-router-dom";
-import Home from "../pages/Home/Home";
-import Main from "../Layout/Main";
-import SignIn from "../pages/SignIn/SignIn";
-import SignUp from "../pages/SignUp/SignUp";
-import PlanTour from "../pages/PlanTour/PlanTour";
-import PlaceDetails from "../pages/PlaceDetails/PlaceDetails";
-import Experience from "../pages/Experience/Experience";
-import PackageDetails from "../pages/Packages/PackageDetails";
-import Packages from "../pages/Packages/Packages";
-import Hotels from "../pages/Hotels/Hotels";
-import Dashboard from "../pages/Dashboard/Dashboard";
 import DashboardLayout from "../Layout/DashboardLayout";
-import Account from "../pages/Dashboard/Account/Account";
+import Main from "../Layout/Main";
+import Dashboard from "../pages/Dashboard/Dashboard";
 import Divisions from "../pages/Dashboard/Division/Divisions";
 import EditDivision from "../pages/Dashboard/Division/EditDivision";
-import Places from "../pages/Dashboard/Places/Places";
-import DivisionsPage from "../pages/PlanTour/DivisionsPage";
 import AddPlaces from "../pages/Dashboard/Places/AddPlaces";
 import EditPlace from "../pages/Dashboard/Places/EditPlace";
+import Places from "../pages/Dashboard/Places/Places";
+import Profile from "../pages/Dashboard/Profile/Profile";
+import Experience from "../pages/Experience/Experience";
+import Home from "../pages/Home/Home";
+import Hotels from "../pages/Hotels/Hotels";
+import PackageDetails from "../pages/Packages/PackageDetails";
+import Packages from "../pages/Packages/Packages";
+import PlaceDetails from "../pages/PlaceDetails/PlaceDetails";
+import DivisionsPage from "../pages/PlanTour/DivisionsPage";
+import PlanTour from "../pages/PlanTour/PlanTour";
+import SignIn from "../pages/SignIn/SignIn";
+import SignUp from "../pages/SignUp/SignUp";
+
+
   export const router = createBrowserRouter([
     {
       path: "/",
@@ -48,8 +50,8 @@ import EditPlace from "../pages/Dashboard/Places/EditPlace";
           element: <Dashboard/>
         },
         {
-          path: 'account',
-          element: <Account/>
+          path: 'profile',
+          element: <Profile/>
         },
         {
           path: 'divisions',
