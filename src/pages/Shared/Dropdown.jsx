@@ -42,8 +42,8 @@ export default function DropDown({
 
     useEffect(() => {
         setSelected(data.find(item => item?.id === value));
-        setValue(name || 'dropdown', null);
-    }, [value]);
+        setValue(name || 'dropdown', value);
+    }, [data, value]);
 
     return (
         <>
