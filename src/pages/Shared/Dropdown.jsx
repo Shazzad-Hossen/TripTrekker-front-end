@@ -43,7 +43,7 @@ export default function DropDown({
     useEffect(() => {
         setSelected(data.find(item => item?.id === value));
         setValue(name || 'dropdown', null);
-    }, []);
+    }, [value]);
 
     return (
         <>

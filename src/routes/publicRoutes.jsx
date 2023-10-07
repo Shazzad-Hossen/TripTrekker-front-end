@@ -16,6 +16,8 @@ import Divisions from "../pages/Dashboard/Division/Divisions";
 import EditDivision from "../pages/Dashboard/Division/EditDivision";
 import Places from "../pages/Dashboard/Places/Places";
 import DivisionsPage from "../pages/PlanTour/DivisionsPage";
+import AddPlaces from "../pages/Dashboard/Places/AddPlaces";
+import EditPlace from "../pages/Dashboard/Places/EditPlace";
   export const router = createBrowserRouter([
     {
       path: "/",
@@ -61,6 +63,9 @@ import DivisionsPage from "../pages/PlanTour/DivisionsPage";
           path: 'places',
           element: <Places/>
         },
+        {path: 'places/addplaces', element: <AddPlaces/> },
+        {path: 'places/edit/:id', element: <EditPlace/> },
+
       ]
     }
   ]);
