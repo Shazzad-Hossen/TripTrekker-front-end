@@ -31,6 +31,7 @@ const UserProfile = () => {
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.userInfo);
   const navigate = useNavigate();
+  const [type,setType]=useState('');
   useEffect(() => {
     Object.keys(user).forEach((key) => setValue(key, user[key]));
     setPhoto(user?.avatar);
@@ -94,6 +95,10 @@ const UserProfile = () => {
             showConfirmButton: false,
             timer: 1500,
           });
+
+          setTimeout(()=>{
+            if(type==='next') navigate('additionalinfo');
+          },2000)
         } else {
           Swal.fire({
             position: "center",
@@ -334,13 +339,16 @@ const UserProfile = () => {
 
         <div className="flex items-center justify-center gap-3 pt-10">
           <Button
-            className="bg-blue-200 text-white w-[80px] "
+            className={`${user?.role==='user'?'bg-blue-200':'bg-blue-300'} text-white w-[80px]`}
             onClick={() => resetHandler()}
           >
             Reset
           </Button>
-          <Button type="submit" className="btn-primary  w-[80px]">
+          <Button type="submit" className={`${user?.role==='user'?'btn-primary':'bg-blue-200 text-white'}  w-[80px]`}>
             Save
+          </Button>
+          <Button type="submit" className={`${user?.role==='user'?'hidden':'block'} btn-primary text-white  w-[80px]`} onClick={()=>setType('next')}>
+            Next
           </Button>
         </div>
       </form>

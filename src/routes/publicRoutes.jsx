@@ -7,7 +7,7 @@ import EditDivision from "../pages/Dashboard/Division/EditDivision";
 import AddPlaces from "../pages/Dashboard/Places/AddPlaces";
 import EditPlace from "../pages/Dashboard/Places/EditPlace";
 import Places from "../pages/Dashboard/Places/Places";
-import Profile from "../pages/Dashboard/Profile/Profile";
+import UserProfile from "../pages/Dashboard/Profile/UserProfile";
 import Experience from "../pages/Experience/Experience";
 import Home from "../pages/Home/Home";
 import Hotels from "../pages/Hotels/Hotels";
@@ -18,6 +18,7 @@ import DivisionsPage from "../pages/PlanTour/DivisionsPage";
 import PlanTour from "../pages/PlanTour/PlanTour";
 import SignIn from "../pages/SignIn/SignIn";
 import SignUp from "../pages/SignUp/SignUp";
+import AdditionalInfo from "../pages/Dashboard/Profile/AdditionalInfo";
 
 
   export const router = createBrowserRouter([
@@ -51,7 +52,11 @@ import SignUp from "../pages/SignUp/SignUp";
         },
         {
           path: 'profile',
-          element: <Profile/>
+          element: <UserProfile/>
+        },
+        {
+          path: 'profile/additionalinfo',
+          element: <AdditionalInfo/>
         },
         {
           path: 'divisions',
