@@ -19,6 +19,8 @@ import PlanTour from "../pages/PlanTour/PlanTour";
 import SignIn from "../pages/SignIn/SignIn";
 import SignUp from "../pages/SignUp/SignUp";
 import AdditionalInfo from "../pages/Dashboard/Profile/AdditionalInfo";
+import AllAgencies from "../pages/Dashboard/Agencies/AllAgencies";
+import ViewAgencyDetails from "../pages/Dashboard/Agencies/ViewAgencyDetails";
 
 
   export const router = createBrowserRouter([
@@ -72,6 +74,8 @@ import AdditionalInfo from "../pages/Dashboard/Profile/AdditionalInfo";
         },
         {path: 'places/addplaces', element: <AddPlaces/> },
         {path: 'places/edit/:id', element: <EditPlace/> },
+        {path: 'agencies', element: <AllAgencies/> },
+        {path: 'agencies/:id', element: <ViewAgencyDetails/> },
 
       ]
     }
