@@ -21,6 +21,10 @@ import SignUp from "../pages/SignUp/SignUp";
 import AdditionalInfo from "../pages/Dashboard/Profile/AdditionalInfo";
 import AllAgencies from "../pages/Dashboard/Agencies/AllAgencies";
 import ViewAgencyDetails from "../pages/Dashboard/Agencies/ViewAgencyDetails";
+import AllHotels from "../pages/Dashboard/Hotels/AllHotels";
+import ViewHotelDetails from "../pages/Dashboard/Hotels/ViewHotelDetails";
+import AllPackages from "../pages/Dashboard/Packages/AllPackages";
+import AddPackages from "../pages/Dashboard/Packages/AddPackages";
 
 
   export const router = createBrowserRouter([
@@ -40,6 +44,7 @@ import ViewAgencyDetails from "../pages/Dashboard/Agencies/ViewAgencyDetails";
         {path: '/hotels', element: <Hotels/> },
       ]
     },
+    //Dashboard
     {
       path: '/dashboard',
       element: <DashboardLayout/>,
@@ -56,10 +61,12 @@ import ViewAgencyDetails from "../pages/Dashboard/Agencies/ViewAgencyDetails";
           path: 'profile',
           element: <UserProfile/>
         },
+        //Profile
         {
           path: 'profile/additionalinfo',
           element: <AdditionalInfo/>
         },
+        //Divisions
         {
           path: 'divisions',
           element: <Divisions/>
@@ -68,14 +75,25 @@ import ViewAgencyDetails from "../pages/Dashboard/Agencies/ViewAgencyDetails";
           path: 'divisions/:id',
           element: <EditDivision/>
         },
+        //Places
         {
           path: 'places',
           element: <Places/>
         },
         {path: 'places/addplaces', element: <AddPlaces/> },
         {path: 'places/edit/:id', element: <EditPlace/> },
+        //Agencies
         {path: 'agencies', element: <AllAgencies/> },
         {path: 'agencies/:id', element: <ViewAgencyDetails/> },
+        //hotels
+        {path: 'hotels', element: <AllHotels/> },
+        {path: 'hotels/:id', element: <ViewHotelDetails/> },
+        //Packages
+        {path: 'packages', element: <AllPackages/>},
+        {path: 'packages/addpackages', element: <AddPackages/>},
+
+        
+
 
       ]
     }

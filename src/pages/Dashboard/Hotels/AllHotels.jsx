@@ -8,19 +8,19 @@ import { toast } from "../../../utilities/toast";
 import Table from "../../Shared/Table/Table";
 import Swal from "sweetalert2";
 
-const AllAgencies = () => {
+const AllHotels = () => {
   const navigate = useNavigate();
   const [filter, setFilter] = useState("all");
-  const [agencies,setAgencies] = useState({});
+  const [hotels,setHotels] = useState({});
 
   useEffect(()=>{
     fetchData();
 
   },[filter]);
   const fetchData = () => {
-    publicGet(`/api/agency?status=${filter}`).then(res=>{
+    publicGet(`/api/hotel?status=${filter}`).then(res=>{
         if(res.status===200) {
-            setAgencies(res.data);
+            setHotels(res.data);
         }
         else toast.error(res.data)
      })
@@ -39,7 +39,7 @@ const AllAgencies = () => {
           }).then((result) => {
             if (result.isConfirmed) {
 
-                publicDelete(`/api/agency/${id}`).then(res=>{
+                publicDelete(`/api/hotel/${id}`).then(res=>{
                     if(res.status===200){
                         console.log(res);
                         toast.success('Successfully deleted');
@@ -65,7 +65,7 @@ const AllAgencies = () => {
         >
           <IoIosArrowBack />
         </button>
-        Agencies
+        Hotels
       </div>
 
       <div className="flex items-center gap-5 px-10 pt-20">
@@ -76,10 +76,10 @@ const AllAgencies = () => {
         <button className={`${filter==='banned'?'bg-blue-200 text-white px-3 py-1 rounded':'text-blue-100'} font-[600]`} onClick={()=>setFilter('banned')}>Banned</button>
       </div>
 
-      <div className="px-10 py-10"><Table type='agency' data={agencies} callBack={callBackHandler}/></div>
+      <div className="px-10 py-10"><Table type='hotel' data={hotels} callBack={callBackHandler}/></div>
 
     </div>
   );
 };
 
-export default AllAgencies;
+export default AllHotels;

@@ -10,6 +10,10 @@ import { BiSolidUserAccount } from "react-icons/bi";
 import { HiOutlineGlobe } from "react-icons/hi";
 import { SiDatabricks } from "react-icons/si";
 import { BsFillSignpost2Fill } from "react-icons/bs";
+import { FaHotel } from "react-icons/fa";
+import { PiPackageFill } from "react-icons/pi";
+
+
 
 
 const DashboardLayout = () => {
@@ -19,6 +23,8 @@ const DashboardLayout = () => {
     <NavLink to='divisions' className={({isActive})=> isActive?' pl-2 ml-1 text-blue-200 font-[600]   sidebar-item':'sidebar-item text-white font-[400]'}><SiDatabricks/> Divisions </NavLink>
     <NavLink to='places' className={({isActive})=> isActive?' pl-2 ml-1 text-blue-200 font-[600]   sidebar-item':'sidebar-item text-white font-[400]'}><HiOutlineGlobe/> Places </NavLink>
     <NavLink to='agencies' className={({isActive})=> isActive?' pl-2 ml-1 text-blue-200 font-[600]   sidebar-item':'sidebar-item text-white font-[400]'}><BsFillSignpost2Fill/> Agencies </NavLink>
+    <NavLink to='hotels' className={({isActive})=> isActive?' pl-2 ml-1 text-blue-200 font-[600]   sidebar-item':'sidebar-item text-white font-[400]'}><FaHotel/> Hotels </NavLink>
+    <NavLink to='packages' className={({isActive})=> isActive?' pl-2 ml-1 text-blue-200 font-[600]   sidebar-item':'sidebar-item text-white font-[400]'}><PiPackageFill/> Packages </NavLink>
    
     </>
     

@@ -14,10 +14,10 @@ import { useEffect } from "react";
 
 
 
-const ViewAgencyDetails = () => {
+const ViewHotelDetails = () => {
   const navigate = useNavigate();
-  const {id:agencyId}= useParams();
-  const [agency,setAgency] = useState({});
+  const {id:hotelId}= useParams();
+  const [hotel,setHotel] = useState({});
   const [isOpen, setIsOpen] = useState(false);
   const [selected,setSelected]= useState('');
   const {
@@ -28,24 +28,24 @@ const ViewAgencyDetails = () => {
   } = useForm();
  
     
-    const fetchData = ()=>publicGet(`/api/agency/${agencyId}`). then(res=>res.status===200?setAgency(res.data):toast(res.data));
+    const fetchData = ()=>publicGet(`/api/hotel/${hotelId}`). then(res=>res.status===200?setHotel(res.data):toast(res.data));
     useState(()=>{
       fetchData();
   
     },[]);
   useEffect(()=>{
-    if(agency){
-      setValue('name', agency?.name);
-      setValue('email', agency?.email);
-      setValue('lisence', agency?.lisence);
-      setValue('address', agency?.address);
+    if(hotel){
+      setValue('name', hotel?.name);
+      setValue('email', hotel?.email);
+      setValue('lisence', hotel?.lisence);
+      setValue('address', hotel?.address);
     }
 
-  },[agency])
+  },[hotel])
 
   const onSubmit = (data) => {
     console.log(data);
-    privatePatch(`/api/agency`,{id: agency?.id, ...data}).then(res=>{
+    privatePatch(`/api/hotel`,{id: hotel?.id, ...data}).then(res=>{
       if(res.status===200){
         fetchData()
         toast.success('Successfully updated');
@@ -53,7 +53,6 @@ const ViewAgencyDetails = () => {
       else toast.error(res.data);
     })
   }
-
 
 
 
@@ -75,16 +74,16 @@ const ViewAgencyDetails = () => {
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="flex justify-between items-center flex-col-reverse  md:flex-row gap-16">
           <div className="flex items-center gap-10 flex-col md:flex-row">
-           <img className="rounded-full w-[100px] h-[100px] shadow-lg  border-l-gray-600 border-t-blue-200 border-r-amber-600 border-b-slate-400  border-4" src={agency?.logo? import.meta.env.VITE_SERVER_URL +'/api/'+agency?.logo:'https://i.ibb.co/sCXxtkn/No-image-found.jpg'} alt="" />
+           <img className="rounded-full w-[100px] h-[100px] shadow-lg  border-l-gray-600 border-t-blue-200 border-r-amber-600 border-b-slate-400  border-4" src={hotel?.logo? import.meta.env.VITE_SERVER_URL +'/api/'+hotel?.logo:'https://i.ibb.co/sCXxtkn/No-image-found.jpg'} alt="" />
            <div className="text-center md:text-start">
-            <h1 className="text-blue-100 font-[600] text-xl">{agency?.name}</h1>
-            <h2 className="text-blue-200 font-[600] text-md">{agency?.email}</h2>
+            <h1 className="text-blue-100 font-[600] text-xl">{hotel?.name}</h1>
+            <h2 className="text-blue-200 font-[600] text-md">{hotel?.email}</h2>
            </div>
            </div>
            <div className="flex w-full justify-end items-center gap-2 pr-5 ">
-            <div className={` h-3 w-3 rounded-full ${agency?.status==='declined'? 'bg-gray-400':agency?.status==='pending'? 'bg-orange-400 ':agency?.status==='banned'? 'bg-red-600':agency?.status==='approved'? 'bg-green-600':''}`}></div>
+            <div className={` h-3 w-3 rounded-full ${hotel?.status==='declined'? 'bg-gray-400':hotel?.status==='pending'? 'bg-orange-400 ':hotel?.status==='banned'? 'bg-red-600':hotel?.status==='approved'? 'bg-green-600':''}`}></div>
             
-            <span className={`first-letter:uppercase font-[600] ${agency?.status==='declined'? 'text-gray-400':agency?.status==='pending'? 'text-orange-400 ':agency?.status==='banned'? 'text-red-600':agency?.status==='approved'? 'text-green-600':''} `}>{agency?.status}</span>
+            <span className={`first-letter:uppercase font-[600] ${hotel?.status==='declined'? 'text-gray-400':hotel?.status==='pending'? 'text-orange-400 ':hotel?.status==='banned'? 'text-red-600':hotel?.status==='approved'? 'text-green-600':''} `}>{hotel?.status}</span>
           
           </div>
           </div>
@@ -93,7 +92,7 @@ const ViewAgencyDetails = () => {
 
 
             <div className="border rounded p-5">
-              <h1 className="text-blue-200 font-[600] text-xl pb-5">Agency Information</h1>
+              <h1 className="text-blue-200 font-[600] text-xl pb-5">hotel Information</h1>
               <div className="flex flex-col gap-5">
               <Input label='Name'  register={()=>register('name', { required: 'This field is Required'})} name='name' errors={errors['name']}/>
               <Input label='Email'  register={()=>register('email', { required: 'This field is Required'})} name='email' errors={errors['email']} />
@@ -106,7 +105,7 @@ const ViewAgencyDetails = () => {
                  <p className={` text-blue-100 font-[600] pb-2 `}>Documents</p>
                  <div className="flex flex-wrap gap-5">
                  {
-                  agency?.documents?.map((doc,index)=><div key={index} className="border rounded bg-orange-50 p-2 flex items-center gap-5 active:scale-95 duration-700 cursor-pointer select-none" onClick={()=>{setSelected(doc?.path); setIsOpen(true)}}>
+                  hotel?.documents?.map((doc,index)=><div key={index} className="border rounded bg-orange-50 p-2 flex items-center gap-5 active:scale-95 duration-700 cursor-pointer select-none" onClick={()=>{setSelected(doc?.path); setIsOpen(true)}}>
                   <img className="w-[20px]" src={pdfIco} alt="" /> {doc?.name}
                  </div>)
                  }
@@ -119,9 +118,9 @@ const ViewAgencyDetails = () => {
             <div className="border rounded p-5">
               <h1 className="text-blue-200 font-[600] text-xl pb-5">Owner Information</h1>
               <div className="flex flex-col gap-5">
-              <Input label='Name' defaultValue={agency?.user?.fullName} disabled/>
-              <Input label='Email' defaultValue={agency?.user?.email} disabled/>
-              <Input label='Phone' defaultValue={agency?.user?.phone} disabled/>
+              <Input label='Name' defaultValue={hotel?.user?.fullName} disabled/>
+              <Input label='Email' defaultValue={hotel?.user?.email} disabled/>
+              <Input label='Phone' defaultValue={hotel?.user?.phone} disabled/>
               </div>
             </div>
 
@@ -143,7 +142,7 @@ const ViewAgencyDetails = () => {
             {id: 'declined' , name: 'Decline'},
             {id: 'banned' , name: 'Banned'},
           ]}
-          value={agency?.status}
+          value={hotel?.status}
           setValue={setValue} name='status'
           />
           <Button type="submit" className="bg-blue-100 text-white" >Update</Button>
@@ -170,4 +169,4 @@ const ViewAgencyDetails = () => {
     );
 };
 
-export default ViewAgencyDetails;
+export default ViewHotelDetails;
