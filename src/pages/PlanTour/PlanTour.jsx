@@ -8,7 +8,7 @@ const PlanTour = () => {
   const [division, setDivision] = useState({});
 
   useEffect(() => {
-    publicGet("/api/division").then((res) =>
+    publicGet("/api/division?paginate=true").then((res) =>
       res.status === 200 ? setDivision(res?.data) : ""
     );
   }, []);

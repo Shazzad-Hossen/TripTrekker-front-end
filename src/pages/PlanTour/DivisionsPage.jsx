@@ -10,13 +10,14 @@ const DivisionsPage = () => {
   const [places, setPlaces] = useState({});
   const navigate = useNavigate();
   useEffect(() => {
-    publicGet(`/api/place?division=${id}`).then((res) => {
+    publicGet(`/api/place?division=${id}&paginate=true`).then((res) => {
       if (res.status === 200) setPlaces(res?.data);
       else {
         console.log("Error");
       }
     });
   }, []);
+
 
   return (
     <main>

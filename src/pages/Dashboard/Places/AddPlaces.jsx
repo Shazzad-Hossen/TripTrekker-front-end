@@ -35,7 +35,7 @@ const AddPlaces = () => {
   } = useForm();
 
   useEffect(() => {
-    publicGet("/api/division").then((res) => setDivisions(res?.data.docs));
+    publicGet("/api/division").then((res) => setDivisions(res?.data));
   }, []);
 
   const handleFile = (e) => {

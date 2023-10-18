@@ -42,6 +42,7 @@ const HotelProfile = () => {
     }
 
   },[user]);
+console.log(user);
 
 
   const handleFileChange = (e) => {
@@ -100,6 +101,7 @@ const HotelProfile = () => {
     publicPost('/api/hotel',{...data, documents: docs }). then(res=>{
       if(res.status===201){
         dispatch(setUser(res?.data));
+        toast.success('Successfully added');
         
       }
     })
@@ -110,6 +112,8 @@ const HotelProfile = () => {
       if(res.status===200){
 
         dispatch(setUser(res?.data));
+        toast.success('Successfully updated');
+
         
       }
     })
