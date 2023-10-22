@@ -10,6 +10,9 @@ const TABLE_HEAD = {
   place: ["SL.", "Name", "Division",'Action'],
   agency: ["SL.","Logo", "Name", "Email",'Lisence No','Owner','Status', 'Action'],
   hotel: ["SL.","Logo", "Name", "Email",'Lisence No','Owner','Status', 'Action'],
+  'tour_package': ["SL.", "Name", "Agency", "Status", "Action"],
+  'hotel_package': ["SL.", "Name", "Hotel", "Status", "Action"],
+  'package': ["SL.", "Name", "Agency/Hotel", "Status", "Action"],
 };
 
 const Table = ({ type = "", data = {}, deleteHandler= ()=>{}, callBack=()=>{} }) => {
@@ -132,6 +135,96 @@ const Table = ({ type = "", data = {}, deleteHandler= ()=>{}, callBack=()=>{} })
   </tbody>) 
 
   }
+
+  const renderTourPackageRows = () =>{
+    return (<tbody>
+      {
+          data?.docs?.map((item, index)=><tr key={index} className=" border-b border-gray-300 group hover:bg-blue-400/10" >
+          <td  className="py-2 px-4 font-[600] w-[80px]+ ">
+            {index+1}
+          </td>
+          <td className="px-4">{item?.name}</td>
+          <td  className="py-2 px-4">
+            {item?.agency?.name}
+          </td>
+          
+          <td  className={'py-2 px-4 first-letter:uppercase'}>
+            <p className={` ${item?.status==='pending'?'bg-orange-400 text-white ':item?.status==='approved'?'bg-green-600 text-white ':item?.status==='rejected'?'bg-red-600 text-white ':''} w-fit py-1 px-3 rounded-2xl`}> {item?.status}</p>
+           
+          </td>
+          <td  className="py-2 px-4 w-[100px]">
+            <div className="flex items-center gap-3"><FiEdit2 className="group-hover:text-red-400" onClick={()=>callBack('edit',item?.id)}/> <BsTrash className="group-hover:text-red-400" onClick={()=>callBack('delete',item?.id)}/></div>
+          </td>
+          </tr>)
+      }
+
+    
+
+  </tbody>) 
+
+  }
+
+  const renderHotelPackageRows = () =>{
+    return (<tbody>
+      {
+          data?.docs?.map((item, index)=><tr key={index} className=" border-b border-gray-300 group hover:bg-blue-400/10" >
+          <td  className="py-2 px-4 font-[600] w-[80px]+ ">
+            {index+1}
+          </td>
+          <td className="px-4">{item?.name}</td>
+          <td  className="py-2 px-4">
+            {item?.hotel?.name}
+          </td>
+          
+          <td  className={'py-2 px-4 first-letter:uppercase'}>
+            <p className={` ${item?.status==='pending'?'bg-orange-400 text-white ':item?.status==='approved'?'bg-green-600 text-white ':item?.status==='rejected'?'bg-red-600 text-white ':''} w-fit py-1 px-3 rounded-2xl`}> {item?.status}</p>
+           
+          </td>
+          <td  className="py-2 px-4 w-[100px]">
+            <div className="flex items-center gap-3"><FiEdit2 className="group-hover:text-red-400" onClick={()=>callBack('edit',item?.id)}/> <BsTrash className="group-hover:text-red-400" onClick={()=>callBack('delete',item?.id)}/></div>
+          </td>
+          </tr>)
+      }
+
+    
+
+  </tbody>) 
+
+  }
+
+  const renderPackageRows = () =>{
+
+    return (<tbody>
+      {
+          data?.docs?.map((item, index)=><tr key={index} className=" border-b border-gray-300 group hover:bg-blue-400/10" >
+          <td  className="py-2 px-4 font-[600] w-[80px]+ ">
+            {index+1}
+          </td>
+          <td className="px-4">{item?.name}</td>
+          <td  className="py-2 px-4">
+            {item?.hotel?.name || item?.agency?.name || 'Not Available'}
+          </td>
+          
+          <td  className={'py-2 px-4 first-letter:uppercase'}>
+            <p className={` ${item?.status==='pending'?'bg-orange-400 text-white ':item?.status==='approved'?'bg-green-600 text-white ':item?.status==='rejected'?'bg-red-600 text-white ':''} w-fit py-1 px-3 rounded-2xl`}> {item?.status}</p>
+           
+          </td>
+          <td  className="py-2 px-4 w-[100px]">
+            <div className="flex items-center gap-3"><FiEdit2 className="group-hover:text-red-400" onClick={()=>callBack('edit',item?.id)}/> <BsTrash className="group-hover:text-red-400" onClick={()=>callBack('delete',item?.id)}/></div>
+          </td>
+          </tr>)
+      }
+
+    
+
+  </tbody>) 
+
+  }
+
+  
+
+
+
   return (
     <div className="overflow-x-auto w-full">
       <table className="w-full bg-white border border-gray-300 shadow-md rounded-lg ">
@@ -150,7 +243,16 @@ const Table = ({ type = "", data = {}, deleteHandler= ()=>{}, callBack=()=>{} })
         {type === "division" ? renderDivisionRows() :
         type === "place" ? renderPlaceRows() :
         type === "agency" ? renderAgencyRows() :
-        type === "hotel" ? renderHotelRows() : ""
+        type === "hotel" ? renderHotelRows() : 
+        type === "tour_package" ? renderTourPackageRows() :
+        type === "hotel_package" ? renderHotelPackageRows() :
+        type === "package" ? renderPackageRows() : ""
+
+        
+
+
+
+        
 
         }
       </table>

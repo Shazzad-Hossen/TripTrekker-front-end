@@ -28,7 +28,7 @@ const UploadImage = ({ thumbnails = [], callBack = () => { } }) => {
 
 
     const renderImage = (key) => {
-        return typeof images[key] === 'string' ? images[key] : URL.createObjectURL(images[key])
+        return typeof images[key] === 'string' ? import.meta.env.VITE_SERVER_URL+'/api/'+images[key] : URL.createObjectURL(images[key])
 
     }
     const handleDelete = (key) =>{

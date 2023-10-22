@@ -34,7 +34,7 @@ const Divisions = () => {
 
       },[]);
       const fetchData = () =>{
-        publicGet('/api/division').then(res=>setDivisionData(res?.data))
+        publicGet('/api/division?paginate=true').then(res=>setDivisionData(res?.data))
       }
 
        //   Image Upload to ImgBB

@@ -90,7 +90,7 @@ import AddPackages from "../pages/Dashboard/Packages/AddPackages";
         {path: 'hotels/:id', element: <ViewHotelDetails/> },
         //Packages
         {path: 'packages', element: <AllPackages/>},
-        {path: 'packages/addpackages', element: <AddPackages/>},
+        {path: 'packages/:id', element: <AddPackages/>},
 
         
 

@@ -23,7 +23,7 @@ const Places = () => {
 
   },[]);
   const fetchData = ()=>{
-    publicGet(`/api/place`).then(res=>{
+    publicGet(`/api/place?paginate=true`).then(res=>{
       if(res.status===200) {
         setPlaces(res?.data);
       }
