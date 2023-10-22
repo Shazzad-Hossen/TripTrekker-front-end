@@ -5,16 +5,15 @@ import { useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { publicGet } from "../../utilities/apiCaller";
 import locationIco from '../../assets/icon/location.png';
+import { toast } from "../../utilities/toast";
 
-const thumbnails = [
-  "https://i.ibb.co/b1vzmVr/thumb1.jpg",
-  "https://i.ibb.co/w4ZjmF2/ko-tapu-2560x1440-thailand-islands-mountains-rocks-ocean-5k-16556.jpg",
-  "https://i.ibb.co/NjrQDRC/mountains-2560x1440-fog-sky-field-4k-23318.jpg",
-];
 
 const PlaceDetails = () => {
-  const [place,setPlace] = useState();
+  const [place,setPlace] = useState(null);
   const [bannerImg, setBannerimg] = useState('');
+  const [packages,setPackages]=useState([]);
+
+
 
   const {id} = useParams();
    useEffect(()=>{
@@ -23,7 +22,8 @@ const PlaceDetails = () => {
       console.log(res);
     if(res.status===200){ 
       setPlace(res.data);
-      setBannerimg(res?.data?.thumbnails[0])
+      setBannerimg(res?.data?.thumbnails[0]);
+
     }
     else {
       console.log(res.data);
@@ -31,10 +31,14 @@ const PlaceDetails = () => {
       
     })
 
-    
    },[]);
-  
 
+   useEffect(()=>{
+    if(place) publicGet(`/api/package?place=${place?.id}&type=agency`).then(res=>res?.status===200?setPackages(res?.data):toast.error(res?.data));
+
+   },[place])
+  
+console.log(packages);
   return (
     <div className="container pt-20  px-3 ">
       <div className="  flex gap-5 h-full max-h-[600px] md:h-[600px] w-full flex-col md:flex-row">
@@ -71,7 +75,7 @@ const PlaceDetails = () => {
         <h1 className="text-3xl font-[500] font-roboto text-blue-100">
           {place?.name}
         </h1>
-        <h2 className="text-lg  mb-5 flex items-center font-roboto "><img src={locationIco} alt="" className="w-[22px]" /> Division Name</h2>
+        <h2 className="text-lg  mb-5 flex items-center font-roboto "><img src={locationIco} alt="" className="w-[22px]" /> {place?.division?.name}</h2>
         <div className="px-10 py-16 min-h-[200px] text-justify" dangerouslySetInnerHTML={{ __html: place?.description }} />
       </div>
       <div className="mb-5 border rounded-md p-5">
@@ -79,7 +83,7 @@ const PlaceDetails = () => {
           Popular Packages
         </h1>
          
-        <Scrollable> {[1, 2, 3, 4, 5, 6, 7].map((item, i) => (
+        <Scrollable> {packages.map((item, i) => (
             <PlanCards key={i} data={item} />
           ))}</Scrollable>
       </div>

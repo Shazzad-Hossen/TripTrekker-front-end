@@ -22,7 +22,7 @@ const AllPackages = () => {
   const [type,setType]= useState(user?.role==='hotel'?'hotel': user?.role==='agency'?'agency':'all');
   const [sort,setSort]=useState(true);
   const [status,setStatus]=useState('all');
-  const fetchPackages= ()=> publicGet(`/api/package?type=${type}&sortBy=createdAt:${sort===true?'desc':'asc'} ${status!=='all'?'&status='+status:''}`).then(res=> res?.status===200? setPackages(res.data):toast.error(res?.data));
+  const fetchPackages= ()=> publicGet(`/api/package?type=${type}&sortBy=createdAt:${sort===true?'desc':'asc'} ${status!=='all'?'&status='+status:''}&paginate=true`).then(res=> res?.status===200? setPackages(res.data):toast.error(res?.data));
   useEffect(()=>{
     if(user){
       fetchPackages();
