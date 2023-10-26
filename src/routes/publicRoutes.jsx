@@ -25,6 +25,7 @@ import AllHotels from "../pages/Dashboard/Hotels/AllHotels";
 import ViewHotelDetails from "../pages/Dashboard/Hotels/ViewHotelDetails";
 import AllPackages from "../pages/Dashboard/Packages/AllPackages";
 import AddPackages from "../pages/Dashboard/Packages/AddPackages";
+import HotelDetails from "../pages/HotelDetails/HotelDetails";
 
 
   export const router = createBrowserRouter([
@@ -42,6 +43,8 @@ import AddPackages from "../pages/Dashboard/Packages/AddPackages";
         {path: '/packages', element: <Packages/> },
         {path: '/package/:id', element: <PackageDetails/> },
         {path: '/hotels', element: <Hotels/> },
+        {path: 'hotels/:id', element: <HotelDetails/> },
+
       ]
     },
     //Dashboard

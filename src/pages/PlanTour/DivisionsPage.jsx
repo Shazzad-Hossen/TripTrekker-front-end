@@ -11,6 +11,7 @@ const DivisionsPage = () => {
   const navigate = useNavigate();
   useEffect(() => {
     publicGet(`/api/place?division=${id}&paginate=true`).then((res) => {
+      console.log(res);
       if (res.status === 200) setPlaces(res?.data);
       else {
         console.log("Error");

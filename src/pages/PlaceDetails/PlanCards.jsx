@@ -3,10 +3,9 @@ import Ratings from '../Shared/Ratings';
 import { useNavigate } from 'react-router-dom';
 
 const PlanCards = ({ data  }) => {
-    console.log(data);
     const navigate = useNavigate();
     return (
-        <div onClick={()=>navigate('/package/1234')} className='select-none border rounded p-2 min-w-[250px] max-w-[300px] w-full drop-shadow-lg active:scale-95 transform duration-300 hover:-translate-y-1 '>
+        <div onClick={()=>navigate(`/package/${data?.id}`)} className='select-none border rounded p-2 min-w-[250px] max-w-[300px] w-full drop-shadow-lg active:scale-95 transform duration-300 hover:-translate-y-1 '>
             <div className="rounded">
                 <img className='rounded pointer-events-none' src={import.meta.env.VITE_SERVER_URL+'/api/'+data?.photos[0]} alt="" />
             </div>

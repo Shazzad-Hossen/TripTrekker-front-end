@@ -6,12 +6,14 @@ import { useEffect } from "react";
 import { publicGet } from "../../utilities/apiCaller";
 import locationIco from '../../assets/icon/location.png';
 import { toast } from "../../utilities/toast";
+import HotelCard from "../Shared/hotelCard";
 
 
 const PlaceDetails = () => {
   const [place,setPlace] = useState(null);
   const [bannerImg, setBannerimg] = useState('');
   const [packages,setPackages]=useState([]);
+  const [hotels,setHotels]=useState([]);
 
 
 
@@ -34,11 +36,14 @@ const PlaceDetails = () => {
    },[]);
 
    useEffect(()=>{
-    if(place) publicGet(`/api/package?place=${place?.id}&type=agency`).then(res=>res?.status===200?setPackages(res?.data):toast.error(res?.data));
+    if(place) {
+      publicGet(`/api/package?place=${place?.id}&type=agency`).then(res=>res?.status===200?setPackages(res?.data):toast.error(res?.data));
+      publicGet(`/api/hotel?place=${place?.id}`).then(res=>res?.status===200?setHotels(res?.data):toast.error(res?.data));
 
+    }
    },[place])
   
-console.log(packages);
+
   return (
     <div className="container pt-20  px-3 ">
       <div className="  flex gap-5 h-full max-h-[600px] md:h-[600px] w-full flex-col md:flex-row">
@@ -85,6 +90,15 @@ console.log(packages);
          
         <Scrollable> {packages.map((item, i) => (
             <PlanCards key={i} data={item} />
+          ))}</Scrollable>
+      </div>
+      <div className="mb-5 border rounded-md p-5">
+      <h1 className="font-chakra text-xl font-bold text-[#333333] mb-5">
+          Near by Hotels
+        </h1>
+         
+        <Scrollable> {hotels.map((item, i) => (
+            <HotelCard key={i} data={item} />
           ))}</Scrollable>
       </div>
     </div>

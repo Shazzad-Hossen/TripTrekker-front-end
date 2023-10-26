@@ -18,7 +18,7 @@ const AllHotels = () => {
 
   },[filter]);
   const fetchData = () => {
-    publicGet(`/api/hotel?status=${filter}`).then(res=>{
+    publicGet(`/api/hotel?status=${filter}&paginate=true`).then(res=>{
         if(res.status===200) {
             setHotels(res.data);
         }

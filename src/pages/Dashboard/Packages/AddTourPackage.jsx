@@ -36,10 +36,13 @@ const AddTourPackage = ({ details:detailedData}) => {
     formState: { errors },
   } = useForm();
 
+  useEffect(()=>{
+    publicGet('/api/division').then(res=>res?.status===200? setDivisions(res?.data):toast.success(res?.data))
 
-  useEffect(() => {
-    publicGet("/api/division").then((res) => setDivisions(res?.data));
-  }, []);
+  },[])
+
+
+
 
   useEffect(()=>{
     if(details){
@@ -48,7 +51,7 @@ const AddTourPackage = ({ details:detailedData}) => {
       setValue('day',details?.duration?.day);
       setValue('night',details?.duration?.night);
       setValue('cost',details?.cost);
-      publicGet(`/api/place?division=${details?.division}`).then((res) => {
+      publicGet(`/api/place?division=${details?.division?.id}`).then((res) => {
         if (res.status === 200) setPlace(res.data);
         else {
           console.log("Error");
@@ -91,8 +94,7 @@ const AddTourPackage = ({ details:detailedData}) => {
       );
 
       if(details){
-        console.log({...data, description,photos:uploads });
-        privatePatch('/api/package',{...data, description,photos:uploads }).then(res=>res?.status===200? ( toast.success("Successfully Updated"), setDetails(res?.data)): toast.error(res?.data));
+        privatePatch('/api/package',{...data, description,photos:uploads }).then(res=>res?.status===200? ( toast.success("Successfully Updated"), setDetails(res?.data) ) : toast.error(res?.data));
   
       }
       else {
@@ -152,7 +154,7 @@ const AddTourPackage = ({ details:detailedData}) => {
                   name='division'
                   setValue={setValue}
                   errors={errors['division']}
-                  value={details?.division}
+                  value={details?.division?.id}
                 />
               </div>
               <div>
@@ -167,7 +169,7 @@ const AddTourPackage = ({ details:detailedData}) => {
                   name='place'
                   setValue={setValue}
                   errors={errors['place']}
-                  value={details?.place}
+                  value={details?.place?.id}
 
                 />
               </div>

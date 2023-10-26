@@ -35,6 +35,12 @@ const UserProfile = () => {
   useEffect(() => {
     Object.keys(user).forEach((key) => setValue(key, user[key]));
     setPhoto(user?.avatar);
+    if(user?.hotel) {
+      setValue('hotel',user?.hotel.id);
+    }
+    else if(user?.agency) {
+      setValue('agency',user?.agency.id);
+    }
   }, []);
 
   //   Image Upload to ImgBB

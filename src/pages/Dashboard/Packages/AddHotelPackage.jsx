@@ -48,7 +48,7 @@ const AddHotelPackage = ({ details:detailedData }) => {
       setValue("id", details?.id);
       setValue("name", details?.name);
       setValue("cost", details?.cost);
-      publicGet(`/api/place?division=${details?.division}`).then((res) => {
+      publicGet(`/api/place?division=${details?.division?.id}`).then((res) => {
         if (res.status === 200) setPlace(res.data);
         else {
           console.log("Error");
@@ -177,7 +177,7 @@ const AddHotelPackage = ({ details:detailedData }) => {
                   name="division"
                   setValue={setValue}
                   errors={errors["division"]}
-                  value={details?.division}
+                  value={details?.division?.id}
                 />
               </div>
               <div>
@@ -192,7 +192,7 @@ const AddHotelPackage = ({ details:detailedData }) => {
                   name="place"
                   setValue={setValue}
                   errors={errors["place"]}
-                  value={details?.place}
+                  value={details?.place?.id}
                 />
               </div>
 

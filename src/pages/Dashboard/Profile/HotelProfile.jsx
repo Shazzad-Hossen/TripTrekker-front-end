@@ -9,10 +9,13 @@ import FileUploader from "../../Shared/FileUploader/FileUploader";
 import { useForm } from "react-hook-form";
 import Button from "../../Shared/Button";
 import axios from "axios";
-import { privatePatch, publicPost } from "../../../utilities/apiCaller";
+import { privatePatch, publicGet, publicPost } from "../../../utilities/apiCaller";
 import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "../../../services/userSlice";
 import errorIco from '../../../assets/svg/error.svg';
+import DropdownV2 from "../../Shared/DropdownV2";
+import { IoMdArrowDropdown } from "react-icons/io";
+
 
 const HotelProfile = () => {
   const navigate = useNavigate();
@@ -21,14 +24,23 @@ const HotelProfile = () => {
   const [files, setFiles] = useState({});
   const { user } = useSelector((state)=>state.userInfo);
   const dispatch = useDispatch();
+  const [divisions, setDivisions] = useState([]);
+  const [place, setPlace] = useState([]);
 
 
   const {
     register,
     handleSubmit,
     setValue,
+    setError,
+    clearErrors,
     formState: { errors },
   } = useForm();
+
+  useEffect(() => {
+    publicGet("/api/division").then((res) => setDivisions(res?.data));
+  }, []);
+
 
   useEffect(()=>{
     if(user?.hotel){
@@ -37,12 +49,18 @@ const HotelProfile = () => {
       setValue('lisence', user?.hotel?.lisence);
       setValue('address', user?.hotel?.address);
       setLogo(user?.hotel?.logo);
-      setFiles(user?.hotel?.documents)
+      setFiles(user?.hotel?.documents);
+      publicGet(`/api/place?division=${user?.hotel?.division}`).then((res) => {
+        if (res.status === 200) setPlace(res.data);
+        else {
+          console.log("Error");
+        }
+      });
 
     }
 
   },[user]);
-console.log(user);
+
 
 
   const handleFileChange = (e) => {
@@ -59,7 +77,12 @@ console.log(user);
 
   const onSubmit = async (data) => {
     data.user= user?.id;
-    if(typeof logo ==='string') data.logo= logo;
+
+    if (data?.division === null || data?.division === undefined)
+     return  setError("division", { message: "This field is required" });
+    if (data?.place === null || data?.place === undefined)
+     return  setError("place", { message: "This field is required" });
+   if(typeof logo ==='string') data.logo= logo;
     else {
       const formData = new FormData();
       formData.append('file', logo);
@@ -95,7 +118,7 @@ console.log(user);
    
   
     
-  
+   
    
    if(!user?.hotel){
     publicPost('/api/hotel',{...data, documents: docs }). then(res=>{
@@ -121,6 +144,16 @@ console.log(user);
 
     
   }
+
+  const loadPlaces = (d) => {
+
+    publicGet(`/api/place?division=${d?.id}`).then((res) => {
+      if (res.status === 200) setPlace(res.data);
+      else {
+        console.log("Error");
+      }
+    });
+  };
 
  
   return (
@@ -176,6 +209,40 @@ console.log(user);
           <div className="max-w-[600px] w-full">
             <Input label="Trade Lisence No" placeholder="Trade Lisence No" register={()=>register('lisence', { required: 'This  field is required'})} name='lisence' errors={errors['lisence']} />
           </div>
+          <div>
+                <h1 className="text-blue-100 font-[600] pb-2">Division</h1>
+                <DropdownV2
+                  className={`p-1 ${
+                    errors["division"] ? "border-red-400" : ""
+                  }`}
+                  placeholder="Select Division"
+                  modalClass="w-full z-50"
+                  Icon={IoMdArrowDropdown}
+                  iconClass="w-[25px] h-[25px] text-slate-500"
+                  data={divisions || []}
+                  onChange={loadPlaces}
+                  name="division"
+                  setValue={setValue}
+                  errors={errors["division"]}
+                  value={user?.hotel?.division}
+                />
+              </div>
+              <div>
+                <h1 className="text-blue-100 font-[600] pb-2">Location</h1>
+                <DropdownV2
+                  className={`p-1 ${errors["place"] ? "border-red-400" : ""}`}
+                  placeholder="Select Location"
+                  modalClass="w-full"
+                  Icon={IoMdArrowDropdown}
+                  iconClass="w-[25px] h-[25px] text-slate-500"
+                  data={place || []}
+                  name="place"
+                  setValue={setValue}
+                  errors={errors["place"]}
+                  value={user?.hotel?.place}
+                />
+              </div>
+
           <div className="max-w-[600px] w-full">
             <p className={` text-blue-100 font-[600] pb-2 `}>Office Address</p>
             <textarea
@@ -190,7 +257,7 @@ console.log(user);
           </div>
           <FileUploader onChange={setFiles} value={files} />
           <div className="flex justify-center items-center">
-          <Button type='submit' className='bg-blue-100 text-white'>Submit</Button>
+          <Button type='submit' className='bg-blue-100 text-white' onClick={()=>clearErrors()}>Submit</Button>
           </div>
         </form>
         <input

@@ -25,7 +25,7 @@
             
             const days=['Sun','Mon','Tue','Wed','Thu','Fri','Sat']
             
-            export default function DatePicker ({onChange=()=>{}, setValue=()=>{}, value, name='date',errors, placeholder='Select Date', className='', label, labelColor=false}) {
+            export default function DatePicker ({onChange=()=>{}, setValue=()=>{}, value, name='date',errors=null, placeholder='Select Date', className='', label, labelColor=false}) {
                 const [isOpen,setIsopen]=useState(false);
                 const [currentDate,setCurrentdate]=useState({date: new Date().getDate(), month: new Date().getMonth(), year: new Date().getFullYear()});
                 const [currentYear,setCurrentYear]= useState(new Date().getFullYear());
@@ -117,7 +117,7 @@
                            {
                                [...Array(blankDays).keys()].map((blankDay, i)=><span className='text-[0.75rem] leading-[1rem] font-[400] p-2' key={i}>{''}</span>) 
                             }
-                            {daysArray.map((day,i)=><span className={`text-[0.75rem] leading-[1rem] font-[400] p-2 cursor-pointer  text-center rounded-[0.25rem] ${  currentDate.year==currentYear && currentDate.month==currentMonth && currentDate.date==i+1  ? 'bg-green-800 text-white':''}`} key={i} onClick={()=>selectHandler( i+1,currentMonth, currentYear)} >{i+1}</span>)}
+                            {daysArray.map((day,i)=><span className={`text-[0.75rem] leading-[1rem] font-[400] p-2 cursor-pointer  text-center rounded-[0.25rem] ${  currentDate.year==currentYear && currentDate.month==currentMonth && currentDate.date==i+1  ? 'bg-blue-200 text-white':''}`} key={i} onClick={()=>selectHandler( i+1,currentMonth, currentYear)} >{i+1}</span>)}
                            </div>
                            
                         </div>
