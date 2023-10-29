@@ -28,7 +28,7 @@ const AddHotelPackage = ({ details:detailedData }) => {
   const quillRef = useRef(null);
   const { user } = useSelector((state) => state.userInfo);
   const [prevImages, setPrevimages] = useState([]);
-  const [details, setDetails] = useState(detailedData|| {});
+  const [details, setDetails] = useState(detailedData);
 
   const {
     register,

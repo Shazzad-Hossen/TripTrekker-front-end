@@ -55,7 +55,7 @@ const AllPackages = () => {
           StartIcon={LuSearch}
           iconClaass="w-[26px] h-[25px] top-[6px] left-[5px] text-gray-300"
         />
-        <Link to="addpackages" className={`${(user?.role!=='agency' || user?.role!=='hotel')?'hidden':'block'}`}>
+        <Link to="addpackages" className={`${(user?.role==='agency' || user?.role==='hotel')?'':'hidden'}`}>
           <Button className="bg-blue-100 text-white">
             <AiOutlinePlusSquare className="text-white text-xl" />
             Create New

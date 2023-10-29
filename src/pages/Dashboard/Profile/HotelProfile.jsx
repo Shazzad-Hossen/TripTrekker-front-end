@@ -48,6 +48,8 @@ const HotelProfile = () => {
       setValue('email', user?.hotel?.email);
       setValue('lisence', user?.hotel?.lisence);
       setValue('address', user?.hotel?.address);
+      setValue('latitude', user?.hotel?.latitude);
+      setValue('longitude', user?.hotel?.longitude);
       setLogo(user?.hotel?.logo);
       setFiles(user?.hotel?.documents);
       publicGet(`/api/place?division=${user?.hotel?.division}`).then((res) => {
@@ -168,10 +170,10 @@ const HotelProfile = () => {
         </button>{" "}
         Additional Information
       </div>
-      <div className="pl-20 pr-5 py-10">
+      <div className="sm:pl-20 pl-5 pr-5 py-10">
         {
         
-        user?.hotel?  <div className="flex justify-end items-center gap-5"><h1 className="text-blue-100 font-[600]">Status: </h1> <h1>{user?.hotel?.status}</h1></div>:''
+        user?.hotel?  <div className="flex justify-end items-center gap-5 pb-5"><h1 className="text-blue-100 font-[600]">Status: </h1> <h1>{user?.hotel?.status}</h1></div>:''
         }
         <div className="flex gap-10">
           <h1 className="text-blue-100 font-[600]">Logo : </h1>
@@ -210,6 +212,7 @@ const HotelProfile = () => {
             <Input label="Trade Lisence No" placeholder="Trade Lisence No" register={()=>register('lisence', { required: 'This  field is required'})} name='lisence' errors={errors['lisence']} />
           </div>
           <div>
+          <div className="max-w-[600px] w-full">
                 <h1 className="text-blue-100 font-[600] pb-2">Division</h1>
                 <DropdownV2
                   className={`p-1 ${
@@ -226,8 +229,10 @@ const HotelProfile = () => {
                   errors={errors["division"]}
                   value={user?.hotel?.division}
                 />
+                </div>
               </div>
               <div>
+              <div className="max-w-[600px] w-full">
                 <h1 className="text-blue-100 font-[600] pb-2">Location</h1>
                 <DropdownV2
                   className={`p-1 ${errors["place"] ? "border-red-400" : ""}`}
@@ -242,6 +247,7 @@ const HotelProfile = () => {
                   value={user?.hotel?.place}
                 />
               </div>
+              </div>
 
           <div className="max-w-[600px] w-full">
             <p className={` text-blue-100 font-[600] pb-2 `}>Office Address</p>
@@ -254,6 +260,10 @@ const HotelProfile = () => {
         
         errors['address']? <p  className="text-red-400  flex items-center gap-2 font-[400] text-sm pt-1"><img src={errorIco} alt="" /><span>{ errors['address'].message}</span></p>:<></>
       }
+          </div>
+          <div className="max-w-[600px] w-full grid grid-cols-1 sm:grid-cols-2 sm:flex-row gap-3">
+            <Input label='Map Latitude' className="w-full"  placeholder="latitude" register={()=>register('latitude')} name='latitude' errors={errors['latitude']}/>
+            <Input label='Map Longitude' className="w-full" placeholder="longitude" register={()=>register('longitude')} name='longitude' errors={errors['longitude']}/>
           </div>
           <FileUploader onChange={setFiles} value={files} />
           <div className="flex justify-center items-center">

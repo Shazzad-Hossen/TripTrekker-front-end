@@ -12,11 +12,29 @@ import { SiDatabricks } from "react-icons/si";
 import { BsFillSignpost2Fill } from "react-icons/bs";
 import { FaHotel } from "react-icons/fa";
 import { PiPackageFill } from "react-icons/pi";
+import { useEffect } from 'react';
 
 
 
 
 const DashboardLayout = () => {
+    useEffect(() => {
+        const handleClick = (event) => {
+          const { target } = event;
+          const isInputOrTextarea = target.tagName === 'INPUT' || target.tagName === 'TEXTAREA';
+    
+          if (!isInputOrTextarea) {
+            document.body.style.userSelect = 'none'; // Disable cursor blinking
+          }
+        };
+    
+        document.addEventListener('click', handleClick);
+    
+        return () => {
+          document.removeEventListener('click', handleClick);
+        };
+      }, []);
+    
     const navItem = <>
     <NavLink to='home' className={({isActive})=> isActive?' pl-2 ml-1 text-blue-200 font-[600]   sidebar-item':'sidebar-item text-white font-[400]'}><LuLayoutDashboard/> Dashboard </NavLink>
     <NavLink to='profile' className={({isActive})=> isActive?' pl-2 ml-1 text-blue-200 font-[600]   sidebar-item':'sidebar-item text-white font-[400]'}><BiSolidUserAccount/> Profile </NavLink>

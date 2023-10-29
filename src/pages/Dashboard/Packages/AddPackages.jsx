@@ -27,10 +27,16 @@ const AddPackages = () => {
 
     },[params.id])
 
+ 
+
     return (
         <div>
             {
-                data?.type==='agency'? <AddTourPackage details={data}/>:  data?.type==='hotel'? <AddHotelPackage details={data}/>:''
+               params.id==='addpackages'?  user?.role==='agency'?  <AddTourPackage/> : user?.role==='hotel'?  <AddHotelPackage/>:'' :''
+                
+            }
+            {
+                params.id!=='addpackages' && data?.type==='agency'? <AddTourPackage details={data}/>:  data?.type==='hotel'? <AddHotelPackage details={data}/>:''
             }
             
             

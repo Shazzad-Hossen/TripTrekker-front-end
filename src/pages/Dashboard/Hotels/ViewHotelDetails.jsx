@@ -54,7 +54,7 @@ const ViewHotelDetails = () => {
     })
   }
 
-
+   console.log(hotel);
 
     return (
         <div>

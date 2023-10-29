@@ -21,7 +21,7 @@ const Input = ({
       ) : (
         <></>
       )}
-      <div className="relative">
+      <div className="relative w-full">
       <input
         className={`border py-1 w-full rounded-[0.2rem] outline-none focus:placeholder:opacity-0 px-3 ${className} ${errors?'border-red-400':''}`}
         type={type}
