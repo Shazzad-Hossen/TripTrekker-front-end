@@ -59,11 +59,12 @@ const HotelPackDetails = ({data=null}) => {
   },[date,endDate])
 
   const handleBooking = () =>{
-    setError(null)
-    if(date===null) setError({message: 'Please pick a date'});
-    if(endDate===null) setDError({message: 'Please pick a date'});
+    setError(null);
+    setDError(null);
+    if(date===null) return setError({message: 'Please pick a date'});
+    if(endDate===null) return setDError({message: 'Please pick a date'});
     else {
-      publicPost('/api/order',{type:'tour', date, room, package: data?.id, endDate }).then(res=>{
+      publicPost('/api/order',{type:'hotel', date,  room, package: data?.id, endDate }).then(res=>{
         if(res?.status===201) toast.success('Booking successfull');
       })
     }
@@ -127,7 +128,7 @@ const HotelPackDetails = ({data=null}) => {
          <h2 className="text-lg  mb-5 flex items-center font-roboto mt-5 "><img src={locationIco} alt="" className="w-[22px]" /> {data?.place?.name}, {data?.division?.name}</h2>
         <div className="px-10 py-10 min-h-[200px] text-justify" dangerouslySetInnerHTML={{ __html: data?.description }} />
         </div>
-        <div className="border shadow-md col-span-12 md:col-span-4  rounded p-5 h-[480px] sticky top-[75px] flex flex-col gap-2 ">
+        <div className="border shadow-md col-span-12 md:col-span-4  rounded p-5 h-[520px] sticky top-[75px] flex flex-col gap-2 ">
             <h1 className="text-2xl  font-semibold text-[#333333] uppercase font-chakra drop-shadow-lg mb-5 pt-3 ">Summary</h1>
             <div className="text-2xl absolute right-4 top-3 text-blue-200 font-semibold"> ৳ {data?.cost * room * duration} </div>
 
