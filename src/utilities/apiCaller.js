@@ -8,7 +8,7 @@ const config = {
 };
 export const publicGet = async (endPoint) => {
   try {
-    const res = await axios.get(`${baseUrl + endPoint}`);
+    const res = await axios.get(`${baseUrl + endPoint}`,config);
   return res;
     
   } catch (error) {
@@ -43,7 +43,7 @@ export const privatePatch = async (endPoint, data) => {
 
 export const publicDelete = async (endPoint) => {
   try {
-    const res = await axios.delete(`${baseUrl + endPoint}`);
+    const res = await axios.delete(`${baseUrl + endPoint}`,config);
   return res;
     
   } catch (error) {

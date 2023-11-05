@@ -26,6 +26,8 @@ import ViewHotelDetails from "../pages/Dashboard/Hotels/ViewHotelDetails";
 import AllPackages from "../pages/Dashboard/Packages/AllPackages";
 import AddPackages from "../pages/Dashboard/Packages/AddPackages";
 import HotelDetails from "../pages/HotelDetails/HotelDetails";
+import Orders from "../pages/Dashboard/Orders/Orders";
+import OrderDetails from "../pages/Dashboard/Orders/OrderDetails";
 
 
   export const router = createBrowserRouter([
@@ -94,6 +96,10 @@ import HotelDetails from "../pages/HotelDetails/HotelDetails";
         //Packages
         {path: 'packages', element: <AllPackages/>},
         {path: 'packages/:id', element: <AddPackages/>},
+        //Orders
+        {path: 'orders', element: <Orders/>},
+        {path: 'orders/:id', element: <OrderDetails/>},
+
 
         
 

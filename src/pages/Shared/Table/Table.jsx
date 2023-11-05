@@ -1,7 +1,9 @@
 import React from "react";
 import { FiEdit2,  } from "react-icons/fi";
 import { BsTrash } from "react-icons/bs";
+import { AiOutlineEye } from "react-icons/ai";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 
 
@@ -13,9 +15,11 @@ const TABLE_HEAD = {
   'tour_package': ["SL.", "Name", "Agency", "Status", "Action"],
   'hotel_package': ["SL.", "Name", "Hotel", "Status", "Action"],
   'package': ["SL.", "Name", "Agency/Hotel", "Status", "Action"],
+  'userOrders': ["SL","Package Name", "Date", "Cost", "Status", 'Action']
 };
 
 const Table = ({ type = "", data = {}, deleteHandler= ()=>{}, callBack=()=>{} }) => {
+  const { user } = useSelector(state=>state.userInfo)
 
   const renderDivisionRows = () => {
     return (<tbody>
@@ -221,6 +225,41 @@ const Table = ({ type = "", data = {}, deleteHandler= ()=>{}, callBack=()=>{} })
 
   }
 
+  const renderUserOrdersRows = () =>{
+
+    return (<tbody>
+      {
+          data?.docs?.map((item, index)=><tr key={index} className=" border-b border-gray-300 group hover:bg-blue-400/10" >
+          <td  className="py-2 px-4 font-[600] w-[80px]+ ">
+            {index+1}
+          </td>
+          <td className="px-4">{item?.package?.name || 'Not Available'}</td>
+          <td className="px-4">{item?.createdAt? new Date(item?.createdAt).toLocaleDateString() : 'Not Available'}</td>
+          <td className="px-4">{item?.cost.toFixed(2) || 'Not Available'}</td>
+        
+          
+          <td  className={'py-2 px-4 '}>
+            <div className="flex items-center gap-2">
+            <p className={` ${item?.status==='pending'?'bg-orange-300 text-white ':item?.status==='confirmed'?'bg-green-600 text-white ':item?.status==='cancelled'?'bg-red-600 text-white ':item?.status==='paid'?'bg-blue-200 text-white ':item?.status==='processing'?'bg-orange-400 text-white ':''} w-fit py-1 px-3 rounded-2xl first-letter:uppercase  `}> {item?.status} </p>
+            {
+             ( item?.status==='pending' && user?.role==='user')? <button className=" w-fit py-1 px-3 rounded-2xl bg-[#ff9d64] text-white whitespace-nowrap cursor-pointer" onClick={()=>callBack('pay',item)}>Pay Now</button>:''
+            }
+            </div>
+           
+          </td>
+          <td className="px-4 w-[50px] pl-8"><AiOutlineEye className="h-[20px] w-[20px] group-hover:text-blue-200" onClick={()=>callBack('view',item)}/></td>
+
+          
+       
+          </tr>)
+      }
+
+    
+
+  </tbody>) 
+
+  }
+
   
 
 
@@ -233,7 +272,7 @@ const Table = ({ type = "", data = {}, deleteHandler= ()=>{}, callBack=()=>{} })
             {TABLE_HEAD[type]?.map((item, index) => (
               <th
                 key={index}
-                className="py-2 px-4 bg-gray-200 border-b border-gray-300 text-start"
+                className="py-2 px-4 bg-gray-200 border-b border-gray-300 text-start "
               >
                 {item}
               </th>
@@ -246,7 +285,8 @@ const Table = ({ type = "", data = {}, deleteHandler= ()=>{}, callBack=()=>{} })
         type === "hotel" ? renderHotelRows() : 
         type === "tour_package" ? renderTourPackageRows() :
         type === "hotel_package" ? renderHotelPackageRows() :
-        type === "package" ? renderPackageRows() : ""
+        type === "package" ? renderPackageRows() : 
+        type === "userOrders" ? renderUserOrdersRows() : ""
 
         
 

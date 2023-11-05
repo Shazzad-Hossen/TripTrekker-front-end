@@ -65,7 +65,20 @@ const HotelPackDetails = ({data=null}) => {
     if(endDate===null) return setDError({message: 'Please pick a date'});
     else {
       publicPost('/api/order',{type:'hotel', date,  room, package: data?.id, endDate }).then(res=>{
-        if(res?.status===201) toast.success('Booking successfull');
+        if(res?.status===201){
+          if(res?.status===201) {
+            toast.success('Booking successfull');
+
+            publicPost('/api/payment',res?.data).then(res=>{
+             res.status===201? window.location.replace(res?.data):'';
+
+            })
+  
+          }
+          else {
+            toast.error(res.data);
+          }
+        }
       })
     }
 

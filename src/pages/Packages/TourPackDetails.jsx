@@ -36,7 +36,17 @@ const TourPackDetails = ({data=null}) => {
     if(date===null) setError({message: 'Please pick a date'});
     else {
       publicPost('/api/order',{type:'tour', date, person, package: data?.id }).then(res=>{
-        if(res?.status===201) toast.success('Booking successfull');
+        if(res?.status===201) {
+          toast.success('Booking successfull');
+          publicPost('/api/payment',res?.data).then(res=>{
+            res.status===201? window.location.replace(res?.data):'';
+
+           })
+
+        }
+        else {
+          toast.error(res.data);
+        }
       })
     }
 
