@@ -1,5 +1,4 @@
 import React from 'react';
-import Footer from '../pages/Shared/Footer';
 import { Outlet } from 'react-router-dom';
 import Nav from '../pages/Dashboard/Nav';
 import Sidebar from '../pages/Dashboard/Sidebar';
@@ -12,7 +11,8 @@ import { SiDatabricks } from "react-icons/si";
 import { BsFillSignpost2Fill } from "react-icons/bs";
 import { FaHotel } from "react-icons/fa";
 import { PiPackageFill } from "react-icons/pi";
-import { FaCartShopping } from "react-icons/fa6";
+import { FaCartShopping, FaHandHoldingDollar } from "react-icons/fa6";
+
 import { useEffect } from 'react';
 
 
@@ -45,6 +45,7 @@ const DashboardLayout = () => {
     <NavLink to='hotels' className={({isActive})=> isActive?' pl-2 ml-1 text-blue-200 font-[600]   sidebar-item':'sidebar-item text-white font-[400]'}><FaHotel/> Hotels </NavLink>
     <NavLink to='packages' className={({isActive})=> isActive?' pl-2 ml-1 text-blue-200 font-[600]   sidebar-item':'sidebar-item text-white font-[400]'}><PiPackageFill/> Packages </NavLink>
     <NavLink to='orders' className={({isActive})=> isActive?' pl-2 ml-1 text-blue-200 font-[600]   sidebar-item':'sidebar-item text-white font-[400]'}><FaCartShopping/> Orders </NavLink>
+    <NavLink to='transaction' className={({isActive})=> isActive?' pl-2 ml-1 text-blue-200 font-[600]   sidebar-item':'sidebar-item text-white font-[400]'}><FaHandHoldingDollar/> Transaction </NavLink>
    
     </>
     

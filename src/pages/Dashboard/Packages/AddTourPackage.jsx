@@ -24,7 +24,7 @@ const AddTourPackage = ({ details:detailedData}) => {
   const quillRef = useRef(null);
   const {user}= useSelector(state=>state.userInfo);
   const [prevImages,setPrevimages]=useState([]);
-  const [details, setDetails] = useState(detailedData|| {});
+  const [details, setDetails] = useState(detailedData|| null);
 
 
   const {
@@ -37,15 +37,20 @@ const AddTourPackage = ({ details:detailedData}) => {
   } = useForm();
 
   useEffect(()=>{
-    publicGet('/api/division').then(res=>res?.status===200? setDivisions(res?.data):toast.success(res?.data))
+    publicGet('/api/division').then(res=>{
+      console.log(res);
+      res?.status===200? setDivisions(res?.data):toast.success(res?.data)
+    })
 
-  },[])
+  },[]);
+
 
 
 
 
   useEffect(()=>{
     if(details){
+      console.log(details);
       setValue('id',details?.id)
       setValue('name',details?.name);
       setValue('day',details?.duration?.day);

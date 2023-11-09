@@ -15,7 +15,10 @@ const TABLE_HEAD = {
   'tour_package': ["SL.", "Name", "Agency", "Status", "Action"],
   'hotel_package': ["SL.", "Name", "Hotel", "Status", "Action"],
   'package': ["SL.", "Name", "Agency/Hotel", "Status", "Action"],
-  'userOrders': ["SL","Package Name", "Date", "Cost", "Status", 'Action']
+  'userOrders': ["SL","Package Name", "Date", "Cost", "Status", 'Action'],
+  'transaction': ["SL", "Tnx Id", "Package Name", "Date",  "Total", 'Refund'],
+  'transaction-admin': ["SL", "Tnx Id", "Package Name", "Date",  "Total", 'Status', 'Action'],
+  
 };
 
 const Table = ({ type = "", data = {}, deleteHandler= ()=>{}, callBack=()=>{} }) => {
@@ -260,6 +263,73 @@ const Table = ({ type = "", data = {}, deleteHandler= ()=>{}, callBack=()=>{} })
 
   }
 
+  const renderTransactionRows = () =>{
+
+    return (<tbody>
+      {
+          data?.docs?.map((item, index)=><tr key={index} className=" border-b border-gray-300 group hover:bg-blue-400/10" >
+          <td  className="py-2 px-4 font-[600] w-[80px]+ ">
+            {index+1}
+          </td>
+          <td className="px-4">{item?.tranid || 'Not Available'}</td>
+          <td className="px-4">{item?.package?.name || 'Not Available'}</td>
+          <td className="px-4">{item?.createdAt? new Date(item?.createdAt).toLocaleDateString() : 'Not Available'}</td>
+          <td className="px-4">{item?.amount?.toFixed(2) || 'Not Available'}</td>
+        
+          
+         
+          <td  className={'py-2 px-4 '}>
+            <p className={` ${item?.status==='requested'?'bg-gray-200 text-gray-400  cursor-not-allowed': item.status==='cancelled'? 'bg-red-300 text-white  cursor-not-allowed': item.status==='refunded'? 'bg-green-400 text-white  cursor-not-allowed': 'bg-blue-200 text-white cursor-pointer active:scale-95'}  w-fit py-1 px-3 rounded first-letter:uppercase  whitespace-nowrap `} onClick={()=>{item?.status==='request'? callBack('refund', item):''}}> {item?.status} </p>
+          </td>
+          
+       
+          </tr>)
+      }
+
+    
+
+  </tbody>) 
+
+  }
+  const renderTransactioAdminRows = () =>{
+
+    return (<tbody>
+      {
+          data?.docs?.map((item, index)=><tr key={index} className=" border-b border-gray-300 group hover:bg-blue-400/10" >
+          <td  className="py-2 px-4 font-[600] w-[80px]+ ">
+            {index+1}
+          </td>
+          <td className="px-4">{item?.tranid || 'Not Available'}</td>
+          <td className="px-4">{item?.package?.name || 'Not Available'}</td>
+          <td className="px-4">{item?.createdAt? new Date(item?.createdAt).toLocaleDateString() : 'Not Available'}</td>
+          <td className="px-4">{item?.amount?.toFixed(2) || 'Not Available'}</td>
+        
+          
+         
+         <td>
+         <p  className={`py-1 px-4 first-letter:uppercase w-fit rounded-full ${item?.status==='requested'? 'bg-orange-400 text-white ':item?.status==='cancelled'? 'bg-red-500 text-white ':item?.status==='refunded'? 'bg-blue-200 text-white ':'bg-lime-600 text-white '}`}>
+            <p className={``}> {item?.status==='request'? 'Paid': item?.status}</p>
+           
+          </p>
+         </td>
+         <td>
+          <div className={`flex items-center gap-3 px-2 py-2`}>
+            <button className={`py-1 px-2 text-white drop-shadow-md rounded  active:scale-95  ${item?.status!=='request'?' pointer-events-none cursor-not-allowed bg-orange-400/30':'bg-orange-400'}`} onClick={ ()=> callBack('refunded', item?.id)}>Refund</button>
+            <button className={`py-1 px-2 text-white drop-shadow-md rounded   active:scale-95  ${item?.status!=='request'?' pointer-events-none cursor-not-allowed bg-red-600/30':'bg-red-600'}`} onClick={ ()=> callBack('cancelled', item?.id)}>Cancel</button>
+
+          </div>
+         </td>
+          
+       
+          </tr>)
+      }
+
+    
+
+  </tbody>) 
+
+  }
+
   
 
 
@@ -286,7 +356,11 @@ const Table = ({ type = "", data = {}, deleteHandler= ()=>{}, callBack=()=>{} })
         type === "tour_package" ? renderTourPackageRows() :
         type === "hotel_package" ? renderHotelPackageRows() :
         type === "package" ? renderPackageRows() : 
-        type === "userOrders" ? renderUserOrdersRows() : ""
+        type === "userOrders" ? renderUserOrdersRows() : 
+        type === "transaction" ? renderTransactionRows() :
+        type === "transaction-admin" ? renderTransactioAdminRows() : ""
+
+        
 
         
 

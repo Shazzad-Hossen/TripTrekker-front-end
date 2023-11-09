@@ -28,6 +28,7 @@ import AddPackages from "../pages/Dashboard/Packages/AddPackages";
 import HotelDetails from "../pages/HotelDetails/HotelDetails";
 import Orders from "../pages/Dashboard/Orders/Orders";
 import OrderDetails from "../pages/Dashboard/Orders/OrderDetails";
+import Transaction from "../pages/Dashboard/Transaction/Transaction";
 
 
   export const router = createBrowserRouter([
@@ -99,6 +100,8 @@ import OrderDetails from "../pages/Dashboard/Orders/OrderDetails";
         //Orders
         {path: 'orders', element: <Orders/>},
         {path: 'orders/:id', element: <OrderDetails/>},
+        //Transaction
+        {path: 'transaction', element: <Transaction/>},
 
 
         
