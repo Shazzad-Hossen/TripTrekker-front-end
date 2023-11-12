@@ -7,6 +7,7 @@ const config = {
   withCredentials: true,
 };
 export const publicGet = async (endPoint) => {
+
   try {
     const res = await axios.get(`${baseUrl + endPoint}`,config);
   return res;

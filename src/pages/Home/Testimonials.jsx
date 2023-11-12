@@ -2,13 +2,13 @@ import Slider from 'react-slick';
 import ArrowLeft from '../../assets/svg/arrowLeft.svg'
 import ArrowRight from '../../assets/svg/arrowRight.svg';
 import Underline from '../../assets/svg/Underline.svg';
-import img1 from '../../assets/images/img1.png';
-import img2 from '../../assets/images/img2.png';
-import img3 from '../../assets/images/img3.png';
-import img4 from '../../assets/images/img4.png';
-import img5 from '../../assets/images/img5.png';
-import img6 from '../../assets/images/img6.png';
-import img7 from '../../assets/images/img7.png';
+import img1 from '../../assets/images/img1.jpg';
+import img2 from '../../assets/images/img2.jpg';
+import img3 from '../../assets/images/img3.jpg';
+import img4 from '../../assets/images/img4.jpeg';
+import img5 from '../../assets/images/img5.jpg';
+import img6 from '../../assets/images/img6.jpg';
+import img7 from '../../assets/images/img7.jpg';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
@@ -31,7 +31,7 @@ const Testimonial = () => {
     const settings = {
         dots: false,
         infinite: true,
-        speed: 500,
+        speed: 1000,
         slidesToShow: 1,
         slidesToScroll: 1,
         arrow: false,
@@ -76,12 +76,11 @@ const Testimonial = () => {
                 <div className="mt-11">
                     <div className="slider-container">
                         <Slider {...settings}>
-                            <div className="text-[1.5rem] leading-[1.5rem] font-normal ml-[3.833rem] mx-[3.833rem]  pr-44 slider-item w-full text-center">A great teacher inspires and ignites a passion for learning within their students,
-                                encouraging them to explore and discover knowledge for themselves.</div>
-                            <div className="text-[1.5rem] leading-[1.5rem] font-normal mx-[3.833rem]  pr-44 slider-item  w-full text-center">Teachers can make such a profound impact on our lives and should be honored as heroes.</div>
-                            <div className="text-[1.5rem] leading-[1.5rem] font-normal mx-[3.833rem]  pr-44 slider-item  w-full text-center">Education is the most powerful weapon which you can use to change the world.</div>
-                            <div className="text-[1.5rem] leading-[1.5rem] font-normal mx-[3.833rem]  pr-44 slider-item  w-full text-center">Children learn more from who you are than what you teach.</div>
-                            <div className="text-[1.5rem] leading-[1.5rem] font-normal mx-[3.833rem]  pr-44 slider-item  w-full text-center">You can't stop a teacher when they want to do something. They just do it.</div>
+                            <div className="text-[1.5rem] leading-[1.5rem] font-normal ml-[3.833rem] mx-[3.833rem]  pr-44 slider-item w-full text-center">Trip Trekker turned our vacation dreams into reality – impeccable service and unforgettable adventures! ✈️🌍 #TravelBliss</div>
+                            <div className="text-[1.5rem] leading-[1.5rem] font-normal mx-[3.833rem]  pr-44 slider-item  w-full text-center">Kudos to Trip Trekker for a seamless and stress-free travel experience – top-notch planning and personalized attention! 👏🌟 #HappyTraveler</div>
+                            <div className="text-[1.5rem] leading-[1.5rem] font-normal mx-[3.833rem]  pr-44 slider-item  w-full text-center">Exceptional service, incredible destinations – Trip Trekker knows how to create the perfect getaway! 🌎✨ #TravelExperts.</div>
+                            <div className="text-[1.5rem] leading-[1.5rem] font-normal mx-[3.833rem]  pr-44 slider-item  w-full text-center">Trip Trekker's attention to detail and professionalism made our trip extraordinary – can't wait to plan the next adventure with them! 🌟🗺️ #TripTrekkerMagic</div>
+                            <div className="text-[1.5rem] leading-[1.5rem] font-normal mx-[3.833rem]  pr-44 slider-item  w-full text-center">A big thank you to Trip Trekker for the amazing memories – from start to finish, they delivered an exceptional travel experience! 🚀🌐 #FiveStarTravel.</div>
                         </Slider>
                     </div>
                 </div>

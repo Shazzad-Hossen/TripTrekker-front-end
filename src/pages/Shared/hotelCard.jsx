@@ -23,7 +23,7 @@ const HotelCard = ({ data  }) => {
             alt=""
           />
         </div>
-        <h2 className="font-semibold pt-2 uppercase">{data?.name}</h2>
+        <h2 className="font-semibold pt-2 uppercase line-clamp-1">{data?.name}</h2>
         <div className="flex items-start py-2  ">
           <div className="">
             <img className="w-[20px] h-[20px] " src={locationIco} alt="" />

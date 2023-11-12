@@ -22,12 +22,13 @@ const AllPackages = () => {
   const [type,setType]= useState(user?.role==='hotel'?'hotel': user?.role==='agency'?'agency':'all');
   const [sort,setSort]=useState(false);
   const [status,setStatus]=useState('all');
-  const fetchPackages= ()=> publicGet(`/api/package?type=${type}&sortBy=createdAt:${sort===true?'asc':'desc'}${status!=='all'?'&status='+status:''}&paginate=true${user?.role==='hotel'?'&hotel='+user?.hotel?.id:user?.role==='agency'?'&agency='+user?.agency?.id:''}`).then(res=> res?.status===200? setPackages(res.data):toast.error(res?.data));
+  const [searchVal, setSearchVal]=useState('');
+  const fetchPackages= ()=> publicGet(`/api/package?type=${type}&sortBy=createdAt:${sort===true?'asc':'desc'}${status!=='all'?'&status='+status:''}&paginate=true${user?.role==='hotel'?'&hotel='+user?.hotel?.id:user?.role==='agency'?'&agency='+user?.agency?.id:''}${searchVal!==''?'&search='+searchVal: ''}`).then(res=> res?.status===200? setPackages(res.data):toast.error(res?.data));
   useEffect(()=>{
     if(user){
       fetchPackages();
     }
-  },[user, type, sort, status]);
+  },[user, type, sort, status, searchVal]);
 
   const handleCallback = (type, id)=>{
     if(type==='delete') publicDelete(`/api/package/${id}`).then(res=>res.status===200?(fetchPackages(),toast.success('Successfully deleted')):toast .error(res.data));
@@ -54,6 +55,7 @@ const AllPackages = () => {
           className="py-1.5 pl-8"
           StartIcon={LuSearch}
           iconClaass="w-[26px] h-[25px] top-[6px] left-[5px] text-gray-300"
+          onChange={(e)=> setSearchVal(e.target.value)}
         />
         <Link to="addpackages" className={`${(user?.role==='agency' || user?.role==='hotel')?'':'hidden'}`}>
           <Button className="bg-blue-100 text-white">
