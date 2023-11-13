@@ -314,8 +314,8 @@ const Table = ({ type = "", data = {}, deleteHandler= ()=>{}, callBack=()=>{} })
          </td>
          <td>
           <div className={`flex items-center gap-3 px-2 py-2`}>
-            <button className={`py-1 px-2 text-white drop-shadow-md rounded  active:scale-95  ${item?.status!=='request'?' pointer-events-none cursor-not-allowed bg-orange-400/30':'bg-orange-400'}`} onClick={ ()=> callBack('refunded', item?.id)}>Refund</button>
-            <button className={`py-1 px-2 text-white drop-shadow-md rounded   active:scale-95  ${item?.status!=='request'?' pointer-events-none cursor-not-allowed bg-red-600/30':'bg-red-600'}`} onClick={ ()=> callBack('cancelled', item?.id)}>Cancel</button>
+            <button className={`py-1 px-2 text-white drop-shadow-md rounded  active:scale-95  ${item?.status!=='requested'?' pointer-events-none cursor-not-allowed bg-orange-400/30':'bg-orange-400'}`} onClick={ ()=> callBack('refunded', item?.id)}>Refund</button>
+            <button className={`py-1 px-2 text-white drop-shadow-md rounded   active:scale-95  ${item?.status!=='requested'?' pointer-events-none cursor-not-allowed bg-red-600/30':'bg-red-600'}`} onClick={ ()=> callBack('cancelled', item?.id)}>Cancel</button>
 
           </div>
          </td>

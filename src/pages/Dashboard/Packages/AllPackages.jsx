@@ -35,7 +35,19 @@ const AllPackages = () => {
     else navigate(id)
   }
 
+ console.log(user);
+ const handleCreate = () => {
+  if(user.role==='hotel' || user.role==='agency') {
+    if(user.hotel || user.agency) {
+      navigate('addpackages');
+    }
+    else
+    toast.error('Please complete your profile first');
 
+  }
+
+  
+ }
 
   return (
     <div>
@@ -57,12 +69,12 @@ const AllPackages = () => {
           iconClaass="w-[26px] h-[25px] top-[6px] left-[5px] text-gray-300"
           onChange={(e)=> setSearchVal(e.target.value)}
         />
-        <Link to="addpackages" className={`${(user?.role==='agency' || user?.role==='hotel')?'':'hidden'}`}>
-          <Button className="bg-blue-100 text-white">
+        <div className={`${(user?.role==='agency' || user?.role==='hotel')?'':'hidden'}`}>
+          <Button className="bg-blue-100 text-white" onClick={handleCreate}>
             <AiOutlinePlusSquare className="text-white text-xl" />
             Create New
           </Button>
-        </Link>
+        </div>
       </div>
 
      <div className="px-5 py-10">

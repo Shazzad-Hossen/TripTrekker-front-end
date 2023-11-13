@@ -14,11 +14,14 @@ import { PiPackageFill } from "react-icons/pi";
 import { FaCartShopping, FaHandHoldingDollar } from "react-icons/fa6";
 
 import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import CheckRole from '../routes/CheckRole';
 
 
 
 
 const DashboardLayout = () => {
+  const {user} = useSelector(state=>state.userInfo)
     useEffect(() => {
         const handleClick = (event) => {
           const { target } = event;
@@ -38,14 +41,21 @@ const DashboardLayout = () => {
     
     const navItem = <>
     <NavLink to='home' className={({isActive})=> isActive?' pl-2 ml-1 text-blue-200 font-[600]   sidebar-item':'sidebar-item text-white font-[400]'}><LuLayoutDashboard/> Dashboard </NavLink>
+
     <NavLink to='profile' className={({isActive})=> isActive?' pl-2 ml-1 text-blue-200 font-[600]   sidebar-item':'sidebar-item text-white font-[400]'}><BiSolidUserAccount/> Profile </NavLink>
-    <NavLink to='divisions' className={({isActive})=> isActive?' pl-2 ml-1 text-blue-200 font-[600]   sidebar-item':'sidebar-item text-white font-[400]'}><SiDatabricks/> Divisions </NavLink>
-    <NavLink to='places' className={({isActive})=> isActive?' pl-2 ml-1 text-blue-200 font-[600]   sidebar-item':'sidebar-item text-white font-[400]'}><HiOutlineGlobe/> Places </NavLink>
-    <NavLink to='agencies' className={({isActive})=> isActive?' pl-2 ml-1 text-blue-200 font-[600]   sidebar-item':'sidebar-item text-white font-[400]'}><BsFillSignpost2Fill/> Agencies </NavLink>
-    <NavLink to='hotels' className={({isActive})=> isActive?' pl-2 ml-1 text-blue-200 font-[600]   sidebar-item':'sidebar-item text-white font-[400]'}><FaHotel/> Hotels </NavLink>
-    <NavLink to='packages' className={({isActive})=> isActive?' pl-2 ml-1 text-blue-200 font-[600]   sidebar-item':'sidebar-item text-white font-[400]'}><PiPackageFill/> Packages </NavLink>
+
+    <CheckRole role={['admin', 'super-admin']}> <NavLink to='divisions' className={({isActive})=> isActive?' pl-2 ml-1 text-blue-200 font-[600]   sidebar-item':'sidebar-item text-white font-[400]'}><SiDatabricks/> Divisions </NavLink></CheckRole>
+
+    <CheckRole role={['admin', 'super-admin']}><NavLink to='places' className={({isActive})=> isActive?' pl-2 ml-1 text-blue-200 font-[600]   sidebar-item':'sidebar-item text-white font-[400]'}><HiOutlineGlobe/> Places </NavLink></CheckRole>
+    
+    <CheckRole role={['admin', 'super-admin']}><NavLink to='agencies' className={({isActive})=> isActive?' pl-2 ml-1 text-blue-200 font-[600]   sidebar-item':'sidebar-item text-white font-[400]'}><BsFillSignpost2Fill/> Agencies </NavLink></CheckRole>
+    
+    <CheckRole role={['admin', 'super-admin']}><NavLink to='hotels' className={({isActive})=> isActive?' pl-2 ml-1 text-blue-200 font-[600]   sidebar-item':'sidebar-item text-white font-[400]'}><FaHotel/> Hotels </NavLink></CheckRole>
+
+    <CheckRole role={['admin', 'super-admin', 'agency', 'hotel']}><NavLink to='packages' className={({isActive})=> isActive?' pl-2 ml-1 text-blue-200 font-[600]   sidebar-item':'sidebar-item text-white font-[400]'}><PiPackageFill/> Packages </NavLink></CheckRole>
     <NavLink to='orders' className={({isActive})=> isActive?' pl-2 ml-1 text-blue-200 font-[600]   sidebar-item':'sidebar-item text-white font-[400]'}><FaCartShopping/> Orders </NavLink>
-    <NavLink to='transaction' className={({isActive})=> isActive?' pl-2 ml-1 text-blue-200 font-[600]   sidebar-item':'sidebar-item text-white font-[400]'}><FaHandHoldingDollar/> Transaction </NavLink>
+    
+   <CheckRole role={['admin', 'super-admin', 'user']}> <NavLink to='transaction' className={({isActive})=> isActive?' pl-2 ml-1 text-blue-200 font-[600]   sidebar-item':'sidebar-item text-white font-[400]'}><FaHandHoldingDollar/> Transaction </NavLink></CheckRole>
    
     </>
     
