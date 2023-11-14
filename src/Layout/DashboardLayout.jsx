@@ -1,5 +1,5 @@
 import React from 'react';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 import Nav from '../pages/Dashboard/Nav';
 import Sidebar from '../pages/Dashboard/Sidebar';
 import { ToastContainer } from 'react-toastify';
@@ -12,16 +12,21 @@ import { BsFillSignpost2Fill } from "react-icons/bs";
 import { FaHotel } from "react-icons/fa";
 import { PiPackageFill } from "react-icons/pi";
 import { FaCartShopping, FaHandHoldingDollar } from "react-icons/fa6";
+import { RiLogoutBoxFill } from "react-icons/ri";
 
 import { useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import CheckRole from '../routes/CheckRole';
+import { publicPost } from '../utilities/apiCaller';
+import { removeUser } from '../services/userSlice';
 
 
 
 
 const DashboardLayout = () => {
-  const {user} = useSelector(state=>state.userInfo)
+  const {user} = useSelector(state=>state.userInfo);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
     useEffect(() => {
         const handleClick = (event) => {
           const { target } = event;
@@ -38,6 +43,16 @@ const DashboardLayout = () => {
           document.removeEventListener('click', handleClick);
         };
       }, []);
+
+      const handleSignOut = ()=> {
+        publicPost('/api/user/logout').then(res=> {
+          if(res?.status===200) {
+            dispatch(removeUser());
+            navigate('/signin');
+          }
+          
+        })
+      }
     
     const navItem = <>
     <NavLink to='home' className={({isActive})=> isActive?' pl-2 ml-1 text-blue-200 font-[600]   sidebar-item':'sidebar-item text-white font-[400]'}><LuLayoutDashboard/> Dashboard </NavLink>
@@ -56,6 +71,8 @@ const DashboardLayout = () => {
     <NavLink to='orders' className={({isActive})=> isActive?' pl-2 ml-1 text-blue-200 font-[600]   sidebar-item':'sidebar-item text-white font-[400]'}><FaCartShopping/> Orders </NavLink>
     
    <CheckRole role={['admin', 'super-admin', 'user']}> <NavLink to='transaction' className={({isActive})=> isActive?' pl-2 ml-1 text-blue-200 font-[600]   sidebar-item':'sidebar-item text-white font-[400]'}><FaHandHoldingDollar/> Transaction </NavLink></CheckRole>
+
+   <div to='transaction' className={`sidebar-item text-white font-[400]`} onClick={handleSignOut}><RiLogoutBoxFill className='text-white' /> Sign Out </div>
    
     </>
     

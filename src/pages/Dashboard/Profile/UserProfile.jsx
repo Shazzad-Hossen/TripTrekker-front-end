@@ -13,6 +13,7 @@ import { setUser } from "../../../services/userSlice";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import { IoIosArrowBack } from "react-icons/io";
+import { toast } from "../../../utilities/toast";
 
 
 const UserProfile = () => {
@@ -94,25 +95,10 @@ const UserProfile = () => {
       privatePatch("/api/user/me", data).then((res) => {
         if (res.status === 200) {
           dispatch(setUser(res?.data));
-          Swal.fire({
-            position: "center",
-            icon: "success",
-            title: "Successfull",
-            showConfirmButton: false,
-            timer: 1500,
-          });
-
-          setTimeout(()=>{
-            if(type==='next') navigate('additionalinfo');
-          },2000)
+          if(type==='next') navigate('additionalinfo');
+          else toast.success('Success')  
         } else {
-          Swal.fire({
-            position: "center",
-            icon: "error",
-            title: res?.data || "Something wents wrong",
-            showConfirmButton: false,
-            timer: 1500,
-          });
+          toast.error(res?.data || "Something wents wrong")
         }
       });
     }

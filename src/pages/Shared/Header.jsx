@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { CgCloseR, CgMenuGridR } from "react-icons/cg";
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import logo from '../../assets/logo/triptrekker-logo.png';
 import { removeUser } from '../../services/userSlice';
+import { publicPost } from '../../utilities/apiCaller';
 
 
 
@@ -15,6 +16,19 @@ const Header = () => {
     const {user}= useSelector((state)=>state.userInfo);
     const dispatch= useDispatch();
     const location=useLocation();
+    const navigate = useNavigate();
+
+    
+    const handleSignOut = ()=> {
+      publicPost('/api/user/logout').then(res=> {
+        if(res?.status===200) {
+          dispatch(removeUser());
+          navigate('/signin');
+
+        }
+        
+      })
+    }
 
 
 
@@ -27,7 +41,7 @@ const Header = () => {
     <Link className='md:drop-shadow-lg border-b-[1px] p-3 md:border-0 md:p-0 ' to='/packages'>PACKAGES</Link>
     <Link className='md:drop-shadow-lg border-b-[1px] p-3 md:border-0 md:p-0 ' to='/hotels'>HOTELS</Link>
     
-    {user? <button className='md:drop-shadow-lg border-b-[1px] p-3 md:border-0 md:p-0 text-start' onClick={()=>dispatch(removeUser())}>SIGN OUT</button>:<><Link className='md:drop-shadow-lg border-b-[1px] p-3 md:border-0 md:p-0 ' to='/signin'>SIGN IN</Link>
+    {user? <button className='md:drop-shadow-lg border-b-[1px] p-3 md:border-0 md:p-0 text-start' onClick={handleSignOut}>SIGN OUT</button>:<><Link className='md:drop-shadow-lg border-b-[1px] p-3 md:border-0 md:p-0 ' to='/signin'>SIGN IN</Link>
     <Link className='md:drop-shadow-lg border-b-[1px] p-3 md:border-0 md:p-0 ' to='/signup'>SIGN UP</Link></>}
     
     </>
@@ -68,7 +82,7 @@ const Header = () => {
     >
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between py-2">
-          <img className='w-[200px]' src={logo} alt="" />
+          <Link to='/'><img className='w-[200px]' src={logo} alt="" /></Link>
           <div className="hidden md:block"><div className="flex space-x-3  md:text-md ">
             {navItem}
             

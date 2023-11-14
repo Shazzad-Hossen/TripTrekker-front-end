@@ -21,6 +21,7 @@ const AgencyProfile = () => {
   const [files, setFiles] = useState({});
   const { user } = useSelector((state)=>state.userInfo);
   const dispatch = useDispatch();
+  console.log(user);
 
 
   const {
@@ -100,16 +101,18 @@ const AgencyProfile = () => {
     publicPost('/api/agency',{...data, documents: docs }). then(res=>{
       if(res.status===201){
         dispatch(setUser(res?.data));
+        toast.success('Successfully Addedd');
+      
         
       }
     })
    }
    else {
     privatePatch('/api/agency',{...data, documents: docs, id: user?.agency?.id }). then(res=>{
-      console.log('updated data',res);
       if(res.status===200){
-
         dispatch(setUser(res?.data));
+        toast.success('Successfully Updated');
+
         
       }
     })
