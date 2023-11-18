@@ -7,6 +7,7 @@ import Button from "../../Shared/Button";
 import { useForm } from "react-hook-form";
 import noImg from '../../../assets/images/noImage.png'
 import axios from "axios";
+import { toast } from "../../../utilities/toast";
 
 const EditDivision = () => {
   const navigate = useNavigate();
@@ -29,26 +30,19 @@ const EditDivision = () => {
   }, []);
 
   const handleFileChange = (e) => {
-        
     if(!e.target.files[0]) return;
-
 const formData = new FormData();
-formData.append("image", e.target.files[0]);
-axios
-  .post("https://api.imgbb.com/1/upload", formData, {
+formData.append("file", e.target.files[0]);
+axios 
+  .post(`${import.meta.env.VITE_SERVER_URL}/api/file`, formData, {
     headers: {
       "Content-Type": "multipart/form-data",
     },
-    params: {
-      key: "a8f83831f3e714703a0b98d00fcf8f8a",
-    },
   })
   .then((res) => {
- 
-    if (res.status === 200) {
+    if (res.status === 201) {
       console.log(res);
-      setPhoto(res?.data?.data?.url);
-      setValue('avatar',res?.data?.data?.url);
+      setPhoto(res?.data);
     } else {
       console.log(" Image upload unsuccessfull");
     }
@@ -56,8 +50,10 @@ axios
 };
 
   const onSubmit = data => {
-    privatePatch(`/api/division`,data).then(res=>{
-      console.log(res);
+    privatePatch(`/api/division`,{...data, thumbnail: photo
+    }).then(res=>{
+      if(res.status===200) toast.success('Successfully Updated');
+      else  toast.error(res.data)
     })
 
   }
@@ -77,7 +73,7 @@ axios
       <div className=" px-5 md:px-20 py-10 flex flex-col  gap-4  ">
         <div className=" ">
           <h1 className="font-[600] text-blue-100 pb-3">Thumbnail</h1>
-          <img src={photo} className="rounded shadow-md max-w-[500px] max-h-[300px] h-full w-full " alt="" onClick={() => fileInputRef.current.click()} />
+          <img  src={`${import.meta.env.VITE_SERVER_URL}/api/${photo}`} className="rounded shadow-md max-w-[500px] max-h-[300px] h-full w-full " alt="" onClick={() => fileInputRef.current.click()} />
           <input className="hidden" type="file" ref={fileInputRef} onChange={handleFileChange} />
         </div>
      

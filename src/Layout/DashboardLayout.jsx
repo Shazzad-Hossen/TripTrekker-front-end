@@ -24,7 +24,8 @@ import { removeUser } from '../services/userSlice';
 
 
 const DashboardLayout = () => {
-  const {user} = useSelector(state=>state.userInfo);
+  //redux state
+  const {user} = useSelector((state)=>state.userInfo);
   const dispatch = useDispatch();
   const navigate = useNavigate();
     useEffect(() => {
@@ -92,3 +93,4 @@ const DashboardLayout = () => {
 };
 
 export default DashboardLayout;
+

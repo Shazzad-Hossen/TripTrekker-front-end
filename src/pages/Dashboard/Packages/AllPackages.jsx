@@ -35,7 +35,6 @@ const AllPackages = () => {
     else navigate(id)
   }
 
- console.log(user);
  const handleCreate = () => {
   if(user.role==='hotel' || user.role==='agency') {
     if(user.hotel || user.agency) {

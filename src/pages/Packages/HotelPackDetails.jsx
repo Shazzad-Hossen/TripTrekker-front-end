@@ -175,7 +175,7 @@ const HotelPackDetails = ({data=null}) => {
        <Scrollable>
        {
           places.map((place,index)=><div key={index} onClick={()=>navigate(`/places/${data?.place?.id}`)}><Card  hoverable style={{ width: 240 }}  cover={
-            <img alt="image" src={place?.thumbnails[0]} className="h-[250px] pointer-events-none" />
+            <img alt="image" src={`${import.meta.env.VITE_SERVER_URL}/api/${place?.thumbnails[0]}`} className="h-[250px] pointer-events-none" />
              }>
               <Meta title={place?.name} description={place?.division?.name} />
               </Card></div>)

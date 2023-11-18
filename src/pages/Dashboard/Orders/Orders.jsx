@@ -17,7 +17,6 @@ const Orders = () => {
   const [filter, setFilter] = useState("all");
   const {search: query}= useLocation();
   const [sort,setSort]= useState(false);
-  console.log(user);
 
   useEffect(()=>{
     const isFound = query.slice(1).split('&').find(key=>key.split('=')[0]==='status');

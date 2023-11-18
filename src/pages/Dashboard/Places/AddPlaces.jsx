@@ -67,48 +67,46 @@ const AddPlaces = () => {
   };
 
   const onSubmit = async (data) => {
-    const formData = new FormData();
-    const uploadedUrls = [];
-
-    await Promise.all(
-      Object.keys(thumbnails).map(async (key) => {
-        formData.append("image", thumbnails[key]);
-        try {
-          const response = await axios.post(
-            "https://api.imgbb.com/1/upload",
-            formData,
-            {
-              headers: {
-                "Content-Type": "multipart/form-data",
-              },
-              params: {
-                key: "a8f83831f3e714703a0b98d00fcf8f8a",
-              },
-            }
-          );
-          const url = response?.data?.data?.url;
-          if (url) {
-            uploadedUrls.push(url);
-          }
-        } catch (error) {
-          console.error("Error uploading image:", error);
-        }
-      })
-    );
-
-    if (uploadedUrls.length < 3)
+    if(Object.keys(thumbnails).length<3) {
       setError("thumbnails", { message: "Please select at least three photos" });
-    else if (data?.division === null)
-      setError("division", { message: "This field is required" });
-    else if (quillRef.current.getEditor().getLength() < 2)
-      setError("description", { message: "This field is required" });
-    else {
-      
- 
-      publicPost('/api/place',{...data, thumbnails: uploadedUrls, description}). then(res=>{
-        if(res.status===201) toast.success('Places addedd successfully')
-      })
+      return;
     }
+  if (data?.division === null) {
+    setError("division", { message: "This field is required" });
+    return;
+  }
+   
+  if (quillRef.current.getEditor().getLength() < 2) {
+    setError("description", { message: "This field is required" });
+    return;
+  }
+  const formData = new FormData();
+  Object.keys(thumbnails).map(async (key) => {
+    formData.append("image", thumbnails[key]);
+  });
+  const response = await axios.post(
+    `${import.meta.env.VITE_SERVER_URL}/api/file`,
+    formData,
+    {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    }
+  );
+  
+  if(response.status!==201){
+    toast.error(response.data);
+  } else {
+    
+    publicPost('/api/place',{...data, thumbnails: response.data, description}). then(res=>{
+      if(res.status===201){
+        toast.success('Places addedd successfully');
+        navigate(-1);
+      }
+    })
+    
+   
+  }
   };
 
   return (

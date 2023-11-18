@@ -33,8 +33,9 @@ const EditPlace = () => {
   } = useForm();
 
   useEffect(() => {
-    publicGet("/api/division").then((res) => setDivisions(res?.data.docs));
+    publicGet("/api/division").then((res) => setDivisions(res?.data));
   }, []);
+  
   useEffect(()=>{
     publicGet(`/api/place/${id}`).then(res=>{
         if(res.status===200){
@@ -54,6 +55,11 @@ const EditPlace = () => {
 
 
   const onSubmit = async (data) => {
+    if(Object.keys(thumbnails).length<3) {
+      setError('thumbnails', { message: 'Please select minimum 3 photos'});
+      return;
+      
+    }
     const uploadedImages = await uploadImage(thumbnails);
       privatePatch(`/api/place/${place?.id}`,{...data, thumbnails: uploadedImages, description}). then(res=>{
         if(res.status===200) toast.success('Places addedd successfully');
@@ -63,7 +69,6 @@ const EditPlace = () => {
       })
     
   };
-
 
 
   return (
@@ -118,7 +123,7 @@ const EditPlace = () => {
                   name="division"
                   setValue={setValue}
                   errors={errors["division"]}
-                  value={place?.division}
+                  value={place?.division?.id}
                 />
               </div>
             </div>

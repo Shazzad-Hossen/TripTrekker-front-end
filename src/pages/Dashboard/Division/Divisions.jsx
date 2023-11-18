@@ -13,6 +13,7 @@ import axios from 'axios';
 import { useState } from 'react';
 import { publicDelete, publicGet, publicPost } from '../../../utilities/apiCaller';
 import Swal from 'sweetalert2';
+import { toast } from '../../../utilities/toast';
 
 
 
@@ -37,37 +38,36 @@ const Divisions = () => {
         publicGet('/api/division?paginate=true').then(res=>setDivisionData(res?.data))
       }
 
-       //   Image Upload to ImgBB
-    const handleFileChange = (e) => {
-        
-        if(!e.target.files[0]) return;
+       //   Image Upload to Server
+       const handleFileChange = (e) => {
         setLoading(true);
+        if(!e.target.files[0]) return;
     const formData = new FormData();
-    formData.append("image", e.target.files[0]);
+    formData.append("file", e.target.files[0]);
     axios 
-      .post("https://api.imgbb.com/1/upload", formData, {
+      .post(`${import.meta.env.VITE_SERVER_URL}/api/file`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
-        params: {
-          key: "a8f83831f3e714703a0b98d00fcf8f8a",
-        },
       })
       .then((res) => {
-        setLoading(false)
-        if (res.status === 200) {
-          setPhoto(res?.data?.data?.url);
+        setLoading(false);
+        if (res.status === 201) {
+          console.log(res);
+          setPhoto(res?.data);
         } else {
           console.log(" Image upload unsuccessfull");
         }
       });
   };
     
+    
       const onSubmit = (data) => {
         data.thumbnail= photo;
     
         publicPost('/api/division',data).then(res=>{
            if(res.status===201){
+            toast.success('Successfully added')
             fetchData();
             reset();
             setPhoto('');
@@ -121,7 +121,7 @@ const Divisions = () => {
                  <Lottie className={`w-[200px] ${photo!==''?'hidden':'block'}`} animationData={uploadAnim} loop={true} />
                
                 
-               <img src={photo} className={`h-full w-full rounded ${photo===''?'hidden':'block'}`} alt="" />
+               <img src={`${import.meta.env.VITE_SERVER_URL}/api/${photo}`} className={`h-full w-full rounded ${photo===''?'hidden':'block'}`} alt="" />
                 </>
                }
                

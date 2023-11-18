@@ -1,7 +1,6 @@
 import axios from "axios";
 
 export const uploadImage = async(images={})=>{
-    const formData = new FormData();
     const uploadedUrls = [];
     await Promise.all(
         Object.keys(images).map(async (key) => {
@@ -9,24 +8,23 @@ export const uploadImage = async(images={})=>{
                 uploadedUrls.push(images[key]);
             }
             else {
-                formData.append("image", images[key]);
+               const formData = new FormData();
+                formData.append("file", images[key]);
                 try {
                     const response = await axios.post(
-                      "https://api.imgbb.com/1/upload",
+                      `${import.meta.env.VITE_SERVER_URL}/api/file`,
                       formData,
                       {
                         headers: {
                           "Content-Type": "multipart/form-data",
                         },
-                        params: {
-                          key: "a8f83831f3e714703a0b98d00fcf8f8a",
-                        },
                       }
                     );
-                    const url = response?.data?.data?.url;
-                    if (url) {
-                      uploadedUrls.push(url);
+                    if(response.status===201) {
+                      uploadedUrls.push(response.data);
+
                     }
+                   
                   } catch (error) {
                     console.error("Error uploading image:", error);
                   }

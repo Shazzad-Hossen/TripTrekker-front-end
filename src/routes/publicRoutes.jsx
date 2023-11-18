@@ -1,7 +1,6 @@
 import { Navigate, createBrowserRouter } from "react-router-dom";
 import DashboardLayout from "../Layout/DashboardLayout";
 import Main from "../Layout/Main";
-import Dashboard from "../pages/Dashboard/Dashboard";
 import Divisions from "../pages/Dashboard/Division/Divisions";
 import EditDivision from "../pages/Dashboard/Division/EditDivision";
 import AddPlaces from "../pages/Dashboard/Places/AddPlaces";
@@ -29,6 +28,7 @@ import HotelDetails from "../pages/HotelDetails/HotelDetails";
 import Orders from "../pages/Dashboard/Orders/Orders";
 import OrderDetails from "../pages/Dashboard/Orders/OrderDetails";
 import Transaction from "../pages/Dashboard/Transaction/Transaction";
+import Dashboard from "../pages/Dashboard/Dashboard/Dashboard";
 
 
   export const router = createBrowserRouter([
@@ -61,7 +61,8 @@ import Transaction from "../pages/Dashboard/Transaction/Transaction";
         },
         {
           path: 'home',
-          element: <Dashboard/>
+          element: <Dashboard />
+         
         },
         {
           path: 'profile',
