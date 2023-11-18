@@ -10,6 +10,7 @@ import { publicDelete, publicGet } from '../../../utilities/apiCaller';
 import Input from '../../Shared/Input';
 import { LuSearch } from "react-icons/lu";
 import { toast } from '../../../utilities/toast';
+import Paginate from '../../Shared/Paginate/Paginate';
 
 
 
@@ -17,14 +18,11 @@ import { toast } from '../../../utilities/toast';
 const Places = () => {
   const navigate = useNavigate();
   const [ places,setPlaces]= useState(null);
-  useEffect(()=>{
-    fetchData();
-   
-
-  },[]);
+  const [page, setPage] = useState(1);
+ 
   const fetchData = ()=>{
-    publicGet(`/api/place?paginate=true`).then(res=>{
-      if(res.status===200) {
+    publicGet(`/api/place?paginate=true&page=${page}`).then(res=>{
+      if(res?.status===200) {
         setPlaces(res?.data);
       }
       else {
@@ -32,6 +30,11 @@ const Places = () => {
       }
     })
   }
+  useEffect(()=>{
+    fetchData();
+   
+
+  },[page]);
 
   const handleCallback = (type, id) =>{
     if(type==='delete'){
@@ -71,6 +74,9 @@ const Places = () => {
 
   <div className="px-5">
   <Table type='place' callBack={handleCallback} data={places}/>
+  <div className="pt-5">
+    <Paginate data={places} callBack={(e)=> setPage(e)}/>
+  </div>
   </div>
       
     </div>
