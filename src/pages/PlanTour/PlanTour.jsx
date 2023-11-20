@@ -14,6 +14,7 @@ const PlanTour = () => {
   }, []);
 
   const placeHandler = (id) => navigate(`/plantour/${id}`);
+  console.log(division);
 
   return (
     <main className="pt-10">

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import UserDashboard from './UserDashboard';
+import UserDashboard from './UserDashboard/UserDashboard';
 
 const Dashboard = () => {
     const { user } = useSelector(state=> state.userInfo);

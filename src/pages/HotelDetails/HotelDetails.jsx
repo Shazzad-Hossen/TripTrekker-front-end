@@ -32,7 +32,6 @@ const HotelDetails = () => {
 
     
 
-  console.log(packages);
     return (
       <main>
         <div className="flex items-center gap-10">

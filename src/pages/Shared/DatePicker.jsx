@@ -25,7 +25,7 @@
             
             const days=['Sun','Mon','Tue','Wed','Thu','Fri','Sat']
             
-            export default function DatePicker ({onChange=()=>{}, setValue=()=>{}, value, name='date',errors=null, placeholder='Select Date', className='', label, labelColor=false}) {
+            export default function                                         DatePicker ({onChange=()=>{}, setValue=()=>{}, value, name='date',errors=null, placeholder='Select Date', className='', label, labelColor=false}) {
                 const [isOpen,setIsopen]=useState(false);
                 const [currentDate,setCurrentdate]=useState({date: new Date().getDate(), month: new Date().getMonth(), year: new Date().getFullYear()});
                 const [currentYear,setCurrentYear]= useState(new Date().getFullYear());

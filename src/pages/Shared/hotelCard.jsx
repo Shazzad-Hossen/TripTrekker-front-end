@@ -5,7 +5,6 @@ import hotelImg from '../../assets/images/hotelRoom.png';
 import locationIco from '../../assets/icon/location.png';
 
 const HotelCard = ({ data  }) => {
-    console.log(data);
     const navigate = useNavigate();
     return (
       <div
