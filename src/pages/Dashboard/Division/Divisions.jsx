@@ -28,15 +28,16 @@ const Divisions = () => {
       const [photo,setPhoto]=useState('');
       const [loading, setLoading]= useState(false);
       const [divisionData,setDivisionData]=useState(null);
+      const fetchData = () =>{
+        publicGet('/api/division?paginate=true').then(res=>setDivisionData(res?.data))
+      }
 
       useEffect(()=>{
         fetchData();
        
 
       },[]);
-      const fetchData = () =>{
-        publicGet('/api/division?paginate=true').then(res=>setDivisionData(res?.data))
-      }
+      
 
        //   Image Upload to Server
        const handleFileChange = (e) => {
