@@ -10,13 +10,14 @@ import { toast } from '../../utilities/toast';
 import { publicPost } from '../../utilities/apiCaller';
 import axios from 'axios';
 
-const UserCard = () => {
+const UserCard = ({callBack= () => {}}) => {
     const [location,setLocation]=useState(null);
     const [isPhoto,setIsphoto]=useState(true);
     const {user} = useSelector(state=> state.userInfo);
     const [value, setValue]= useState('');
     const [isLocationOpen, setIsLocationOpen]= useState(false);
     const [ images, setImages] = useState([]);
+    const [thumbnails, setThumbnails] = useState([]);
 
     const handlePost = () => {
      if(value!=='') {
@@ -32,7 +33,12 @@ const UserCard = () => {
        'Content-Type':'multipart/form-data'
       },
       withCredentials: true,}).then(res=>{
-        console.log(res);
+        if(res.status===201){
+
+            setValue('');
+            callBack();
+            setThumbnails([])
+        }
        })
 
      }
@@ -48,7 +54,7 @@ const UserCard = () => {
             <textarea type="text" className="scrollable-div border  bg-[white] max-h-[300px] min-h-[100px] w-full rounded-md p-5 placeholder:text-[#aaaaaa] outline-none focus:placeholder:opacity-0 mb-3"placeholder='Your text here' value={value} onChange={(e) => setValue(e.target.value)}/>
             <div className="flex items-center gap-4 pb-5"><span  className='flex items-center gap-2 cursor-pointer' onClick={() =>setIsLocationOpen(true)}><IoLocationSharp className='text-[#4fa32e] h-[20px] w-[20px]'/>{location? location?.name: 'Location'}</span> {isPhoto?<span onClick={()=>setIsphoto(false)} className='flex items-center gap-2 cursor-pointer'><IoImages className='text-[#4fa32e] h-[20px] w-[20px]'/>Photos</span>:''}
            <div className="w-full flex justify-end"> <Button className='bg-blue-100 text-white' onClick={handlePost}>Post</Button></div></div>
-            {isPhoto?'':<UploadImage callBack={setImages} />}
+            {isPhoto?'':<UploadImage callBack={setImages} thumbnails={thumbnails} />}
             </div>
 
             {
