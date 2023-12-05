@@ -18,6 +18,7 @@ const TABLE_HEAD = {
   'userOrders': ["SL","Package Name", "Date", "Cost", "Status", 'Action'],
   'transaction': ["SL", "Tnx Id", "Package Name", "Date",  "Total", 'Refund'],
   'transaction-admin': ["SL", "Tnx Id", "Package Name", "Date",  "Total", 'Status', 'Action'],
+  'promotions': ["SL", "Title", "Action"],
   
 };
 
@@ -330,6 +331,30 @@ const Table = ({ type = "", data = {}, deleteHandler= ()=>{}, callBack=()=>{} })
 
   }
 
+  const renderPromotions = () => {
+    return (<tbody>
+      {
+          data?.docs?.map((item, index)=><tr key={index} className=" border-b border-gray-300 group hover:bg-blue-400/10" >
+          <td  className="py-2 px-4 font-[600] w-[80px] ">
+            {index+1}
+          </td>
+          <td className="px-4">{item?.title}</td>
+         
+        
+          <td  className="py-2 px-4 w-[100px]">
+            <div className="flex items-center gap-3"><FiEdit2 className="group-hover:text-red-400" onClick={()=>callBack('edit',item?.id)}/> <BsTrash className="group-hover:text-red-400" onClick={()=>callBack('delete',item?.id)}/></div>
+          </td>
+          
+       
+          </tr>)
+      }
+
+    
+
+  </tbody>) 
+
+  }
+
   
 
 
@@ -358,7 +383,9 @@ const Table = ({ type = "", data = {}, deleteHandler= ()=>{}, callBack=()=>{} })
         type === "package" ? renderPackageRows() : 
         type === "userOrders" ? renderUserOrdersRows() : 
         type === "transaction" ? renderTransactionRows() :
-        type === "transaction-admin" ? renderTransactioAdminRows() : ""
+        type === "transaction-admin" ? renderTransactioAdminRows() :
+        type === "promotions" ? renderPromotions() : ""
+        
 
         
 

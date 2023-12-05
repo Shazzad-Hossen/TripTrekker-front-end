@@ -8,21 +8,29 @@ import PlanCards from '../PlaceDetails/PlanCards';
 import { publicGet } from '../../utilities/apiCaller';
 import HotelCard from '../Shared/hotelCard';
 import Loading from '../Shared/Loading';
+import PromotionCard from '../Shared/PromotionCard';
 
 
 const Home = () => {
     const [packages, setPackages]= useState([]);
     const [hotelPacs, setHotelPacks]= useState([]);
     const [hotels, setHotels]= useState([]);
+    const [promotions, setPromotions]= useState([]);
     const [loading, setLoading]= useState(true);
 
 
     useEffect(()=> {
-        setLoading(true);
+        // setLoading(true);
+        setLoading(false);
         publicGet('/api/package?paginate=true&limit=20&type=agency').then(res=>{
             if(res.status===200) setPackages(res?.data?.docs);
             publicGet('/api/package?paginate=true&limit=20&type=hotel').then(res=>{
                 if(res.status===200) setHotelPacks(res?.data?.docs);
+                publicGet('/api/promotion?').then(res=>{
+                    if(res.status===200) setPromotions(res?.data?.docs);
+                    
+                });
+
                 publicGet('/api/hotel?paginate=true&limit=20').then(res=>{
                     if(res.status===200) setHotels(res?.data?.docs);
                     setLoading(false);
@@ -38,6 +46,17 @@ const Home = () => {
         <div  className=''>
            <Banner/> 
            <Overview/>
+           <main>
+           <div className="mb-5 border rounded-md p-5">
+      <h1 className="font-chakra text-xl font-bold text-[#333333] mb-5">
+          New Offers
+        </h1>
+         
+        <Scrollable> {promotions.map((item, i) => (
+            <PromotionCard key={i} data={item} />
+          ))}</Scrollable>
+      </div>
+           </main>
            <About/>
        
        <main>

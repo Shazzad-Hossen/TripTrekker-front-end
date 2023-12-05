@@ -114,7 +114,7 @@ const  ExperienceCard = ({datas}) => {
               {
                !ismore && data?.text.length>400?  <span className='text-blue-200'onClick={()=>setIsMore(true)}>... read more</span>:ismore && data?.text.length>400? <span className='text-blue-200'onClick={()=>setIsMore(false)}>  read less</span>:''
                }
-                <div className="w-full py-3 px-2 flex justify-between items-center border-y mt-4">
+                <div className={`w-full py-3 px-2 flex justify-between items-center border-t mt-4 ${data?.comment?.length>0? 'border-b':''}`}>
                     <span className={`flex items-center gap-4 font-semibold cursor-pointer ${isLike?'text-blue-200':''}`}onClick={handleLike}><SlLike className='font-semibold'/> Like</span>
 
                     <span className='flex items-center gap-4 font-semibold'>{data?.comment?.length}<BiComment className='font-semibold'/> Comment</span>
@@ -133,12 +133,14 @@ const  ExperienceCard = ({datas}) => {
                         </div>
                     </div>)
                 }
-                <div className="pt-4 flex items-start gap-3">
+                {
+                    user? <div className="pt-4 flex items-start gap-3">
                     <img className='w-[30px] h-[30px] rounded-full' src={user?.avatar} alt="" />
 
                     <textarea type="text" className='w-full border rounded-md p-2 h-[50px] outline-none focus:placeholder:opacity-0' placeholder='Write a comment . . .'value={commentText} onChange={(e) => setCommentText(e.target.value)} />
                     <div className="flex flex-col justify-end"><div className="bg-blue-200 text-white p-3 rounded" onClick={handleComment}>Send</div></div>
-                </div>
+                </div>:''
+                }
             </div>
 
             

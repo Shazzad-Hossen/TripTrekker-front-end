@@ -34,7 +34,7 @@ const Input = ({
       </div>
       {
         
-        errors? <p  className="text-red-400  flex items-center gap-2 font-[400] text-sm pt-1"><img src={errorIco} alt="" /><span>{errors  .message}</span></p>:<></>
+        errors? <p  className="text-red-400  flex items-center gap-2 font-[400] text-sm pt-1"><img src={errorIco} alt="" /><span>{errors.message}</span></p>:<></>
       }
     </div>
   );

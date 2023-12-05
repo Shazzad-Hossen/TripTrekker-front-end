@@ -13,6 +13,7 @@ import { FaHotel } from "react-icons/fa";
 import { PiPackageFill } from "react-icons/pi";
 import { FaCartShopping, FaHandHoldingDollar } from "react-icons/fa6";
 import { RiLogoutBoxFill } from "react-icons/ri";
+import { TfiAnnouncement } from "react-icons/tfi";
 
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -72,6 +73,9 @@ const DashboardLayout = () => {
     <NavLink to='orders' className={({isActive})=> isActive?' pl-2 ml-1 text-blue-200 font-[600]   sidebar-item':'sidebar-item text-white font-[400]'}><FaCartShopping/> Orders </NavLink>
     
    <CheckRole role={['admin', 'super-admin', 'user']}> <NavLink to='transaction' className={({isActive})=> isActive?' pl-2 ml-1 text-blue-200 font-[600]   sidebar-item':'sidebar-item text-white font-[400]'}><FaHandHoldingDollar/> Transaction </NavLink></CheckRole>
+
+   <CheckRole role={['admin', 'super-admin']}> <NavLink to='promotions' className={({isActive})=> isActive?' pl-2 ml-1 text-blue-200 font-[600]   sidebar-item':'sidebar-item text-white font-[400]'}><TfiAnnouncement  /> Promotions </NavLink></CheckRole>
+   
 
    <div to='transaction' className={`sidebar-item text-white font-[400]`} onClick={handleSignOut}><RiLogoutBoxFill className='text-white' /> Sign Out </div>
    

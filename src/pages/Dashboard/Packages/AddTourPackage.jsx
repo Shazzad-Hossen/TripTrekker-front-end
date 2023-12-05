@@ -50,7 +50,6 @@ const AddTourPackage = ({ details:detailedData}) => {
 
   useEffect(()=>{
     if(details){
-      console.log(details);
       setValue('id',details?.id)
       setValue('name',details?.name);
       setValue('day',details?.duration?.day);

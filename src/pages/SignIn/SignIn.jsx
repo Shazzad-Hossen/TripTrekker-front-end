@@ -9,6 +9,7 @@ import { BsGithub } from "react-icons/bs";
 import { publicPost } from "../../utilities/apiCaller";
 import { useDispatch } from "react-redux";
 import { setUser } from "../../services/userSlice";
+import { toast } from "../../utilities/toast";
 
 const SignIn = () => {
   const {
@@ -26,6 +27,7 @@ const SignIn = () => {
         dispatch(setUser(res.data));
         navigate('/')
       }
+      else toast.error(res?.data)
     });
   }
 

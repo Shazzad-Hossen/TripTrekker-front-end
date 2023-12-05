@@ -29,6 +29,11 @@ import Orders from "../pages/Dashboard/Orders/Orders";
 import OrderDetails from "../pages/Dashboard/Orders/OrderDetails";
 import Transaction from "../pages/Dashboard/Transaction/Transaction";
 import Dashboard from "../pages/Dashboard/Dashboard/Dashboard";
+import Promotions from "../pages/Dashboard/Promotions/Promotions";
+import ForgotPassword from "../pages/ForgotPassword/ForgotPassword";
+import VerifyOtp from "../pages/ForgotPassword/VerifyOtp";
+import ResetPassword from "../pages/ForgotPassword/ResetPassword";
+import AddPromotions from "../pages/Dashboard/Promotions/AddPromotions";
 
 
   export const router = createBrowserRouter([
@@ -47,6 +52,11 @@ import Dashboard from "../pages/Dashboard/Dashboard/Dashboard";
         {path: '/package/:id', element: <PackageDetails/> },
         {path: '/hotels', element: <Hotels/> },
         {path: 'hotels/:id', element: <HotelDetails/> },
+        {path: 'forgotpassword', element: <ForgotPassword/> },
+        {path: 'verifyotp', element: <VerifyOtp/> },
+        {path: 'resetpassword', element: <ResetPassword/> },
+        
+        
 
       ]
     },
@@ -103,6 +113,9 @@ import Dashboard from "../pages/Dashboard/Dashboard/Dashboard";
         {path: 'orders/:id', element: <OrderDetails/>},
         //Transaction
         {path: 'transaction', element: <Transaction/>},
+        //Promotions
+        {path: 'promotions', element: <Promotions/>},
+        {path: 'promotions/:pId', element: <AddPromotions/>},
 
 
         
