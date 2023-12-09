@@ -5,6 +5,8 @@ import { toast } from "../../utilities/toast";
 import { BiSort } from "react-icons/bi";
 import { LuSearch } from "react-icons/lu";
 import Input from "../Shared/Input";
+import Loading from "../Shared/Loading";
+import Paginate2 from "../Shared/Paginate/Paginate2";
 
 
 
@@ -16,15 +18,21 @@ import Input from "../Shared/Input";
 const Packages = () => {
   const [packages, setPackages] = useState([]);
   const [filter, setFilter]=useState('all');
-  const fetchData = () => publicGet(`/api/package?paginate=true${filter!=='all'?'&type='+filter :''}`).then(res=> res?.status===200? setPackages(res?.data):toast.error(res?.data));
+  const [loading, setLoadiong] = useState(true);
+  const [page, setPage] = useState(1);
+  const fetchData = () => publicGet(`/api/package?paginate=true&page=${page}&limit=9${filter!=='all'?'&type='+filter :''}`).then(res=> {
+    setLoadiong(false);
+    console.log(res);
+    res?.status===200? setPackages(res?.data):toast.error(res?.data)
+  });
 
   useEffect(()=>{
+    setLoadiong(true);
     fetchData();
+  },[filter, page]);
 
 
-  },[filter]);
-
-  console.log(packages);
+    if(loading) return <Loading />
     return (
         <div className="">
           <main>
@@ -35,9 +43,9 @@ const Packages = () => {
 
       <div className="pb-5 flex flex-col-reverse sm:flex-row sm:items-center sm:justify-between gap-5">
       <div className="flex items-center gap-3 justify-start ">
-        <button className={`${filter==='all'?'bg-blue-200 text-white':''} px-2 rounded `} onClick={()=>setFilter('all')}>All</button>
-        <button className={`${filter==='agency'?'bg-blue-200 text-white':''} px-2 rounded `} onClick={()=>setFilter('agency')}>Travel</button>
-        <button className={`${filter==='hotel'?'bg-blue-200 text-white':''} px-2 rounded `} onClick={()=>setFilter('hotel')}>Hotel</button>
+        <button className={`${filter==='all'?'bg-blue-200 text-white':''} px-2 rounded `} onClick={()=>{setFilter('all'); setPage(1)}}>All</button>
+        <button className={`${filter==='agency'?'bg-blue-200 text-white':''} px-2 rounded `} onClick={()=>{setFilter('agency'); setPage(1)}}>Travel</button>
+        <button className={`${filter==='hotel'?'bg-blue-200 text-white':''} px-2 rounded `} onClick={()=>{setFilter('hotel'); setPage(1)}}>Hotel</button>
       </div>
 
      <div className="flex justify-end items-center  gap-3">
@@ -58,13 +66,15 @@ const Packages = () => {
 
 
        {/* Hotels Grid */}
-       <div className="flex justify-center items-center">
+       <div className="flex justify-center items-center pb-10">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10">
         {
         packages?.docs?.map((h, index)=><PlanCards key={index} data={h}/>)
       }
         </div>
       </div>
+
+      <Paginate2 totalPages={packages?.totalPages} currentPage={packages?.page} onPageChange={(e)=> setPage(e)} />
 
           </main>
         </div>

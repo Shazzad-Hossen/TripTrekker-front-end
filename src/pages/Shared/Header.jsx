@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { CgCloseR, CgMenuGridR } from "react-icons/cg";
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
@@ -17,6 +17,7 @@ const Header = () => {
     const dispatch= useDispatch();
     const location=useLocation();
     const navigate = useNavigate();
+    const menuRef = useRef();
 
     
     const handleSignOut = ()=> {
@@ -30,6 +31,7 @@ const Header = () => {
       })
     }
 
+   
 
 
 
@@ -74,7 +76,9 @@ const Header = () => {
   
     return (
        <>
-       <div className="h-20"></div>
+       {
+        location?.pathname==='/'?'':<div className="h-20"></div>
+       }
         <nav
       className={` z-20 fixed w-full transition-colors duration-300  top-0 ${
         navbarBg ? ' text-white backdrop-blur-xl bg-blue-100/80 ' : ' bg-blue-100 text-white'
@@ -83,23 +87,35 @@ const Header = () => {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between py-2">
           <Link to='/'><img className='w-[200px]' src={logo} alt="" /></Link>
-          <div className="hidden md:block"><div className="flex space-x-3  md:text-md ">
+         <div className="">
+
+         <div className="hidden md:block">
+          <div className="flex space-x-3  md:text-md ">
             {navItem}
             
-         {user && <Link to='/dashboard/home'>
+         {user? <Link to='/dashboard/home'>
           {
             user?.avatar!==''? <img className='h-[25px] w-[25px] rounded-full' src={user?.avatar}/>: <div className='h-[25px] w-[25px] rounded-full bg-white text-blue-100 flex justify-center items-center font-[600]' >{user.fullName[0]}</div>
           }
-          </Link>}
+          </Link>
+          :
+          <div className="flex items-center gap-2">
+          
+          {user && <Link to='/dashboard/home'><img className=' h-[25px] w-[25px] rounded-full md:hidden' src={user?.avatar}/> </Link>
+          }
+          </div>
+          }
             
           </div></div>
           <button className=' md:hidden flex items-center gap-2' onClick={()=>setToggle(!toggle)}>
             {
               toggle?<CgMenuGridR className='w-[25px] h-[25px]'/> :<CgCloseR className='w-[25px] h-[25px]'/>
             }
-            {user && <img className=' h-[25px] w-[25px] rounded-full' src={user?.photo}/>
-          }
+            
           </button>
+         </div>
+          
+          
           
             
           
@@ -112,8 +128,8 @@ const Header = () => {
 
     {/* Toggled menu  */}
 
-    <div className=" md:hidden">
-    <div className={`bg-white max-w-[200px] w-full  h-screen shadow-lg fixed  z-50  scrollable-div duration-500 ease-in-out ${toggle?'top-0 -left-[1000px]':'top-0 left-0'}`}>
+    <div className=" md:hidden"  ref={menuRef}>
+    <div className={`bg-white max-w-[200px] w-full  h-screen shadow-lg fixed  z-50  scrollable-div duration-500 ease-in-out ${toggle?'top-0 -left-[1000px]':'top-0 left-0'}`} >
       <div className="flex flex-col">
       {navItem}
       </div>

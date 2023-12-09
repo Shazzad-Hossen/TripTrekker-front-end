@@ -3,7 +3,7 @@ import Input from "../Shared/Input";
 import { useForm } from "react-hook-form";
 import Button from "../Shared/Button";
 import PasswordInput from "../Shared/PasswordInput";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import { BsGithub } from "react-icons/bs";
 import { publicPost } from "../../utilities/apiCaller";
@@ -19,13 +19,17 @@ const SignIn = () => {
   } = useForm();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location= useLocation();
+  
 
 
   const onSubmit = (data) => {
     publicPost('/api/user/login', data).then(res=>{
       if(res.status===200){
         dispatch(setUser(res.data));
-        navigate('/')
+        if(location?.state?.pathTo) navigate(location?.state?.pathTo);
+        else navigate('/');
+        
       }
       else toast.error(res?.data)
     });

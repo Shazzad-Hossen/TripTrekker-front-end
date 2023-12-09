@@ -4,21 +4,24 @@ import { useNavigate, useParams } from "react-router-dom";
 import { publicGet } from "../../utilities/apiCaller";
 import { useState } from "react";
 import PlaceCard from "../Shared/PlaceCard";
+import Loading from "../Shared/Loading";
 
 const DivisionsPage = () => {
   const { id } = useParams();
   const [places, setPlaces] = useState({});
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
     publicGet(`/api/place?division=${id}&paginate=true`).then((res) => {
       if (res.status === 200) setPlaces(res?.data);
       else {
         console.log("Error");
       }
+      setLoading(false);
     });
   }, []);
 
-
+  if(loading) return <Loading />
   return (
     <main>
       <h1 className="font-roboto font-[500] text-blue-100 text-[1.5rem]">

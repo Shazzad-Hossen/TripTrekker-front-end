@@ -52,7 +52,9 @@ const UserCard = ({callBack= () => {}}) => {
             <img className='max-h-[50px] max-w-[50px] rounded-full border-2 border-[#dfdfdf]' src={user?.avatar? user.avatar :'https://i.ibb.co/6sQLP3y/default-avatar-icon-of-social-media-user-vector.jpg'} alt="" />
             <div className="w-full">
             <textarea type="text" className="scrollable-div border  bg-[white] max-h-[300px] min-h-[100px] w-full rounded-md p-5 placeholder:text-[#aaaaaa] outline-none focus:placeholder:opacity-0 mb-3"placeholder='Your text here' value={value} onChange={(e) => setValue(e.target.value)}/>
-            <div className="flex items-center gap-4 pb-5"><span  className='flex items-center gap-2 cursor-pointer' onClick={() =>setIsLocationOpen(true)}><IoLocationSharp className='text-[#4fa32e] h-[20px] w-[20px]'/>{location? location?.name: 'Location'}</span> {isPhoto?<span onClick={()=>setIsphoto(false)} className='flex items-center gap-2 cursor-pointer'><IoImages className='text-[#4fa32e] h-[20px] w-[20px]'/>Photos</span>:''}
+            <div className="flex items-center gap-4 pb-5"><div className="flex items-center gap-4 flex-wrap w-full">
+            <div  className='flex items-center gap-2 cursor-pointer' onClick={() =>setIsLocationOpen(true)}><IoLocationSharp className='text-[#4fa32e] h-[20px] w-[20px]'/>{location? location?.name: ''}</div> {isPhoto?<div onClick={()=>setIsphoto(false)} className='flex items-center gap-2 cursor-pointer'><IoImages className='text-[#4fa32e] h-[20px] w-[20px]'/></div>:''}
+            </div>
            <div className="w-full flex justify-end"> <Button className='bg-blue-100 text-white' onClick={handlePost}>Post</Button></div></div>
             {isPhoto?'':<UploadImage callBack={setImages} thumbnails={thumbnails} />}
             </div>

@@ -4,11 +4,17 @@ import { useState } from 'react';
 import { publicGet } from '../../utilities/apiCaller';
 import { toast } from '../../utilities/toast';
 import HotelCard from '../Shared/hotelCard';
+import Paginate2 from '../Shared/Paginate/Paginate2';
+import Loading from '../Shared/Loading';
 
 const Hotels = () => {
     const [hotels,setHotels]=useState(null);
+    const [loading, setLoading] = useState(true);
+    const [page, setPage] = useState(1)
     useEffect(()=>{
-        publicGet(`/api/hotel?paginate=true`).then(res=>{
+      setLoading(true);
+        publicGet(`/api/hotel?paginate=true&limit=9&page=${page}`).then(res=>{
+          setLoading(false);
        
             if(res?.status===200){
             
@@ -17,9 +23,8 @@ const Hotels = () => {
             else toast.error(res?.data)
         })
 
-    },[]);
-
-    console.log(hotels);
+    },[page]);
+    if(loading) return <Loading />
     return (
         <main>
           
@@ -31,8 +36,8 @@ const Hotels = () => {
 
 
       {/* Hotels Grid */}
-      <div className="flex justify-center items-center">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10">
+      <div className="flex justify-center items-center pb-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10">
         {
         hotels?.docs?.map((h, index)=><HotelCard key={index} data={h}/>)
       }
@@ -40,7 +45,8 @@ const Hotels = () => {
       </div>
 
 
-            
+      <Paginate2 totalPages={hotels?.totalPages} currentPage={hotels?.page} onPageChange={(e)=> setPage(e)} />
+
         </main>
     );
 };

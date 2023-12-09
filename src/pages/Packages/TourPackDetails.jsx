@@ -3,13 +3,14 @@ import React, { useEffect, useState } from "react";
 import { AiOutlineClose } from "react-icons/ai";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa6";
 import { MdAdd, MdMinimize } from "react-icons/md";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import locationIco from '../../assets/icon/location.png';
 import loadingImage from "../../assets/images/imageLoading.gif";
 import { publicGet, publicPost } from "../../utilities/apiCaller";
 import { toast } from "../../utilities/toast";
 import DatePicker from "../Shared/DatePicker";
 import Scrollable from "../Shared/Scrollable";
+import { useSelector } from 'react-redux';
 
 const { Meta } = Card;
 
@@ -21,6 +22,8 @@ const TourPackDetails = ({data=null}) => {
   const navigate = useNavigate();
   const [date,setDate]= useState(null);
   const [error,setError]=useState(null);
+  const location = useLocation();
+  const { user } = useSelector(state => state.userInfo)
 
 
 
@@ -32,6 +35,12 @@ const TourPackDetails = ({data=null}) => {
   },[data]);
 
   const handleBooking = () =>{
+    if(!user) return navigate('/signin', {state:{pathTo: location.pathname}});
+    if(user?.role!=='user') {
+      toast.warn('You are not allowed to use this feature')
+
+      return;
+    }
     setError(null)
     if(date===null) setError({message: 'Please pick a date'});
     else {

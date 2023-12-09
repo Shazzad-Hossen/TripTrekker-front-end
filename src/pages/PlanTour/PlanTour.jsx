@@ -1,21 +1,24 @@
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { publicGet } from "../../utilities/apiCaller";
 import PlaceCard from "../Shared/PlaceCard";
+import Loading from "../Shared/Loading";
 
 const PlanTour = () => {
-  const navigate = useNavigate();
-  const [division, setDivision] = useState({});
+  const [division, setDivision] = useState(null);
+  const [loading, setLoading] = useState(true);
+
 
   useEffect(() => {
-    publicGet("/api/division?paginate=true").then((res) =>
-      res.status === 200 ? setDivision(res?.data) : ""
+    publicGet("/api/division?paginate=true").then((res) => {
+      res.status === 200 ? setDivision(res?.data) : "";
+      setLoading(false);
+    }
+      
     );
   }, []);
 
-  const placeHandler = (id) => navigate(`/plantour/${id}`);
-  console.log(division);
-
+if(loading) return <Loading />
   return (
     <main className="pt-10">
       <h1 className="font-roboto font-[500] text-blue-100 text-[1.5rem]">

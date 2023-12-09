@@ -38,14 +38,14 @@ const [hover, setHover] = useState(true)
   return (
     <div className=" container">
       <div className="relative mb-28">
-    <h1 className="text-center text-5xl leading-[3rem] font-semibold text-black">Want to<span className="font-open-sans text-blue-200"> Know </span>About Us</h1>
-    <div className='absolute left-[41%] mt-[1.196rem] lg:w-[21.875rem] h-[0.5rem]'>
+    <h1 className="text-center text-4xl sm:text-5xl leading-[3rem] font-semibold text-black">Want to<span className="font-open-sans text-blue-200"> Know </span>About Us</h1>
+    <div className='absolute left-[41%] mt-[1.196rem] w-[0rem] lg:w-[21.875rem] h-[0.5rem]'>
         <img src={Underline} alt="" className="w-full h-full object-cover" />
     </div>
 </div>
-    <div className="flex items-start gap-5  justify-center flex-col md:flex-row">
+    <div className="flex items-center gap-5  justify-center flex-col md:flex-row">
       <div className="max-w-[500px] w-full ">
-      <div onMouseOver={()=> setHover(true)} onMouseLeave={()=> setHover(false)} className="relative w-full">
+      <div onMouseOver={()=> setHover(true)} onMouseLeave={()=> setHover(false)} className="relative w-full px-5">
       <video ref={videoRef} width="100%" height="100%" className="w-full rounded-3xl">
         <source src={video} type="video/mp4" />
       </video>

@@ -9,11 +9,8 @@ import rocket from '../../assets/payment/rocket.png'
 import nagad from '../../assets/payment/nagad.png'
 import dbbl from '../../assets/payment/dbbl.png'
 import paypal from '../../assets/payment/paypal.png'
-import chatIco from '../../assets/icon/chat.png';
-import { IoCloseSharp } from "react-icons/io5";
-import Input from "./Input";
-import Button from "./Button";
 import { useForm } from "react-hook-form"
+import { CustomChat, FacebookProvider } from "react-facebook";
 
 
 
@@ -51,9 +48,8 @@ const Footer = () => {
             <h1 className="text-lg font-semibold mb-5">Discover</h1>
             <div className="flex flex-col gap-2">
               <Link to="/">Home</Link>
-              <Link to="/">Plan Tour</Link>
-              <Link to="/">About</Link>
-              <Link to="/">Contact Us</Link>
+              <Link to="/plantour">Plan Tour</Link>
+              <Link to="/about">About</Link>
             </div>
           </div>
           <div className="">
@@ -81,29 +77,11 @@ const Footer = () => {
             <p className="drop-shadow-lg">TripTrakker © 2023 All Right Reserved</p>
           </div>
         </div>
+        <FacebookProvider appId="1010226250087775" chatSupport>
+        <CustomChat pageId="994002627350323" minimized={false}/>
+      </FacebookProvider>
 
-        <div className={`fixed ${isChat?'-bottom-44 right-14':'bottom-24 right-14'} duration-300`}><img src={chatIco} className="w-[40px] " alt="" onClick={()=>setIsChat(prev=>!prev)}/></div>
-        <div className={`w-[250px] h-[400px] bg-white rounded shadow-md fixed ${isChat?'bottom-14 right-14':'-bottom-[1000px] right-14'} duration-700`}>
-          <form className="bg-blue-200/50 rounded" onSubmit={handleSubmit(onSubmit)}>
-          <div className="flex justify-end p-2"><IoCloseSharp className="text-2xl" onClick={() => setIsChat(prev=> !prev)}/>
-          </div>
-          <div className="p-5">
-            <h1 className="drop-shadow-md">Full Name</h1>
-            <Input placeholder='Your full name' className="text-black"  register={() =>
-                  register("fullName", { required: true })
-                } />
-            <h1 className="drop-shadow-md pt-2">Email </h1>
-            <Input placeholder='abc@example.com' className="text-black" register={() =>
-                  register("email", { required: true })
-                }/>
-            <h1 className="drop-shadow-md pt-2 ">Message </h1>
-           <textarea className="w-full rounded h-28 resize-none outline-none text-black p-2 focus:placeholder:opacity-0" placeholder="Your messages" {...register('message', { required: true})} />
-           <div className="flex justify-end pt-2">
-            <Button className="bg-blue-100" type="submit">Send</Button>
-           </div>
-          </div>
-          </form>
-        </div>
+        
     </div>
   );
 };

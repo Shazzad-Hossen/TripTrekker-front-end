@@ -4,11 +4,14 @@ import { useNavigate } from 'react-router-dom';
 import hotelImg from '../../assets/images/hotelRoom.png';
 import locationIco from '../../assets/icon/location.png';
 
-const HotelCard = ({ data  }) => {
+const HotelCard = ({ data, type='hotel'  }) => {
     const navigate = useNavigate();
     return (
       <div
-        onClick={() => navigate(`/hotels/${data?.id}`)}
+        onClick={() => {
+          if(type==='package') navigate(`/package/${data?.id}`);
+          else navigate(`/hotels/${data?.id}`)
+        }}
         className="select-none border rounded p-2 min-w-[250px] max-w-[300px] w-full drop-shadow-lg active:scale-95 transform duration-300 hover:-translate-y-1 "
       >
         <div className="rounded">

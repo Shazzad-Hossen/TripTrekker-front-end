@@ -3,19 +3,20 @@ import React, { useEffect, useState } from "react";
 import { AiOutlineClose } from "react-icons/ai";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa6";
 import { MdAdd, MdMinimize } from "react-icons/md";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import locationIco from '../../assets/icon/location.png';
 import loadingImage from "../../assets/images/imageLoading.gif";
 import { publicGet, publicPost } from "../../utilities/apiCaller";
 import { toast } from "../../utilities/toast";
 import DatePicker from "../Shared/DatePicker";
 import Scrollable from "../Shared/Scrollable";
+import { useSelector } from 'react-redux';
+import Loading from '../Shared/Loading';
 
 const { Meta } = Card;
 
 const HotelPackDetails = ({data=null}) => {
   const [room,setRoom]=useState(1);
-
   const [modal,setModal] = useState(false);
   const [imgNo,setImgno] = useState(0);
   const [places,setPlaces] = useState([]);
@@ -25,12 +26,18 @@ const HotelPackDetails = ({data=null}) => {
   const [error,setError]=useState(null);
   const [derror,setDError]=useState(null);
   const [duration,setDuration]= useState(1);
+  const { user } = useSelector(state=> state.userInfo);
+  const location = useLocation();
+  const [loading, setLoading] = useState(true);
 
 
 
   useEffect(()=>{
     if(data){
-      publicGet(`/api/place?division=${data?.division?.id}`).then(res=>res?.status===200? setPlaces(res?.data):'')
+      publicGet(`/api/place?division=${data?.division?.id}`).then(res=>{
+        setLoading(false);
+        res?.status===200? setPlaces(res?.data):''
+      })
     } 
 
   },[data]);
@@ -59,6 +66,12 @@ const HotelPackDetails = ({data=null}) => {
   },[date,endDate])
 
   const handleBooking = () =>{
+    if(!user) return navigate('/signin', {state:{pathTo: location.pathname}});
+    if(user?.role!=='user') {
+      toast.warn('You are not allowed to use this feature')
+
+      return;
+    }
     setError(null);
     setDError(null);
     if(date===null) return setError({message: 'Please pick a date'});
@@ -84,7 +97,7 @@ const HotelPackDetails = ({data=null}) => {
 
   }
   
-
+  if(loading) return <Loading />
   return (
    <>
     <div className={`pt-[100px] container px-5 select-none ${modal===true?'overflow-hidden':''}`}>

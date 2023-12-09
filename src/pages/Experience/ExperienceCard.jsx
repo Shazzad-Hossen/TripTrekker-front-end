@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux';
 import { toast } from '../../utilities/toast';
 import { AiOutlineClose } from "react-icons/ai";
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa6";
+import { useLocation, useNavigate } from 'react-router-dom';
 
 
 const  ExperienceCard = ({datas}) => {
@@ -16,6 +17,8 @@ const  ExperienceCard = ({datas}) => {
     const [commentText, setCommentText] = useState('');
     const [modal, setModal] = useState(false);
     const [imgNo,setImgno] = useState(0);
+    const navigate = useNavigate();
+    const location = useLocation();
   
 
     
@@ -27,6 +30,7 @@ const  ExperienceCard = ({datas}) => {
     },[]);
 
     const handleLike = () => {
+        if(!user) return navigate('/signin', {state: { pathTo: location?.pathname}});
         publicPost('/api/post/like',{id: data?.id}).then(res=> {
             if(res?.status===200){
                 const isFound = res?.data?.like?.find(l=> l===user?.id);
@@ -38,6 +42,8 @@ const  ExperienceCard = ({datas}) => {
     }
 
     const handleComment = () => {
+        if(!user) return navigate('/signin', {state: { pathTo: location?.pathname}});
+
         if(commentText==='') return toast.warn('Tyme something to make comment');
 
         publicPost('/api/comment', {

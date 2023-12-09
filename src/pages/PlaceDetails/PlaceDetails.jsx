@@ -7,6 +7,7 @@ import { publicGet } from "../../utilities/apiCaller";
 import locationIco from '../../assets/icon/location.png';
 import { toast } from "../../utilities/toast";
 import HotelCard from "../Shared/hotelCard";
+import Loading from "../Shared/Loading";
 
 
 const PlaceDetails = () => {
@@ -14,6 +15,7 @@ const PlaceDetails = () => {
   const [bannerImg, setBannerimg] = useState('');
   const [packages,setPackages]=useState([]);
   const [hotels,setHotels]=useState([]);
+  const [loading, setLoading] = useState(true);
 
 
 
@@ -21,7 +23,6 @@ const PlaceDetails = () => {
    useEffect(()=>{
 
     publicGet(`/api/place/${id}`).then(res=>{
-      console.log(res);
     if(res.status===200){ 
       setPlace(res.data);
       setBannerimg(res?.data?.thumbnails[0]);
@@ -30,6 +31,7 @@ const PlaceDetails = () => {
     else {
       console.log(res.data);
     }
+    setLoading(false);
       
     })
 
@@ -43,7 +45,7 @@ const PlaceDetails = () => {
     }
    },[place])
   
-
+  if(loading) return <Loading />
   return (
     <div className="container pt-20  px-3 ">
       <div className="  flex gap-5 h-full max-h-[600px] md:h-[600px] w-full flex-col md:flex-row">

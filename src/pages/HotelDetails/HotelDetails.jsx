@@ -9,6 +9,7 @@ import { HiOutlineMail } from "react-icons/hi";
 import { FaAddressBook } from "react-icons/fa";
 import { Map, Marker } from "pigeon-maps"
 import HotelPackCard from './HotelPackCard';
+import Loading from '../Shared/Loading';
 
 
 
@@ -17,9 +18,11 @@ const HotelDetails = () => {
     const params = useParams();
     const [data,setData]=useState(null);
     const [packages,setPackages]= useState(null);
+    const [loading, setLoading] = useState(true)
 
     useEffect(()=>{
         publicGet(`/api/hotel/${params?.id}`).then(res=>{
+          setLoading(false);
             if(res?.status===200) {
                 setData(res?.data);
                 publicGet(`/api/package?hotel=${res?.data?.id}&paginate=true`).then(res=>{
@@ -30,7 +33,7 @@ const HotelDetails = () => {
         })
     },[]);
 
-    
+    if(loading) return <Loading />
 
     return (
       <main>

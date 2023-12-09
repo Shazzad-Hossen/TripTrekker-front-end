@@ -2,10 +2,10 @@ import CountUp from 'react-countup';
 
 const Overview = () => {
     return (
-        <section className="my-[7rem] bg-blue-100">
+        <section className="mb-[7rem] bg-blue-100">
             <div className="container py-[5.563rem]">
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4" id="counter">
-                    <div className="px-[3.875rem] py-[0.969rem] border-r-8 border-white text-center">
+                    <div className="px-[3.875rem] py-[0.969rem] md:border-r-4 border-white text-center">
                         <h6 className="text-[3rem] leading-[3rem] font-semibold text-white pb-[1.563rem]">
                            
                             <CountUp end={8} duration={5} enableScrollSpy />
@@ -13,7 +13,7 @@ const Overview = () => {
                         </h6>
                         <p className="text-2xl leading-6 font-normal text-white">Successul Trips</p>
                     </div>
-                    <div className="px-[3.875rem] py-[0.969rem] border-r-8 border-white text-center">
+                    <div className="px-[3.875rem] py-[0.969rem] lg:border-r-4 border-white text-center">
                         <h6 className="text-[3rem] leading-[3rem] font-semibold text-white pb-[1.563rem]">
                            
                             <CountUp end={3} duration={2} enableScrollSpy />
@@ -22,7 +22,7 @@ const Overview = () => {
                         </h6>
                         <p className="text-2xl leading-6 font-normal text-white">Daily Visitors</p>
                     </div>
-                    <div className="px-[3.875rem] py-[0.969rem] border-r-8 border-white text-center">
+                    <div className="px-[3.875rem] py-[0.969rem] md:border-r-4 border-white text-center">
                         <h6 className="text-[3rem] leading-[3rem] font-semibold text-white pb-[1.563rem]">
                            
                             <CountUp end={500} duration={4} enableScrollSpy />

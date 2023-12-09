@@ -9,6 +9,9 @@ import { publicGet } from '../../utilities/apiCaller';
 import HotelCard from '../Shared/hotelCard';
 import Loading from '../Shared/Loading';
 import PromotionCard from '../Shared/PromotionCard';
+import Slider from "react-slick";
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 
 
 const Home = () => {
@@ -20,8 +23,7 @@ const Home = () => {
 
 
     useEffect(()=> {
-        // setLoading(true);
-        setLoading(false);
+       
         publicGet('/api/package?paginate=true&limit=20&type=agency').then(res=>{
             if(res.status===200) setPackages(res?.data?.docs);
             publicGet('/api/package?paginate=true&limit=20&type=hotel').then(res=>{
@@ -41,20 +43,58 @@ const Home = () => {
         
 
     },[]);
+
+    var settings = {
+        dots: false,
+        infinite: true,
+        speed: 500,
+        slidesToShow: 4,
+        slidesToScroll: 4,
+        initialSlide: 0,
+        responsive: [
+          {
+            breakpoint: 1024,
+            settings: {
+              slidesToShow: 3,
+              slidesToScroll: 3,
+              infinite: true,
+            }
+          },
+          {
+            breakpoint: 600,
+            settings: {
+              slidesToShow: 2,
+              slidesToScroll: 2,
+              initialSlide: 2
+            }
+          },
+          {
+            breakpoint: 480,
+            settings: {
+              slidesToShow: 1,
+              slidesToScroll: 1
+            }
+          }
+        ]
+      };
+
     if(loading) return <Loading />
     return (
         <div  className=''>
            <Banner/> 
            <Overview/>
            <main>
+
+
            <div className="mb-5 border rounded-md p-5">
-      <h1 className="font-chakra text-xl font-bold text-[#333333] mb-5">
-          New Offers
-        </h1>
-         
-        <Scrollable> {promotions.map((item, i) => (
+            <h1 className="font-chakra text-xl font-bold text-[#333333] mb-5">
+              New Offers
+            </h1>
+        <Slider {...settings}>
+        {promotions.map((item, i) => (
             <PromotionCard key={i} data={item} />
-          ))}</Scrollable>
+          ))}
+        </Slider>
       </div>
            </main>
            <About/>
@@ -64,6 +104,7 @@ const Home = () => {
       <h1 className="font-chakra text-xl font-bold text-[#333333] mb-5">
           Popular Travel Packages
         </h1>
+        
          
         <Scrollable> {packages.map((item, i) => (
             <PlanCards key={i} data={item} />
@@ -73,6 +114,8 @@ const Home = () => {
       <h1 className="font-chakra text-xl font-bold text-[#333333] mb-5">
            Reknown Hotels
         </h1>
+
+        
          
         <Scrollable> {hotels.map((item, i) => (
             <HotelCard key={i} data={item} />
@@ -84,7 +127,7 @@ const Home = () => {
         </h1>
          
         <Scrollable> {hotelPacs.map((item, i) => (
-            <HotelCard key={i} data={item} />
+            <HotelCard key={i} data={item} type='package'  />
           ))}</Scrollable>
       </div>
        </main>
