@@ -14,6 +14,7 @@ import { useState } from 'react';
 import { publicDelete, publicGet, publicPost } from '../../../utilities/apiCaller';
 import Swal from 'sweetalert2';
 import { toast } from '../../../utilities/toast';
+import Loading from '../../Shared/Loading';
 
 
 
@@ -28,8 +29,12 @@ const Divisions = () => {
       const [photo,setPhoto]=useState('');
       const [loading, setLoading]= useState(false);
       const [divisionData,setDivisionData]=useState(null);
+      const [isloading, setIsloading] = useState(true);
       const fetchData = () =>{
-        publicGet('/api/division?paginate=true').then(res=>setDivisionData(res?.data))
+        publicGet('/api/division?paginate=true').then(res=>{
+          setDivisionData(res?.data);
+          setIsloading(false);
+        })
       }
 
       useEffect(()=>{
@@ -102,6 +107,8 @@ const Divisions = () => {
             }
           })
       }
+
+      if(isloading) return <Loading />
 
     return (
         <div className="">

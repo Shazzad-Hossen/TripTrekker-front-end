@@ -64,7 +64,7 @@ html {
     @apply   flex items-center gap-3
   }
 
-  body {
+  /* body {
     
     background-color: #FFFFFF;
     background-image: url('./assets//svg//BG.svg');
@@ -73,7 +73,7 @@ html {
     background-repeat: no-repeat;
     background-attachment: fixed;
     height: 100vh;
-  }
+  } */
 
   #background-video {
     position: absolute;

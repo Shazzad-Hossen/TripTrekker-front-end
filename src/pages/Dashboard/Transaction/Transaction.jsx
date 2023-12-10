@@ -5,11 +5,14 @@ import { publicGet, publicPost } from '../../../utilities/apiCaller';
 import { toast } from '../../../utilities/toast';
 import Table from '../../Shared/Table/Table';
 import { useSelector } from 'react-redux';
+import Loading from '../../Shared/Loading';
 
 const Transaction = () => {
     const [transactions,setTransactions]= useState(null);
     const {user} = useSelector(state=>state.userInfo);
+    const [loading, setLoading] = useState(true);
     const fetchData = () => publicGet(`/api/payment`).then(res=>{
+        setLoading(false);
         if(res?.status===200) setTransactions(res?.data)
         else toast.error(res?.data)
     })
@@ -38,6 +41,8 @@ const Transaction = () => {
             else toast.error(res?.data);
         })
     }
+
+    if(loading) return <Loading />
 
     return (
         <div>

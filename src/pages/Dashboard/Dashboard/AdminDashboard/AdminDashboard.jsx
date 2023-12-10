@@ -6,6 +6,7 @@ import Table from '../../../Shared/Table/Table';
 import { toast } from '../../../../utilities/toast';
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
+import Loading from '../../../Shared/Loading';
 
 const AdminDashboard = () => {
     const [data, setData] = useState(null);
@@ -13,6 +14,7 @@ const AdminDashboard = () => {
     const [divisionData,setDivisionData]=useState(null);
     const [ places,setPlaces]= useState(null);
     const navigate= useNavigate();
+    const [loading, setLoading] = useState(true);
 
 
     const fetchDivision = () =>{
@@ -31,6 +33,7 @@ const AdminDashboard = () => {
 
     useEffect(()=> {
         publicGet('/api/dashboard-admin').then(res=>{
+          setLoading(false);
             if(res.status===200) setData(res?.data);
         });
         fetchDivision();
@@ -76,6 +79,7 @@ const AdminDashboard = () => {
         }
     
       }
+      if(loading) return <Loading />
 
     return (
         <div className='px-5 py-5'>

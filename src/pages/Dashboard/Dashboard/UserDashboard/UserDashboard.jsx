@@ -5,6 +5,7 @@ import { publicGet } from '../../../../utilities/apiCaller';
 import Table from '../../../Shared/Table/Table';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import Loading from '../../../Shared/Loading';
 
 const UserDashboard = () => {
     const [data, setData] = useState(null);
@@ -13,8 +14,10 @@ const UserDashboard = () => {
     const [transactions,setTransactions]= useState(null);
     const { user } = useSelector(state=> state.userInfo);
     const navigate = useNavigate();
+    const [loading, setLoading] = useState(true);
     useEffect(() => {
         publicGet('/api/dashboard-user').then(res=> {
+            setLoading(false);
            if(res.status===200) {
             setData(res?.data);
            }
@@ -54,7 +57,7 @@ const UserDashboard = () => {
         })
     }
     
-   
+    if(loading) return <Loading />
     return (
         <div className='px-5 pt-5'>
             <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-5">

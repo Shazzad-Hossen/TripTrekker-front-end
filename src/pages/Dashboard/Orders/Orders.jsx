@@ -8,6 +8,8 @@ import Table from '../../Shared/Table/Table';
 import { IoIosArrowBack } from "react-icons/io";
 import { BiSort } from "react-icons/bi";
 import { useLocation, useNavigate } from 'react-router-dom';
+import Loading from '../../Shared/Loading';
+import Paginate from '../../Shared/Paginate/Paginate';
 
 
 const Orders = () => {
@@ -17,6 +19,8 @@ const Orders = () => {
   const [filter, setFilter] = useState("all");
   const {search: query}= useLocation();
   const [sort,setSort]= useState(false);
+  const [loading, setLoading] = useState(true);
+  const [page, setPage] = useState(1);
 
   useEffect(()=>{
     const isFound = query.slice(1).split('&').find(key=>key.split('=')[0]==='status');
@@ -29,17 +33,22 @@ const Orders = () => {
 
   },[]);
     const fetchData = () => {
-        publicGet(`/api/order?status=${filter}${user.role==='user'?'&userId='+user.id:user.role==='hotel'?'&hotel='+user.hotel.id:user.role==='agency'?'&agency='+user.agency.id:''}&sortBy=createdAt:${sort===true?'asc':'desc'}`).then(res=>{
+      setLoading(true);
+        publicGet(`/api/order?status=${filter}&page=${page}${user.role==='user'?'&userId='+user.id:user.role==='hotel'?'&hotel='+user.hotel.id:user.role==='agency'?'&agency='+user.agency.id:''}&sortBy=createdAt:${sort===true?'asc':'desc'}`).then(res=>{
+          setLoading(false);
             if(res.status===200) setData(res?.data);
             else toast.error(res?.data);
         })
     }  
 
+    useEffect(()=> {
+      setPage(1);
+
+    }, [filter]);
+
     useEffect(()=>{
         fetchData();
-       
-
-    },[filter, sort]);
+    },[filter, sort, page]);
 
 
 
@@ -54,6 +63,7 @@ const Orders = () => {
           navigate(data?.id);
         }
     }
+    if(loading) return <Loading />
     return (
         <div>
             <div className="border-b text-xl font-[600] uppercase px-2 pb-3 flex items-center">
@@ -79,7 +89,10 @@ const Orders = () => {
      </div>
 <div className="px-10 py-10">
 <Table type='userOrders' data={data} callBack={handleCallBack}/>
-    </div>          
+    </div>     
+    <div className="px-10 pb-10">
+     <Paginate data={data} callBack={(e) => setPage(e)} /> 
+      </div>     
         </div>
     );
 };

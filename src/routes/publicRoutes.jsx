@@ -35,6 +35,7 @@ import VerifyOtp from "../pages/ForgotPassword/VerifyOtp";
 import ResetPassword from "../pages/ForgotPassword/ResetPassword";
 import AddPromotions from "../pages/Dashboard/Promotions/AddPromotions";
 import About from "../pages/About/About";
+import Offers from "../pages/Offers/Offers";
 
 
   export const router = createBrowserRouter([
@@ -57,6 +58,7 @@ import About from "../pages/About/About";
         {path: 'verifyotp', element: <VerifyOtp/> },
         {path: 'resetpassword', element: <ResetPassword/> },
         {path: 'about', element: <About/> },
+        {path: 'offer/:id', element: <Offers/> },
         
         
 

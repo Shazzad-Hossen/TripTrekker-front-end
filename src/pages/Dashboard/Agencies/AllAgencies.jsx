@@ -7,18 +7,28 @@ import { publicDelete, publicGet } from "../../../utilities/apiCaller";
 import { toast } from "../../../utilities/toast";
 import Table from "../../Shared/Table/Table";
 import Swal from "sweetalert2";
+import Loading from "../../Shared/Loading";
+import Paginate from "../../Shared/Paginate/Paginate";
 
 const AllAgencies = () => {
   const navigate = useNavigate();
   const [filter, setFilter] = useState("all");
   const [agencies,setAgencies] = useState({});
+  const [ page, setPage] = useState(1);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(()=> {
+   setPage(1)
+  },[filter]);
 
   useEffect(()=>{
     fetchData();
 
-  },[filter]);
+  },[filter, page]);
   const fetchData = () => {
-    publicGet(`/api/agency?status=${filter}`).then(res=>{
+    setLoading(true);
+    publicGet(`/api/agency?status=${filter}&page=${page}`).then(res=>{
+      setLoading(false);
         if(res.status===200) {
             setAgencies(res.data);
         }
@@ -56,6 +66,8 @@ const AllAgencies = () => {
         navigate(`${id}`)
     }
   }
+
+  if(loading) return <Loading />
   return (
     <div>
       <div className="border-b text-xl font-[600] uppercase px-2 pb-3 flex items-center">
@@ -77,6 +89,9 @@ const AllAgencies = () => {
       </div>
 
       <div className="px-10 py-10"><Table type='agency' data={agencies} callBack={callBackHandler}/></div>
+     <div className="px-10">
+     <Paginate data={agencies} callBack={(e)=> setPage(e)} />
+     </div>
 
     </div>
   );

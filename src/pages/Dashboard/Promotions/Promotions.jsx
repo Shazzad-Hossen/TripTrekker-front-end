@@ -9,6 +9,7 @@ import { publicGet } from '../../../utilities/apiCaller';
 import { toast } from '../../../utilities/toast';
 import Table from '../../Shared/Table/Table';
 import Paginate from '../../Shared/Paginate/Paginate';
+import Loading from '../../Shared/Loading';
 
 
 
@@ -16,10 +17,13 @@ const Promotions = () => {
   const navigate = useNavigate();
   const [promotions, setPrormotions] = useState(null);
   const [page, setPage]= useState(1);
+  const [loading, setLoading] = useState(true);
 
 
   useEffect(()=> {
+    setLoading(true);
     publicGet(`/api/promotion?page=${page}`).then(res=> {
+      setLoading(false);
       if(res?.status===200) {
         setPrormotions(res?.data);
       }
@@ -32,6 +36,8 @@ const Promotions = () => {
     if( type==='edit') navigate(`${id}`)
 
   }
+
+  if(loading) return <Loading />
 
   return (
     <div>

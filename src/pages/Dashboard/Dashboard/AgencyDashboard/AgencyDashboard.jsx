@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import Table from '../../../Shared/Table/Table';
 import { toast } from '../../../../utilities/toast';
+import Loading from '../../../Shared/Loading';
 
 const AgencyDashboard = () => {
     const [data, setData] = useState(null);
@@ -14,10 +15,12 @@ const AgencyDashboard = () => {
     const [packages,setPackages]= useState(null);
     const { user } = useSelector(state=> state.userInfo);
     const navigate = useNavigate();
+    const [loading, setLoading] = useState(true);
     const fetchPackages = () => publicGet(`/api/package?paginate=true&agency=${user?.agency?.id}`).then(res=> res?.status===200? setPackages(res.data):toast.error(res?.data));
 
     useEffect(()=> {
         publicGet('/api/dashboard-agency').then(res=> {
+            setLoading(false)
             if(res?.status===200) setData(res?.data)
         });
         publicGet(`/api/order?agency=${user?.agency?.id}`).then(res=>{
@@ -35,6 +38,8 @@ const AgencyDashboard = () => {
         if(type==='delete') publicDelete(`/api/package/${id}`).then(res=>res.status===200?(fetchPackages(),toast.success('Successfully deleted')):toast.error(res.data));
         else navigate(`/dashboard/packages/${id}`)
       }
+
+      if(loading) return <Loading />
 
     return (
         <div className='px-5 pt-5'>

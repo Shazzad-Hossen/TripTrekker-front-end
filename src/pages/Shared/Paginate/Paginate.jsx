@@ -2,7 +2,7 @@ import React from 'react';
 import { IoIosArrowBack } from "react-icons/io";
 
 const Paginate = ({data=null, callBack = () => {} }) => {
-    console.log(data);
+
     return (
         <div>
             <div className="flex justify-between items-center">

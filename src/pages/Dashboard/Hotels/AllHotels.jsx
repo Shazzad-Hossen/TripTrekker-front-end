@@ -7,18 +7,29 @@ import { publicDelete, publicGet } from "../../../utilities/apiCaller";
 import { toast } from "../../../utilities/toast";
 import Table from "../../Shared/Table/Table";
 import Swal from "sweetalert2";
+import Loading from "../../Shared/Loading";
+import Paginate from "../../Shared/Paginate/Paginate";
 
 const AllHotels = () => {
   const navigate = useNavigate();
   const [filter, setFilter] = useState("all");
   const [hotels,setHotels] = useState({});
+  const [page, setPage]= useState(1);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(()=> {
+    setPage(1);
+
+  }, [filter])
 
   useEffect(()=>{
     fetchData();
 
-  },[filter]);
+  },[filter, page]);
   const fetchData = () => {
-    publicGet(`/api/hotel?status=${filter}&paginate=true`).then(res=>{
+    setLoading(true);
+    publicGet(`/api/hotel?status=${filter}&paginate=true&page=${page}`).then(res=>{
+      setLoading(false);
         if(res.status===200) {
             setHotels(res.data);
         }
@@ -56,6 +67,7 @@ const AllHotels = () => {
         navigate(`${id}`)
     }
   }
+  if(loading) return <Loading />
   return (
     <div>
       <div className="border-b text-xl font-[600] uppercase px-2 pb-3 flex items-center">
@@ -77,6 +89,9 @@ const AllHotels = () => {
       </div>
 
       <div className="px-10 py-10"><Table type='hotel' data={hotels} callBack={callBackHandler}/></div>
+      <div className="px-10 pb-10">
+        <Paginate data={hotels} callBack={(e)=> setPage(e)} />
+      </div>
 
     </div>
   );

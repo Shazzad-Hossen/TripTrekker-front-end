@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import Table from '../../../Shared/Table/Table';
 import { toast } from '../../../../utilities/toast';
+import Loading from '../../../Shared/Loading';
 
 const HotelDashboard = () => {
     const [data, setData] = useState(null);
@@ -14,12 +15,14 @@ const HotelDashboard = () => {
     const [packages,setPackages]= useState(null);
     const { user } = useSelector(state=> state.userInfo);
     const navigate = useNavigate();
+    const [loading, setLoading] = useState(true)
 
     const fetchPackages = () => publicGet(`/api/package?paginate=true&hotel=${user?.hotel?.id}`).then(res=> res?.status===200? setPackages(res.data):toast.error(res?.data));
 
     useEffect(()=> {
         publicGet('/api/dashboard-hotel').then(res=> {
-            if(res?.status===200) setData(res?.data)
+            if(res?.status===200) setData(res?.data);
+            setLoading(false);
         });
 
         publicGet(`/api/order?hotel=${user.hotel.id}`).then(res=>{
@@ -29,6 +32,7 @@ const HotelDashboard = () => {
 
 
         fetchPackages();
+       
 
     }, []);
 
@@ -37,7 +41,8 @@ const HotelDashboard = () => {
         if(type==='delete') publicDelete(`/api/package/${id}`).then(res=>res.status===200?(fetchPackages(),toast.success('Successfully deleted')):toast.error(res.data));
         else navigate(`/dashboard/packages/${id}`)
       }
-    
+
+    if(loading) return <Loading />
     return (
         <div className='px-5 pt-5'>
         <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-5">

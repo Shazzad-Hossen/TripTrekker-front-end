@@ -13,6 +13,8 @@ import { toast } from "../../../utilities/toast";
 import { useSelector } from "react-redux";
 import { BiSort } from "react-icons/bi";
 import Filter from "../../Shared/Filter";
+import Loading from "../../Shared/Loading";
+import Paginate from "../../Shared/Paginate/Paginate";
 
 
 const AllPackages = () => {
@@ -23,12 +25,26 @@ const AllPackages = () => {
   const [sort,setSort]=useState(false);
   const [status,setStatus]=useState('all');
   const [searchVal, setSearchVal]=useState('');
-  const fetchPackages= ()=> publicGet(`/api/package?type=${type}&sortBy=createdAt:${sort===true?'asc':'desc'}${status!=='all'?'&status='+status:''}&paginate=true${user?.role==='hotel'?'&hotel='+user?.hotel?.id:user?.role==='agency'?'&agency='+user?.agency?.id:''}${searchVal!==''?'&search='+searchVal: ''}`).then(res=> res?.status===200? setPackages(res.data):toast.error(res?.data));
+  const [loading, setLoading] = useState(true);
+  const [page, setPage] = useState(1);
+  const fetchPackages= ()=> {
+    setLoading(true)
+    publicGet(`/api/package?type=${type}&page=${page}&sortBy=createdAt:${sort===true?'asc':'desc'}${status!=='all'?'&status='+status:''}&paginate=true${user?.role==='hotel'?'&hotel='+user?.hotel?.id:user?.role==='agency'?'&agency='+user?.agency?.id:''}${searchVal!==''?'&search='+searchVal: ''}`).then(res=> {
+      setLoading(false);
+      res?.status===200? setPackages(res.data):toast.error(res?.data)
+    });
+  }
+
+  useEffect(()=> {
+    setPage(1);
+
+  },[type])
   useEffect(()=>{
     if(user){
+      setLoading(true)
       fetchPackages();
     }
-  },[user, type, sort, status, searchVal]);
+  },[user, type, sort, status, searchVal, page]);
 
   const handleCallback = (type, id)=>{
     if(type==='delete') publicDelete(`/api/package/${id}`).then(res=>res.status===200?(fetchPackages(),toast.success('Successfully deleted')):toast .error(res.data));
@@ -47,6 +63,8 @@ const AllPackages = () => {
 
   
  }
+
+ if(loading) return <Loading />
 
   return (
     <div>
@@ -107,16 +125,9 @@ const AllPackages = () => {
 
      </div>
 
-
-
-
-
-
-
-
-
-
-
+    <div className="px-10 pb-10">
+    <Paginate data={packages} callBack={(e)=> setPage(e)} />
+    </div>
     </div>
   );
 };

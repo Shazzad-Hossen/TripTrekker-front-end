@@ -11,6 +11,7 @@ import Input from '../../Shared/Input';
 import { LuSearch } from "react-icons/lu";
 import { toast } from '../../../utilities/toast';
 import Paginate from '../../Shared/Paginate/Paginate';
+import Loading from '../../Shared/Loading';
 
 
 
@@ -19,9 +20,12 @@ const Places = () => {
   const navigate = useNavigate();
   const [ places,setPlaces]= useState(null);
   const [page, setPage] = useState(1);
+  const [loading, setLoading] = useState(true);
  
   const fetchData = ()=>{
+    setLoading(true);
     publicGet(`/api/place?paginate=true&page=${page}`).then(res=>{
+      setLoading(false);
       if(res?.status===200) {
         setPlaces(res?.data);
       }
@@ -54,6 +58,7 @@ const Places = () => {
     }
 
   }
+  if(loading) return <Loading />
   return (
     <div>
       <div className="border-b text-xl font-[600] uppercase px-2 pb-3 flex items-center">
