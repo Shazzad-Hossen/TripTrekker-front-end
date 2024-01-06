@@ -25,7 +25,7 @@ const HotelDashboard = () => {
             setLoading(false);
         });
 
-        publicGet(`/api/order?hotel=${user.hotel.id}`).then(res=>{
+        publicGet(`/api/order?hotel=${user?.hotel?.id}`).then(res=>{
             if(res.status===200) setOrders(res?.data);
             else toast.error(res?.data);
         });

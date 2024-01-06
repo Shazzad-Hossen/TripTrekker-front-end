@@ -151,7 +151,7 @@ const TourPackDetails = ({data=null}) => {
        <Scrollable>
        {
           places.map((place,index)=><div key={index} onClick={()=>navigate(`/places/${data?.place?.id}`)}><Card  hoverable style={{ width: 240 }}  cover={
-            <img alt="image" src={place?.thumbnails[0]} className="h-[250px] pointer-events-none" />
+            <img alt="image" src={`${import.meta.env.VITE_SERVER_URL}/api/${place?.thumbnails[0]}`} className="h-[250px] pointer-events-none" />
              }>
               <Meta title={place?.name} description={place?.division?.name} />
               </Card></div>)
@@ -163,7 +163,7 @@ const TourPackDetails = ({data=null}) => {
     {modal===true? <div className=" fixed top-0 left-0 h-screen w-screen bg-black/80  z-[2000] ">
       <div className="flex justify-end  pt-5 pr-5 "><AiOutlineClose className="text-white h-[30px] w-[30px]" onClick={()=>setModal(false)}/></div>
       <div className=" w-full  h-full  flex justify-center items-center relative ">
-        <img className=" max-w-[90%] max-h-[80%] pb-20   " src={import.meta.env.VITE_SERVER_URL+'/api/'+data?.photos[imgNo]} alt="" />
+        <img className=" max-w-[90%] max-h-[80%] pb-20   " src={import.meta.env.VITE_SERVER_URL+'/api/'+data?.photos[imgNo]} alt="" /> m
         <button disabled={imgNo<1} className="absolute left-2 -translate-y-1/2 p-1 md:p-5 ml-5 border border-slate-400" onClick={()=>setImgno(prev=>prev-1)}><FaAngleLeft className="text-white"/></button>
         <button  disabled={imgNo===(data?.photos?.length - 1)} className="absolute right-2  -translate-y-1/2 p-1 md:p-5 mr-5 border border-slate-400" onClick={()=>setImgno(prev=>prev+1)}><FaAngleRight className="text-white"/></button>
 

@@ -18,7 +18,7 @@ const PlaceDetails = () => {
   const [loading, setLoading] = useState(true);
 
 
-
+ //We can find place id which was given through url
   const {id} = useParams();
    useEffect(()=>{
 

@@ -31,7 +31,7 @@ const SignIn = () => {
         else navigate('/');
         
       }
-      else toast.error(res?.data)
+      else toast.error(res?.data);
     });
   }
 

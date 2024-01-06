@@ -8,6 +8,7 @@ import { FcGoogle } from "react-icons/fc";
 import { BsGithub } from "react-icons/bs";
 import { publicPost } from "../../utilities/apiCaller";
 import Swal from "sweetalert2";
+import { toast } from "../../utilities/toast";
 
 const SignUpForm = ({role='user'}) => {
   const {
@@ -29,24 +30,12 @@ const SignUpForm = ({role='user'}) => {
       delete data.confirmPassword;
       publicPost('/api/user',{...data, role}).then(res=>{
         if(res.status===201){
-          Swal.fire({
-            position: 'center',
-            icon: 'success',
-            title: 'Successfull',
-            showConfirmButton: false,
-            timer: 1500
-          });
-          navigate('/signin')
+         toast.success('Signup successfull');
+          navigate('/signin');
 
         }
         else {
-          Swal.fire({
-            position: 'center',
-            icon: 'error',
-            title: res?.data || 'Something wents wrong',
-            showConfirmButton: false,
-            timer: 1500
-          })
+          toast.error(res.data || 'Something wents wrong');
         }
       })
     }

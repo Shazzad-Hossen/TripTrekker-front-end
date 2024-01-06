@@ -44,7 +44,7 @@ const  ExperienceCard = ({datas}) => {
     const handleComment = () => {
         if(!user) return navigate('/signin', {state: { pathTo: location?.pathname}});
 
-        if(commentText==='') return toast.warn('Tyme something to make comment');
+        if(commentText==='') return toast.warn('Type something to make comment');
 
         publicPost('/api/comment', {
             id: data?.id,
