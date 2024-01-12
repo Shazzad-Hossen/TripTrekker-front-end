@@ -20,6 +20,8 @@ const Packages = () => {
   const [filter, setFilter]=useState('all');
   const [loading, setLoadiong] = useState(true);
   const [page, setPage] = useState(1);
+
+  
   const fetchData = () => publicGet(`/api/package?paginate=true&page=${page}&limit=9${filter!=='all'?'&type='+filter :''}`).then(res=> {
     setLoadiong(false);
     console.log(res);

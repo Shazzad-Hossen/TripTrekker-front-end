@@ -33,6 +33,8 @@ const ViewAgencyDetails = () => {
       fetchData();
   
     },[]);
+
+    
   useEffect(()=>{
     if(agency){
       setValue('name', agency?.name);
